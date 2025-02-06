@@ -1,5 +1,17 @@
 # Changelog
 ---
+### 05 FEB 2025
+- Initial commit for `file-uploader` project.
+- Installed pre-existing dependencies in `package.json`.
+- Installed `prisma`, `@quixo3/prisma-session-store`, and `multer` packages.
+- Uninstalled `connect-pg-simple` package.
+- Renamed `app.js` to `server.js`.
+- Renamed `accountValidator.js` to `createAccountValidator.js`, `authenticationRouter.js` to `accountRouter.js`, and `authenticationController.js` to `accountController.js`.
+- Included inputs for `fullname` and `email` fields.
+- Deleted `initdb.js`, `pool.js` and `queries.js` modules in `db` subdirectory.
+- Recreated `db` subdirectory, `prisma.js` and `seedDB.js` modules.
+- The `password` property is omitted during deserialization.
+---
 ### 09 JAN 2025
 - Added `validateLogin` onto `authenticationController.postLogin` to validate inputs are not empty.
 - Created a placeholder middleware in `authenticationRouter.js` module named `isAuthenticated`; redirects to the root path if `req.isAuthenticated()` returns true, otherwise move to the next middleware.

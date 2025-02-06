@@ -1,12 +1,17 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-const { getAccount } = require("../db/queries");
+const prisma = require("../db/prisma");
 const bcrypt = require("bcryptjs");
 
 const verifyCallback = async (username, password, done) => {
   console.log("verifyCallback running...");
   try {
-    const account = await getAccount({ username, password });
+    const account = await prisma.account.findUnique({
+      where: {
+        username: username,
+      },
+    });
+
     const match = account && (await bcrypt.compare(password, account.password));
 
     if (!account || !match) {
@@ -30,7 +35,14 @@ passport.serializeUser((account, done) => {
 passport.deserializeUser(async (id, done) => {
   console.log("deserializeUser running...");
   try {
-    const account = await getAccount({ id });
+    const account = await prisma.account.findFirst({
+      where: {
+        id: id,
+      },
+      omit: {
+        password: true,
+      },
+    });
     return done(null, account);
   } catch (err) {
     done(err);

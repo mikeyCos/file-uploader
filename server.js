@@ -1,14 +1,14 @@
 const express = require("express");
 const session = require("express-session");
 const passport = require("passport");
-const pgSession = require("connect-pg-simple")(session);
+const { PrismaSessionStore } = require("@quixo3/prisma-session-store");
+const prisma = require("./db/prisma");
 const { PORT } = require("./config/environment");
-const pool = require("./db/pool");
 const { staticPaths, viewsPaths } = require("./paths/paths");
 const logger = require("./utils/logger");
 const indexRouter = require("./routes/indexRouter");
 const placeholderRouter = require("./routes/placeholderRouter");
-const authenticationRouter = require("./routes/authenticationRouter");
+const accountRouter = require("./routes/accountRouter");
 const supportRouter = require("./routes/supportRouter");
 
 const app = express();
@@ -21,22 +21,27 @@ app.set("views", viewsPaths);
 app.set("view engine", "ejs");
 
 // What to call this block?
-const sessionStore = new pgSession({
-  pool: pool,
-  tableName: "account_sessions",
-  createTableIfMissing: true,
+// const sessionStore = new pgSession({
+//   pool: pool,
+//   tableName: "account_sessions",
+//   createTableIfMissing: true,
+// });
+
+const sessionStore = new PrismaSessionStore(prisma, {
+  checkPeriod: 2 * 60 * 1000, // 2 mins * 60 secs * 1000 ms
+  dbRecordIdIsSessionId: true,
+  dbRecordIdFunction: undefined,
 });
 
 app.use(
   session({
-    secret: "cats",
-    resave: false,
+    cookie: {
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days * 24 hrs * 60 mins * 60 secs * 1000 ms
+    },
+    secret: "a santa at nasa",
+    resave: true,
     saveUninitialized: true,
     store: sessionStore,
-    cookie: {
-      // maxAge: 1000 * 30, // 30 seconds (1000ms / 1sec)
-      maxAge: 1000 * 2 * 24 * 60 * 60, // Equals 2 days (2 days * 24 hr/1 day * 60 min/1 hour * 60 sec/1 min * 1000ms/1 sec)
-    },
   })
 );
 
@@ -61,7 +66,7 @@ app.use((req, res, next) => {
 // Router-level
 app.use("/", indexRouter);
 app.use("/placeholderA", placeholderRouter);
-app.use("/account", authenticationRouter);
+app.use("/account", accountRouter);
 app.use("/support", supportRouter);
 
 app.use((req, res) => {

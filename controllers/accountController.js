@@ -2,11 +2,11 @@ const { matchedData, validationResult } = require("express-validator");
 const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
-const validateCreateAccount = require("../validators/accountValidator");
+const validateCreateAccount = require("../validators/createAccountValidator");
 const validateLogin = require("../validators/loginValidator");
-const { createAccount, getAccount } = require("../db/queries");
+const prisma = require("../db/prisma");
 
-const authenticationController = {
+const accountController = {
   getLogin: asyncHandler(async (req, res) => {
     console.log("getLogin running...");
     res.render("login");
@@ -70,7 +70,7 @@ const authenticationController = {
   postCreateAccount: [
     validateCreateAccount,
     asyncHandler(async (req, res, next) => {
-      console.log("postCreateAccount running after validateAccount...");
+      console.log("postCreateAccount running after validateCreateAccount...");
       const errors = validationResult(req);
       const inputs = matchedData(req, { onlyValidData: false });
 
@@ -87,11 +87,14 @@ const authenticationController = {
     asyncHandler(async (req, res, next) => {
       try {
         // Valid and sanitized data
-        const { username, password } = matchedData(req);
+        const { fullname, email, username, password } = matchedData(req);
         bcrypt.hash(password, 10, async (err, hashedPassword) => {
           if (err) return next(err);
-          await createAccount({ username, password: hashedPassword });
-          const account = await getAccount({ username });
+          // await createAccount({ username, password: hashedPassword });
+          // const account = await getAccount({ username });
+          const account = await prisma.account.create({
+            data: { name: fullname, email, username, password: hashedPassword },
+          });
           console.log("account:", account);
 
           // Automatically login after creating account
@@ -107,4 +110,4 @@ const authenticationController = {
   ],
 };
 
-module.exports = authenticationController;
+module.exports = accountController;

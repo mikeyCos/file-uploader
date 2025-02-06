@@ -1,6 +1,6 @@
 // https://express-validator.github.io/docs/api/check-schema/
 const { checkSchema } = require("express-validator");
-const { getAccount } = require("../db/queries");
+const prisma = require("../db/prisma");
 
 const confirmPassword = (password, { req }) => {
   return password === req.body.password;
@@ -11,11 +11,28 @@ const confirmPassword = (password, { req }) => {
  * Return a Promise or throw a error
  * https://express-validator.github.io/docs/guides/customizing/#implementing-a-custom-validator
  */
-const validateUsername = async (username) => {
+const fullnameValidator = async (fullname) => {
+  // (^[A-Za-z]{1,})([ ]?)([A-Za-z]{1,})
+  const regex = new RegExp("(^[A-Za-z]{1,})([ ]{1})([A-Za-z]{1,})");
+  const regexResult = regex.test(fullname);
+
+  if (!regexResult) throw new Error();
+  return Promise.resolve();
+};
+
+const usernameValidator = async (username) => {
+  console.log("usernameValidator running...");
   // Test against regex
   // Need to make sure user name is not taken
   const regex = new RegExp("^[a-zA-Z\\-\\_]{3,10}$");
-  const account = await getAccount({ username });
+  // const account = await getAccount({ username });
+  const account = await prisma.account.findUnique({
+    where: {
+      username: username,
+    },
+  });
+
+  console.log("account:", account);
   const regexResult = regex.test(username);
   // console.log("regex.test(username):", regex.test(username));
   // console.log("!account:", !account);
@@ -28,13 +45,33 @@ const validateUsername = async (username) => {
 };
 
 const accountSchema = {
+  fullname: {
+    trim: true,
+    isEmpty: {
+      negated: true,
+      bail: true,
+      errorMessage: "Fullname cannot be empty.",
+    },
+    custom: {
+      options: fullnameValidator,
+    },
+    errorMessage:
+      "Fullname must only consist letters, and a single space between first and last names",
+    escape: true,
+  },
   username: {
     trim: true,
     custom: {
-      options: validateUsername,
+      options: usernameValidator,
     },
     errorMessage:
       "Username must be between 3 and 10 letters long. Dashes and underscores are the only acceptable symbols.",
+    escape: true,
+  },
+  email: {
+    trim: true,
+    isEmail: true,
+    errorMessage: "Invalid email address.",
     escape: true,
   },
   password: {
