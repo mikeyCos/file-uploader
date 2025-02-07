@@ -7,7 +7,10 @@
       <section id="dashboard">
        <h2>Dashboard</h2>
        <%- include('./uploadForm') %>
+       <button onclick="openDialog(event)">File Upload</button>
+       <button onclick="openDialog(event)">New Folder</button>
       </section>
+      <%- include('./addFolderForm') %>
     </main>
     <%- include('./footer') %>
   </body>

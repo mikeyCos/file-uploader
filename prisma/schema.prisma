@@ -22,12 +22,12 @@ model Session {
 }
 
 model Account {
-  id       String   @id @default(uuid())
-  email    String   @unique
+  id       String  @id @default(uuid())
+  email    String  @unique
   name     String
-  username String   @unique
+  username String  @unique
   password String
-  folders  Folder[]
+  folders  Folder?
 }
 
 // Folders can have files and/or folders
@@ -37,7 +37,7 @@ model Folder {
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
   files          File[]
-  createdBy      Account? @relation(fields: [createdById], references: [id])
+  createdBy      Account  @relation(fields: [createdById], references: [id])
   createdById    String?
   parentFolder   Folder?  @relation("FolderFolders", fields: [parentFolderId], references: [id])
   parentFolderId String?
