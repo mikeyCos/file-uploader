@@ -1,5 +1,17 @@
 # Changelog
 ---
+### 07 FEB 2025
+- 
+---
+### 06 FEB 2025
+- Renamed `seedDB.js` module to `seed_db.js`.
+- Created `dashboardRouter.js`, `dashboardController.js`, `fileRouter.js`, and `fileRouterController.js` modules.
+- Created `errors.ejs` and `dashboard.ejs` pages.
+- Created `routes.js` module; the module is fetched and immediately called with the express application object, `app`.
+- Created `uploadForm.ejs` partial.
+- Authenticated users can submit multiple files of any time to the `file` input; these files are temporarily saved locally in `uploads` subdirectory.
+- The mount path `/dashboard` is a protected route that requires a logged-in user.
+---
 ### 05 FEB 2025
 - Initial commit for `file-uploader` project.
 - Installed pre-existing dependencies in `package.json`.

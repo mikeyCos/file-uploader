@@ -57,7 +57,7 @@ const accountController = {
     },
     (req, res) => {
       console.log("postLogin running after authentication....");
-      res.redirect("/");
+      res.redirect("/dashboard");
     },
   ],
   postLogout: (req, res, next) => {
@@ -90,17 +90,19 @@ const accountController = {
         const { fullname, email, username, password } = matchedData(req);
         bcrypt.hash(password, 10, async (err, hashedPassword) => {
           if (err) return next(err);
-          // await createAccount({ username, password: hashedPassword });
-          // const account = await getAccount({ username });
+
           const account = await prisma.account.create({
             data: { name: fullname, email, username, password: hashedPassword },
+            omit: {
+              password: true,
+            },
           });
           console.log("account:", account);
 
           // Automatically login after creating account
           req.login(account, (err) => {
             console.log("login running after creating account...");
-            res.redirect("/");
+            res.redirect("/dashboard");
           });
         });
       } catch (err) {

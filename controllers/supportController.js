@@ -1,6 +1,6 @@
 const supportController = {
   getSupport: async (req, res) => {
-    res.render("support", { title: "Support" });
+    res.render("support");
   },
 };
 

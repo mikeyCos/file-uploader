@@ -6,10 +6,6 @@ const prisma = require("./db/prisma");
 const { PORT } = require("./config/environment");
 const { staticPaths, viewsPaths } = require("./paths/paths");
 const logger = require("./utils/logger");
-const indexRouter = require("./routes/indexRouter");
-const placeholderRouter = require("./routes/placeholderRouter");
-const accountRouter = require("./routes/accountRouter");
-const supportRouter = require("./routes/supportRouter");
 
 const app = express();
 
@@ -63,20 +59,15 @@ app.use((req, res, next) => {
   next();
 });
 
-// Router-level
-app.use("/", indexRouter);
-app.use("/placeholderA", placeholderRouter);
-app.use("/account", accountRouter);
-app.use("/support", supportRouter);
-
-app.use((req, res) => {
-  res.render("404", { title: "404 - Page Not Found" });
-});
+// Routes
+require("./routes/routes")(app);
 
 // Error middleware function
 app.use((err, req, res, next) => {
   console.log("error middleware running...");
-  res.render("404", { title: "404 - Page Not Found" });
+  const { status, error } = err;
+  // res.render("404", { title: "404 - Page Not Found" });
+  res.status(status).render("errors", { status, error });
 });
 
 app.listen(PORT, () => console.log(`Application running on port: ${PORT}`));

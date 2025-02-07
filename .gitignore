@@ -134,3 +134,6 @@ Dockerfile
 fly.toml
 .dockerignore
 .github
+
+# Temporary directory for saving uploads
+./uploads

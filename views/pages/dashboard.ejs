@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-  <%- include('./head', { title: "Home" }) %>
+  <%- include('./head', { title: "Dashboard" }) %>
   <body>
     <%- include('./header') %>
     <main>
-      <section id="home">
-       <article>
-        <h2>Home</h2>
-       </article>
+      <section id="dashboard">
+       <h2>Dashboard</h2>
+       <%- include('./uploadForm') %>
       </section>
     </main>
     <%- include('./footer') %>
