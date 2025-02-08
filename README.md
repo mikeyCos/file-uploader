@@ -163,8 +163,11 @@ _For more examples, please refer to the [Documentation](https://example.com)_
     - [ ] Session
     - [ ] User
     - [ ] Folder
+      - [ ] Folder can hold folders and files
     - [ ] File
-- [ ] Create file upload form
+- [ ] Create modal that will display different forms based on button pressed
+  - [ ] Create file upload form
+  - [ ] Created create folder form
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

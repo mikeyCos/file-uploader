@@ -4,6 +4,11 @@ const placeholderRouter = require("./placeholderRouter");
 const accountRouter = require("./accountRouter");
 const supportRouter = require("./supportRouter");
 const fileRouter = require("./fileRouter");
+const componentRouter = require("./componentsRouter");
+
+/* const path = require("path");
+const rootPath = path.join(__dirname, "..");
+const viewsPartialsPath = path.join(rootPath, "views/partials"); */
 
 const checkAuth = (req, res, next) => {
   console.log("req.path:", req.path);
@@ -18,6 +23,7 @@ const routes = (app) => {
   app.use("/", indexRouter);
   app.use("/placeholderA", placeholderRouter);
   app.use("/support", supportRouter);
+  app.use("/components", componentRouter);
 
   // Protected routes
   app.use("/account", accountRouter); // Rename to auth or an array of mounts ["/login", "/signup"]

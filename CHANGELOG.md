@@ -5,6 +5,7 @@
 - Added `add`, `close`, `delete`, and `share` SVG files to `icons` directory.
 - Created `addFolderForm.ejs` partial.
 - Included script tag for `dialogController.js` in the `head.ejs` partial.
+- 
 ---
 ### 06 FEB 2025
 - Renamed `seedDB.js` module to `seed_db.js`.

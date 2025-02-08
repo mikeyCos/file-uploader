@@ -6,11 +6,12 @@
     <main>
       <section id="dashboard">
        <h2>Dashboard</h2>
-       <%- include('./uploadForm') %>
-       <button onclick="openDialog(event)">File Upload</button>
-       <button onclick="openDialog(event)">New Folder</button>
+       <button onclick="openDialog(event)" data-form-type="file">File Upload</button>
+       <button onclick="openDialog(event)" data-form-type="folder">New Folder</button>
       </section>
-      <%- include('./addFolderForm') %>
+      <dialog onclose="onCloseHandler()">
+        <button onclick="closeDialog()">x</button>
+      </dialog>
     </main>
     <%- include('./footer') %>
   </body>
