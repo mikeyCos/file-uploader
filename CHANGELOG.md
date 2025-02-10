@@ -1,11 +1,15 @@
 # Changelog
 ---
+### 10 FEB 2025
+- Prisma schema references parent folder's `id`.
+---
 ### 07 FEB 2025
 - Created `events` directory.
 - Added `add`, `close`, `delete`, and `share` SVG files to `icons` directory.
 - Created `addFolderForm.ejs` partial.
 - Included script tag for `dialogController.js` in the `head.ejs` partial.
-- 
+- Created `componentsRouter.js`, and `componentsController.js` modules.
+- Created two `button` elements that open a `dialog` element, fetches the specific `form` element based on what `button` is clicked, and removes the `form` element when the `dialog` element is closed.
 ---
 ### 06 FEB 2025
 - Renamed `seedDB.js` module to `seed_db.js`.

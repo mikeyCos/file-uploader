@@ -22,33 +22,37 @@ model Session {
 }
 
 model Account {
-  id       String  @id @default(uuid())
-  email    String  @unique
+  id       String   @id @default(uuid())
+  email    String   @unique
   name     String
-  username String  @unique
+  username String   @unique
   password String
-  folders  Folder?
+  drive    Folder[]
 }
 
 // Folders can have files and/or folders
 model Folder {
-  id             String   @id @default(uuid())
-  name           String   @default("New folder")
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-  files          File[]
-  createdBy      Account  @relation(fields: [createdById], references: [id])
-  createdById    String?
-  parentFolder   Folder?  @relation("FolderFolders", fields: [parentFolderId], references: [id])
-  parentFolderId String?
-  subfolders     Folder[] @relation("FolderFolders")
+  id        String   @id @default(uuid())
+  name      String   @default("New folder")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  files     File[]
+
+  parentFolder   Folder? @relation("folders", fields: [parentFolderId], references: [id])
+  parentFolderId String? @unique
+
+  subFolders Folder? @relation("folders")
+
+  Account   Account? @relation(fields: [accountId], references: [id])
+  accountId String?
 }
 
 model File {
-  id        String  @id @default(uuid())
-  name      String
-  size      Bytes
-  folder    Folder? @relation(fields: [folderId], references: [id])
+  id        String   @id @default(uuid())
+  name      String   @default("New file")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  // size      Bytes
+  folder    Folder?  @relation(fields: [folderId], references: [id])
   folderId  String?
-  accountId String?
 }

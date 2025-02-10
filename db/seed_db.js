@@ -37,30 +37,58 @@ const accounts = Promise.all(
   .catch((err) => console.log(err.message));
 
 const seedDB = async () => {
-  await prisma.account.deleteMany();
   await prisma.folder.deleteMany();
-  await prisma.account.createMany({
-    data: await accounts,
-  });
+  await prisma.account.deleteMany();
+  await prisma.file.deleteMany();
+  // await prisma.account.createMany({
+  //   data: await accounts,
+  // });
 
-  /* const account = await prisma.account.create({
+  const account = await prisma.account.create({
     data: {
       name: "Bill Dauterive",
       username: "bill_dozer",
       email: "bill.d@gmail.com",
       password: "Test123!",
-      folders: {
+      drive: {
         create: {
-          name: "test",
+          name: "Root folder",
+          subFolders: {
+            create: {
+              name: "A nested folder",
+              files: {
+                create: {
+                  name: "File in nested folder",
+                },
+              },
+              subFolders: {
+                create: {
+                  name: "another nested folder",
+                },
+              },
+            },
+          },
         },
       },
     },
     include: {
-      folders: true,
+      drive: {
+        include: {
+          files: true,
+          subFolders: {
+            include: {
+              files: true,
+              subFolders: true,
+            },
+          },
+        },
+      },
     },
   });
 
-  console.log(account); */
+  console.log("account:", account);
+  // console.log("account.drive.files:", account.drive[0].files);
+  // console.log("account.drive.subFolders:", account.drive[0].subFolders);
 };
 
 seedDB();
