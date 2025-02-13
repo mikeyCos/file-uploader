@@ -21,13 +21,42 @@ model Session {
   expiresAt DateTime
 }
 
+/**
+ * model Account {
+ * id       String  @id @default(uuid())
+ * email    String  @unique
+ * name     String
+ * username String  @unique
+ * password String
+ * root     Folder?
+ * }
+ * // Folders can have files and/or folders
+ * model Folder {
+ * id        String   @id @default(uuid())
+ * name      String   @default("New folder")
+ * createdAt DateTime @default(now())
+ * updatedAt DateTime @updatedAt
+ * account   Account  @relation(fields: [accountId], references: [id])
+ * accountId String   @unique
+ * files File[] @relation("folder")
+ * }
+ * model File {
+ * id        String   @id @default(uuid())
+ * name      String   @default("New file")
+ * createdAt DateTime @default(now())
+ * updatedAt DateTime @updatedAt
+ * folder   Folder @relation("folder", fields: [folderId], references: [id])
+ * folderId String
+ * }
+ */
+
 model Account {
   id       String   @id @default(uuid())
   email    String   @unique
   name     String
   username String   @unique
   password String
-  drive    Folder[]
+  folders  Folder[]
 }
 
 // Folders can have files and/or folders
@@ -36,15 +65,10 @@ model Folder {
   name      String   @default("New folder")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  files     File[]
+  account   Account  @relation(fields: [accountId], references: [id])
+  accountId String   @unique
 
-  parentFolder   Folder? @relation("folders", fields: [parentFolderId], references: [id])
-  parentFolderId String? @unique
-
-  subFolders Folder? @relation("folders")
-
-  Account   Account? @relation(fields: [accountId], references: [id])
-  accountId String?
+  files File[]
 }
 
 model File {
@@ -52,7 +76,7 @@ model File {
   name      String   @default("New file")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  // size      Bytes
-  folder    Folder?  @relation(fields: [folderId], references: [id])
-  folderId  String?
+
+  folder   Folder? @relation(fields: [folderId], references: [id])
+  folderId String?
 }

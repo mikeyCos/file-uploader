@@ -1,7 +1,10 @@
 # Changelog
 ---
+### 12 FEB 2025
+- Prisma schema only allows creating multiple folders and files in a folder.
+---
 ### 10 FEB 2025
-- Prisma schema references parent folder's `id`.
+- Sub folders references parent folder's `id`.
 ---
 ### 07 FEB 2025
 - Created `events` directory.
