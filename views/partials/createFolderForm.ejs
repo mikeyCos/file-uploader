@@ -1,0 +1,14 @@
+<form action="/drive/folder/create" method="POST" class="form-create-folder">
+  <h2>New Folder</h2>
+  <ul>
+    <li class="form-item">
+      <label for="folder_name"></label>
+      <input type="text" name="folder_name" id="folder_name" oninput="folderName_onInput(event)">
+      <% if (locals.errors?.folder_name) { %>
+        <p class="input-error active-error"><%= errors?.folder_name.msg %></p>
+      <% } %>
+    </li>
+  </ul>
+  <button type="button" onclick="closeDialog(event)">Cancel</button>
+  <button type="submit" disabled>Create</button>
+</form>

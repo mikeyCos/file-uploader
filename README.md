@@ -167,7 +167,9 @@ _For more examples, please refer to the [Documentation](https://example.com)_
     - [ ] File
 - [ ] Create modal that will display different forms based on button pressed
   - [ ] Create file upload form
+    - [ ] Validate file extension and/or size
   - [ ] Created create folder form
+    - [ ] Validate and sanitize input
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

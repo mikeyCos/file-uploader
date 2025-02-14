@@ -12,7 +12,6 @@ const openDialog = async (e) => {
     .then((html) => {
       const parser = new DOMParser();
       const doc = parser.parseFromString(html, "text/html");
-      console.log(typeof html);
       console.log("html:", html);
       console.log("doc:", doc);
       return doc.querySelector("form");
@@ -21,6 +20,8 @@ const openDialog = async (e) => {
       console.log(err);
     });
 
+  // stopPropagation on the dialog element's child/children element(s)
+  form.addEventListener("click", stopPropagation);
   dialog.append(form);
   dialog.showModal();
 };
@@ -34,8 +35,6 @@ const onCloseHandler = () => {
   form.remove();
 };
 
-const renderForm = () => {
-  const formElement = document.createElement("form");
+const stopPropagation = (e) => {
+  e.stopPropagation();
 };
-
-const clearForm = () => {};

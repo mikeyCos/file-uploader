@@ -57,26 +57,34 @@ model Account {
   username String   @unique
   password String
   folders  Folder[]
+  files    File[]
 }
 
-// Folders can have files and/or folders
+// How to have nested folders?
+// How to dictate a folder is shareable with a expiration date?
 model Folder {
   id        String   @id @default(uuid())
   name      String   @default("New folder")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  account   Account  @relation(fields: [accountId], references: [id])
-  accountId String   @unique
+  account   Account  @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  accountId String
 
   files File[]
 }
 
+// Is there a better way to reference the account without the files field in Account model?
+// How can files 
 model File {
   id        String   @id @default(uuid())
   name      String   @default("New file")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  account   Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  accountId String
+
   folder   Folder? @relation(fields: [folderId], references: [id])
   folderId String?
+  // folderId String? @default("root")
 }

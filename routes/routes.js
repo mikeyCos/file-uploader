@@ -3,7 +3,7 @@ const dashboardRouter = require("./dashboardRouter");
 const placeholderRouter = require("./placeholderRouter");
 const accountRouter = require("./accountRouter");
 const supportRouter = require("./supportRouter");
-const fileRouter = require("./fileRouter");
+const driveRouter = require("./driveRouter");
 const componentRouter = require("./componentsRouter");
 
 /* const path = require("path");
@@ -28,7 +28,7 @@ const routes = (app) => {
   // Protected routes
   app.use("/account", accountRouter); // Rename to auth or an array of mounts ["/login", "/signup"]
   app.use("/dashboard", [checkAuth, dashboardRouter]);
-  app.use("/file", [checkAuth], fileRouter);
+  app.use("/drive", [checkAuth], driveRouter);
 
   app.use((req, res, next) => {
     next({ status: 404, error: "Page not found" });

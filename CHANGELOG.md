@@ -1,5 +1,14 @@
 # Changelog
 ---
+### 
+---
+### 13 FEB 2025
+- A user can create a folder without validation and render as a list item.
+- The `dialog` element can be closed with `ESC` key, clicking the cancel button, or clicking outside the `form` element.
+- Created `folderName_onInput.js` module; enables and disables the submit button for creating a folder.
+- Renamed `addFolderForm.ejs` to `createFolderForm.ejs`.
+- Renamed `fileRouter.js` to `driveRouter.js` and `fileController.js` to `driveController.js`.
+---
 ### 12 FEB 2025
 - Prisma schema only allows creating multiple folders and files in a folder.
 ---

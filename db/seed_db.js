@@ -1,8 +1,7 @@
-const { name } = require("ejs");
 const prisma = require("./prisma");
 const bcrypt = require("bcryptjs");
 
-const accounts = Promise.all(
+const accountsArr = Promise.all(
   [
     {
       name: "Bill Dauterive",
@@ -38,37 +37,98 @@ const accounts = Promise.all(
   .catch((err) => console.log(err.message));
 
 const seedDB = async () => {
-  await prisma.file.deleteMany();
-  await prisma.folder.deleteMany();
   await prisma.account.deleteMany();
+  // await prisma.file.deleteMany();
+  // await prisma.folder.deleteMany();
 
-  const account = await prisma.account.create({
+  const accounts = await prisma.account.createManyAndReturn({
+    data: await accountsArr,
+  });
+
+  console.log(accounts);
+
+  /* const folder = await prisma.folder.create({
+    data: {
+      name: "Folder 0",
+      account: {
+        connect: { id: account.id },
+      },
+    },
+    include: {
+      files: true,
+    },
+  });
+
+  const file = await prisma.file.create({
+    data: {
+      name: "A file in Folder 0",
+
+      account: {
+        connect: { id: account.id },
+      },
+    },
+  });
+
+  console.log("before creating folder");
+  console.log("account:", account);
+
+  console.log("after creating folder");
+  console.log("folder:", folder);
+
+  const accountAfterCreatingFolder = await prisma.account.findFirst({
+    where: {
+      id: account.id,
+    },
+    include: {
+      folders: {
+        include: {
+          files: true,
+        },
+      },
+      files: true,
+    },
+  });
+
+  console.log("accountAfterCreatingFolder:", accountAfterCreatingFolder); */
+  /* const account = await prisma.account.create({
     data: {
       name: "Luanne Platter",
       username: "platter_lp",
       email: "lp_barber@gmail.com",
       password: "manGer1&BabY",
       folders: {
-        create: {
-          name: "Folder 1",
-          files: {
-            create: {},
+        create: [
+          {
+            name: "Folder 0",
+            files: {
+              create: {
+                name: "A file",
+              },
+            },
           },
-        },
+          {
+            name: "Folder 1",
+          },
+        ],
       },
     },
     include: {
       folders: {
         include: {
-          files: {},
+          files: true,
         },
       },
     },
-  });
-
-  console.log("account:", account);
-  console.log("account.folders:", account.folders);
-  console.log("account.folders[0].files:", account.folders[0].files);
+  }); */
+  // console.log("account.folders:", account.folders);
+  // console.log("account.folders[0].files:", account.folders[0].files);
 };
 
-seedDB();
+// seedDB();
+
+const emptyDB = async () => {
+  await prisma.account.deleteMany();
+  console.log("db has been emptied");
+};
+
+module.exports = { emptyDB };

@@ -6,10 +6,12 @@ const viewsPartialsPath = path.join(rootPath, "views/partials");
 
 const componentsController = {
   getUploadFileForm: asyncHandler(async (req, res) => {
+    console.log("res.locals:", res.locals);
     res.render("uploadForm");
   }),
   getAddFolderForm: asyncHandler(async (req, res) => {
-    res.render("addFolderForm");
+    // folderName_onInput
+    res.render("createFolderForm");
   }),
 };
 

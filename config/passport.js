@@ -39,6 +39,10 @@ passport.deserializeUser(async (id, done) => {
       where: {
         id: id,
       },
+      include: {
+        folders: true,
+        files: true,
+      },
       omit: {
         password: true,
       },
