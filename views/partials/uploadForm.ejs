@@ -1,9 +1,9 @@
-<form action="/drive/upload/file" method="POST" enctype="multipart/form-data" class="form-upload-file">
+<form action="/drive/upload/file" method="POST" onsubmit="onSubmit(event)" onclick="stopPropagation(event)" enctype="multipart/form-data" class="form-upload-files" data-form-type="file">
   <h2>Upload File(s)</h2>
   <ul>
     <li class="form-item">
-      <label for="upload_file">Upload file</label>
-      <input type="file" id="upload_file" name="upload_file" multiple>
+      <label for="upload_files">Upload file</label>
+      <input type="file" id="upload_files" name="upload_files" multiple>
     </li>
   </ul>
   <button type="button" onclick="closeDialog()">Cancel</button>

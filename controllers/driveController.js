@@ -27,7 +27,7 @@ const driveController = {
       console.log("req.body:", req.body);
       console.log("res.locals", res.locals);
 
-      const folder = await prisma.folder.create({
+      /* const folder = await prisma.folder.create({
         data: {
           name: req.body.folder_name,
           account: {
@@ -36,12 +36,12 @@ const driveController = {
         },
       });
 
-      console.log("folder:", folder);
+      console.log("folder:", folder); */
 
       res.redirect("/dashboard");
     }),
   ],
-  postFileUpload: [
+  postFilesUpload: [
     upload.array("upload_file", 25),
     asyncHandler(async (req, res) => {
       console.log("postFile running...");

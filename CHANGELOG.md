@@ -1,6 +1,21 @@
 # Changelog
 ---
-### 
+### 14 FEB 2025
+- Created `form_onSubmit.js`, and `uploadFilesValidator.js` modules.
+- If there are no validation errors from submitting `form .form-create-folder`, `HTMLFormElement.submit()` method is called.
+- If there are validation errors from submitting `form .form-create-folder`, the form re-renders and replaces the old form with a new form with a error message and previous input value.
+- Submitting the `form .form-create-folder` validates the form by fetching with the URL `/components/folder/create` with the request configuration:
+
+```js
+{
+  method: "POST",
+  redirect: "manual",
+  headers: {
+    "Content-Type": "application/x-www-form-urlencoded",
+  },
+  body: data,
+}
+```
 ---
 ### 13 FEB 2025
 - Created `folder_validation` branch.

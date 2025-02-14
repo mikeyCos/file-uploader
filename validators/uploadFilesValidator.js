@@ -1,6 +1,6 @@
 const { checkSchema, validationResult } = require("express-validator");
 
-const folderSchema = {
+const filesSchema = {
   folder_name: {
     trim: true,
     isEmpty: {
@@ -16,11 +16,11 @@ const folderSchema = {
   },
 };
 
-const validateFolder = checkSchema(folderSchema, ["body"]);
+const validateFiles = checkSchema(filesSchema, ["body"]);
 
 const foo = (view) => {
   return (req, res, next) => {
-    checkSchema(folderSchema, ["body"]);
+    checkSchema(filesSchema, ["body"]);
     const errors = validationResult(req);
     const inputs = matchedData(req, { onlyValidData: false });
 
@@ -33,4 +33,4 @@ const foo = (view) => {
   };
 };
 
-module.exports = validateFolder;
+module.exports = validateFiles;

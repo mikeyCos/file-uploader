@@ -122,6 +122,7 @@ const seedDB = async () => {
   }); */
   // console.log("account.folders:", account.folders);
   // console.log("account.folders[0].files:", account.folders[0].files);
+  console.log("db has been seeded");
 };
 
 // seedDB();
@@ -131,4 +132,4 @@ const emptyDB = async () => {
   console.log("db has been emptied");
 };
 
-module.exports = { emptyDB };
+module.exports = { emptyDB, seedDB };
