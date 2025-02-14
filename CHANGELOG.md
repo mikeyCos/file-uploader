@@ -3,6 +3,7 @@
 ### 
 ---
 ### 13 FEB 2025
+- Created `folder_validation` branch.
 - A user can create a folder without validation and render as a list item.
 - The `dialog` element can be closed with `ESC` key, clicking the cancel button, or clicking outside the `form` element.
 - Created `folderName_onInput.js` module; enables and disables the submit button for creating a folder.
