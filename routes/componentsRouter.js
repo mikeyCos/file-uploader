@@ -6,14 +6,14 @@ const {
   postFilesUploadForm,
 } = require("../controllers/componentsController");
 
-const componentRouter = new Router();
+const componentsRouter = new Router();
 
 // GET requests
-componentRouter.get("/file", getUploadFileForm);
-componentRouter.get("/folder", getAddFolderForm);
+componentsRouter.get("/file", getUploadFileForm);
+componentsRouter.get("/folder", getAddFolderForm);
 
 // POST requests
-componentRouter.post("/folder/create", postAddFolderForm);
-componentRouter.post("/files/upload", postFilesUploadForm);
+componentsRouter.post("/folder/create", postAddFolderForm);
+componentsRouter.post("/files/upload", postFilesUploadForm);
 
-module.exports = componentRouter;
+module.exports = componentsRouter;

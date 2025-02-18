@@ -2,7 +2,7 @@ const asyncHandler = require("express-async-handler");
 const multer = require("multer");
 const { validationResult, matchedData } = require("express-validator");
 const validateFolder = require("../validators/createFolderValidator");
-const validateFiles = require("../validators/uploadFilesValidator");
+const validateUpload = require("../validators/uploadValidator");
 
 /* const path = require("path");
 const rootPath = path.join(__dirname, "..");
@@ -40,11 +40,24 @@ const componentsController = {
     }),
   ],
   postFilesUploadForm: [
-    // validateFiles,
     upload.array("upload_files", 25),
+    validateUpload("uploadForm"),
     asyncHandler(async (req, res) => {
-      console.log("postFileUploadForm running...");
-      console.log(req.body);
+      console.log("postFilesUploadForm running...");
+      console.log("req.body:", req.body);
+      console.log("req.files:", req.files);
+      /* const errors = validationResult(req);
+      const inputs = matchedData(req, { onlyValidData: false });
+      console.log("errors:", errors);
+      console.log("inputs:", inputs);
+      if (!errors.isEmpty()) {
+        return res.status(422).render("uploadForm", {
+          errors: errors.mapped(),
+          inputs,
+        });
+      } */
+
+      res.sendStatus(200);
     }),
   ],
 };

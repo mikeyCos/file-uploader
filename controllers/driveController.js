@@ -6,17 +6,20 @@ const validateFolder = require("../validators/createFolderValidator");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
+    console.log("multer.diskStorage destination running...");
     cb(null, "uploads/");
   },
   filename: function (req, file, cb) {
     // const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
     // cb(null, file.fieldname + "-" + uniqueSuffix);
+    console.log("multer.diskStorage filename running...");
     console.log("file:", file);
     cb(null, file.originalname);
   },
 });
 
-const upload = multer({ storage: storage });
+// const upload = multer({ storage: storage });
+const upload = multer();
 
 const driveController = {
   postFolderCreate: [
@@ -42,10 +45,12 @@ const driveController = {
     }),
   ],
   postFilesUpload: [
-    upload.array("upload_file", 25),
+    upload.array("upload_files", 25),
     asyncHandler(async (req, res) => {
-      console.log("postFile running...");
-      res.redirect("/dashboard");
+      console.log("postFilesUpload running...");
+      console.log("req.body:", req.body);
+      console.log("req.files:", req.files);
+      // res.redirect("/dashboard");
     }),
   ],
 };

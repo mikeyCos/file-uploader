@@ -1,6 +1,16 @@
 # Changelog
 ---
+### 17 FEB 2025
+- If `form .form-upload-files` does not pass validation the form is re-rendered and displays an error message.
+- The submit button for `form .form-upload-files` is enabled if `input.files.length !== 0` and disabled if `input.files.length === 0`.
+- Created `uploadFiles_onChange.js` and `uploadValidator.js` modules.
+- Created `regexes` object in `uploadValidator.js` module with file extensions and regular expressions as key-value pairs; the regular expressions are for MIME types.
+---
+### 15 FEB 2025
+- Resolved `RangeError` from occurring from the `fetch` function in `form_onSubmit.js` module by removing the `headers` object with the key and value pair `"Content-Type": "multipart/form-data"`.
+---
 ### 14 FEB 2025
+- Created `files_validation` branch.
 - Merged `folder_validation` branch with `main` branch.
 - Created `form_onSubmit.js`, and `uploadFilesValidator.js` modules.
 - If there are no validation errors from submitting `form .form-create-folder`, `HTMLFormElement.submit()` method is called.

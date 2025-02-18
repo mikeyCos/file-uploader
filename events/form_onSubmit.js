@@ -15,11 +15,10 @@ const onSubmit = async (e) => {
   const form = e.target;
   const { formType } = form.dataset;
   const formData = new FormData(form);
-  const data = new URLSearchParams(formData);
   console.log("formType:", formType);
-  console.log("data:", data);
+  // const data = new URLSearchParams(formData);
 
-  const validationPass = await fetch("/components/folder/create", {
+  /* const validationPass = await fetch("/components/folder/create", {
     method: "POST",
     redirect: "manual",
     headers: {
@@ -44,29 +43,34 @@ const onSubmit = async (e) => {
     });
 
   console.log("validationPass:", validationPass);
-  if (validationPass) form.submit();
+  if (validationPass) form.submit(); */
 
-  /* const validationPass = await fetch("/components/files/upload", {
+  // Folder validation
+  // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#getting_information_on_selected_files
+  // https://blog.logrocket.com/multer-nodejs-express-upload-file/
+  // If form is passed into FormData, the input's name attribute must be used when calling upload.array()
+  // If files are being appended to formData, then the field name must be used when calling upload.array()
+  // What if files is empty? Abort fetch?
+  // Why does setting a content-type cause a range error?
+  //  RangeError [ERR_HTTP_INVALID_STATUS_CODE]: Invalid status code: undefined
+  console.log(formData.getAll("upload_files"));
+  const validationPass = await fetch("/components/files/upload", {
     method: "POST",
-    redirect: "manual",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: data,
+    body: formData,
   })
     .then(async (res) => {
-      console.log(res);
-      // if (!res.ok) {
-      //   const rawHTML = await res.text();
-      //   throw new Error(rawHTML);
-      // }
+      console.log("res:", res);
+      if (!res.ok) {
+        const rawHTML = await res.text();
+        throw new Error(rawHTML);
+      }
 
-      // return true;
+      return true;
     })
     .catch((err) => {
-      // const parser = new DOMParser();
-      // const doc = parser.parseFromString(err, "text/html");
-      // form.replaceWith(doc.querySelector("form"));
-      // return false;
-    }); */
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(err, "text/html");
+      form.replaceWith(doc.querySelector("form"));
+      return false;
+    });
 };

@@ -4,7 +4,7 @@ const placeholderRouter = require("./placeholderRouter");
 const accountRouter = require("./accountRouter");
 const supportRouter = require("./supportRouter");
 const driveRouter = require("./driveRouter");
-const componentRouter = require("./componentsRouter");
+const componentsRouter = require("./componentsRouter");
 
 /* const path = require("path");
 const rootPath = path.join(__dirname, "..");
@@ -23,7 +23,7 @@ const routes = (app) => {
   app.use("/", indexRouter);
   app.use("/placeholderA", placeholderRouter);
   app.use("/support", supportRouter);
-  app.use("/components", componentRouter);
+  app.use("/components", componentsRouter);
 
   // Protected routes
   app.use("/account", accountRouter); // Rename to auth or an array of mounts ["/login", "/signup"]

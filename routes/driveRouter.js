@@ -9,7 +9,7 @@ const driveRouter = new Router();
 // GET requests
 
 // POST requests
-driveRouter.post("/upload/file", postFilesUpload);
+driveRouter.post("/upload/files", postFilesUpload);
 driveRouter.post("/folder/create", postFolderCreate);
 
 module.exports = driveRouter;

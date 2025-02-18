@@ -1,11 +1,16 @@
-<form action="/drive/upload/file" method="POST" onsubmit="onSubmit(event)" onclick="stopPropagation(event)" enctype="multipart/form-data" class="form-upload-files" data-form-type="file">
+<form action="/drive/upload/files" onsubmit="onSubmit(event)" method="POST" onclick="stopPropagation(event)" enctype="multipart/form-data" class="form-upload-files" data-form-type="file">
   <h2>Upload File(s)</h2>
   <ul>
     <li class="form-item">
-      <label for="upload_files">Upload file</label>
-      <input type="file" id="upload_files" name="upload_files" multiple>
+      <label for="upload_files">Upload file(s)</label>
+      <input type="file" name="upload_files" onchange="uploadFiles_onChange(event)" id="upload_files" multiple>
+      <% if (locals.errors?.upload_files) { %>
+        <p class="input-error active-error"><%= errors?.upload_files.msg %></p>
+      <% } %>
     </li>
   </ul>
   <button type="button" onclick="closeDialog()">Cancel</button>
-  <button type="submit">Upload</button>
+  <button type="submit" disabled>Upload</button>
 </form>
+
+<!-- onsubmit="onSubmit(event)" -->
