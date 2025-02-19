@@ -1,5 +1,10 @@
 # Changelog
 ---
+### 18 FEB 2025
+- Attempted to validate files using a `fileFilter` function with `multer`; reverted back to using `express-validator`.
+- Created `fileValidator.js` module.
+- Created `upload.js` module in `config` directory.
+---
 ### 17 FEB 2025
 - If `form .form-upload-files` does not pass validation the form is re-rendered and displays an error message.
 - The submit button for `form .form-upload-files` is enabled if `input.files.length !== 0` and disabled if `input.files.length === 0`.

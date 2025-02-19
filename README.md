@@ -197,9 +197,7 @@ Project Link: [https://github.com/mikeyCos/cv-application](https://github.com/mi
 
 ## Questions
 
-1. Where does it make more sense to authenticate? In a router or controller?
-2. How to prevent the `account/create` route when a user is logged in?
-3. How to prevent the user from going back to a login page?
+1. Is there any situation when the options object for `multer` is required when `express-validator` is used to validate uploaded files? Specifically the [fileFilter](https://github.com/expressjs/multer/tree/master?tab=readme-ov-file#filefilter) option.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

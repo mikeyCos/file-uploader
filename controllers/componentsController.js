@@ -1,12 +1,9 @@
 const asyncHandler = require("express-async-handler");
-const multer = require("multer");
 const { validationResult, matchedData } = require("express-validator");
 const validateFolder = require("../validators/createFolderValidator");
 const validateUpload = require("../validators/uploadValidator");
-
-/* const path = require("path");
-const rootPath = path.join(__dirname, "..");
-const viewsPartialsPath = path.join(rootPath, "views/partials"); */
+const uploadFiles = require("../middlewares/uploadFiles");
+const multer = require("multer");
 
 const upload = multer();
 
@@ -40,6 +37,25 @@ const componentsController = {
     }),
   ],
   postFilesUploadForm: [
+    // uploadFiles,
+    /*     (req, res, next) => {
+      upload(req, res, function (err) {
+        if (err instanceof multer.MulterError) {
+          // A Multer error occurred when uploading.
+          console.log("err instanceof multer.MulterError");
+          console.log("err:", err);
+          console.log("multer.MulterError:", multer.MulterError);
+          console.log("err.message:", err.message);
+          return res.status(422);
+        } else if (err) {
+          // An unknown error occurred when uploading.
+          console.log("err:", err);
+          console.log("req.files:", req.files);
+          return res.status(422);
+        }
+        next();
+      });
+    }, */
     upload.array("upload_files", 25),
     validateUpload("uploadForm"),
     asyncHandler(async (req, res) => {

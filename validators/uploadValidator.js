@@ -118,15 +118,20 @@ const validateFileMIMEType = (ext, mimetype) => {
 
 const validateFileSize = (bytes) => {
   console.log("validateFileSize running...");
+  const fileSizeLimit = 1;
+  if (bytes > fileSizeLimit) throw "File exceeds file size limit";
 };
 
 const validateFiles = async (values, { req }) => {
   console.log("validateFiles running...");
   // console.log("files:", files);
   console.log("req.files:", req.files);
+  const filesLimit = 25;
   const { files } = req;
 
+  // Is this needed if submit button is disabled?
   if (files.length === 0) throw new Error("No files selected.");
+  if (files.length > 2) throw new Error("The number of files exceed limit.");
 
   files.every((file) => {
     const { originalname, mimetype, size } = file;
@@ -135,6 +140,7 @@ const validateFiles = async (values, { req }) => {
 
     validateFileExtension(ext);
     validateFileMIMEType(ext, mimetype);
+    validateFileSize(size);
   });
 };
 
