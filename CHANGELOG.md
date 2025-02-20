@@ -1,5 +1,10 @@
 # Changelog
 ---
+### 19 FEB 2025
+- Validation functions, `validateUpload` and `validateFolder` return asynchronous middlewares. 
+- Refactored `form_onSubmit.js` module; separated `fetch` functions into `fetchFiles` and `fetchFolder` while consolidating `then` and `catch` methods.
+- Created `regexes` directory and `fileRegexes.js` module.
+---
 ### 18 FEB 2025
 - Attempted to validate files using a `fileFilter` function with `multer`; reverted back to using `express-validator`.
 - Created `fileValidator.js` module.

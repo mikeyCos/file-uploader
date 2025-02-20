@@ -34,16 +34,6 @@ const regexes = {
   ogv: /^video\/ogg$/,
 };
 
-const validateFileSize = (bytes) => {
-  console.log("validateFileSize running...");
-  // 25 mb * 1000000 bytes
-  // const fileSize = 25 * 1000000;
-  const fileSizeLimit = 1;
-  console.log("bytes:", bytes);
-  console.log("typeof bytes:", typeof bytes);
-  if (bytes > fileSizeLimit) throw "File exceeds file size limit";
-};
-
 const validateFileExtension = (ext) => {
   console.log("validateFileExtension running...");
   console.log("ext:", ext);
@@ -53,7 +43,7 @@ const validateFileExtension = (ext) => {
 
 const validateFileMIMEType = (ext, mimetype) => {
   console.log("validateFileMIMEType running...");
-  // const type = mimetype.split("/", 2);
+  // const [ type ] = mimetype.split("/", 2);
   const regexResult = regexes[ext].test(mimetype);
   if (!regexResult)
     throw new Error(`MIME Type, "${mimetype}", is not supported`);
@@ -85,8 +75,8 @@ const validateFile = (file) => {
   const { originalname, mimetype, size } = file;
   const filenameArr = originalname.split(".");
   const ext = filenameArr[filenameArr.length - 1];
-  console.log(file);
   console.log("validateFile running...");
+  console.log(file);
   validateFileSize(size);
   validateFileExtension(ext);
   validateFileMIMEType(ext, mimetype);

@@ -1,29 +1,13 @@
 const asyncHandler = require("express-async-handler");
-const multer = require("multer");
+const upload = require("../config/upload");
 const prisma = require("../db/prisma");
+const validateUpload = require("../validators/uploadValidator");
 
 const validateFolder = require("../validators/createFolderValidator");
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    console.log("multer.diskStorage destination running...");
-    cb(null, "uploads/");
-  },
-  filename: function (req, file, cb) {
-    // const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    // cb(null, file.fieldname + "-" + uniqueSuffix);
-    console.log("multer.diskStorage filename running...");
-    console.log("file:", file);
-    cb(null, file.originalname);
-  },
-});
-
-// const upload = multer({ storage: storage });
-const upload = multer();
-
 const driveController = {
   postFolderCreate: [
-    // validateFolder,
+    validateFolder("dashboard"),
     asyncHandler(async (req, res) => {
       console.log("postFolderCreate running...");
       console.log("req.user:", req.user);
@@ -45,7 +29,8 @@ const driveController = {
     }),
   ],
   postFilesUpload: [
-    upload.array("upload_files", 25),
+    upload,
+    validateUpload("dashboard"),
     asyncHandler(async (req, res) => {
       console.log("postFilesUpload running...");
       console.log("req.body:", req.body);
