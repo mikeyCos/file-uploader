@@ -1,5 +1,8 @@
 # Changelog
 ---
+### 21 FEB 2025
+- Commit before merging `files_validation` branch to `main` branch.
+---
 ### 19 FEB 2025
 - Validation functions, `validateUpload` and `validateFolder` return asynchronous middlewares. 
 - Refactored `form_onSubmit.js` module; separated `fetch` functions into `fetchFiles` and `fetchFolder` while consolidating `then` and `catch` methods.
