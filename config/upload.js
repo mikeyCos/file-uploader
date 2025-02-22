@@ -62,4 +62,18 @@ const fileFilter = (req, file, cb) => {
   });
 }; */
 
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     console.log("multer.diskStorage destination running...");
+//     cb(null, "uploads/");
+//   },
+//   filename: function (req, file, cb) {
+//     // const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+//     // cb(null, file.fieldname + "-" + uniqueSuffix);
+//     console.log("multer.diskStorage filename running...");
+//     console.log("file:", file);
+//     cb(null, file.originalname);
+//   },
+// });
+
 module.exports = upload;

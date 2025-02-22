@@ -19,12 +19,11 @@ const onSubmit = async (e) => {
   console.log(e);
   console.log(e.target);
   e.preventDefault();
-  /* const form = e.target;
+  const form = e.target;
   const { formType } = form.dataset;
   const formData = new FormData(form);
 
   const fetchValidation = formType === "files" ? fetchFiles : fetchFolder;
-
   const validationPass = await fetchValidation({
     method: "POST",
     body: formData,
@@ -45,7 +44,7 @@ const onSubmit = async (e) => {
       return false;
     });
 
-  if (validationPass) form.submit(); */
+  if (validationPass) form.submit();
 };
 
 const fetchFiles = ({ method, body }) => {

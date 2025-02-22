@@ -15,13 +15,11 @@ const folderSchema = {
     },
     isLength: {
       options: { max: 2 },
-      errorMessage: "testing...",
+      errorMessage: "Folder name cannot exceed 2 characters in length.",
     },
     escape: true,
   },
 };
-
-// const validateFolder = checkSchema(folderSchema, ["body"]);
 
 const validateFolder = (view) => {
   return asyncHandler(async (req, res, next) => {
@@ -29,13 +27,15 @@ const validateFolder = (view) => {
     const errors = validationResult(req);
     const inputs = matchedData(req, { onlyValidData: false });
     console.log(errors);
+
     if (!errors.isEmpty()) {
-      // Need a way to render the dashboard with the dialog open with createFolderForm partial
       return res.status(422).render(view, {
         errors: errors.mapped(),
         inputs,
       });
     }
+
+    next();
   });
 };
 

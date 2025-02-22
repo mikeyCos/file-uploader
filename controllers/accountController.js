@@ -57,7 +57,7 @@ const accountController = {
     },
     (req, res) => {
       console.log("postLogin running after authentication....");
-      res.redirect("/dashboard");
+      res.redirect("/drive");
     },
   ],
   postLogout: (req, res, next) => {
@@ -102,7 +102,7 @@ const accountController = {
           // Automatically login after creating account
           req.login(account, (err) => {
             console.log("login running after creating account...");
-            res.redirect("/dashboard");
+            res.redirect("/drive");
           });
         });
       } catch (err) {

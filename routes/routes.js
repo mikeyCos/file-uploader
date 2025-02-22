@@ -1,5 +1,4 @@
 const indexRouter = require("./indexRouter");
-const dashboardRouter = require("./dashboardRouter");
 const placeholderRouter = require("./placeholderRouter");
 const accountRouter = require("./accountRouter");
 const supportRouter = require("./supportRouter");
@@ -27,7 +26,6 @@ const routes = (app) => {
 
   // Protected routes
   app.use("/account", accountRouter); // Rename to auth or an array of mounts ["/login", "/signup"]
-  app.use("/dashboard", [checkAuth, dashboardRouter]);
   app.use("/drive", [checkAuth], driveRouter);
 
   app.use((req, res, next) => {

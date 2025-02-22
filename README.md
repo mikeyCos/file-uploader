@@ -198,6 +198,8 @@ Project Link: [https://github.com/mikeyCos/cv-application](https://github.com/mi
 ## Questions
 
 1. Is there any situation when the options object for `multer` is required when `express-validator` is used to validate uploaded files? Specifically the [fileFilter](https://github.com/expressjs/multer/tree/master?tab=readme-ov-file#filefilter) option.
+2. When is it more appropriate to validate files? Before or after send the files to the server? Is it redundant to validate the same properties in the front-end and back-end?
+3. Is it bad practice to call `res.redirect()` on the sever then set `window.location = res.url` on the client?
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

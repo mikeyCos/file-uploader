@@ -88,7 +88,6 @@ const validateUpload = (view) => {
     const inputs = matchedData(req, { onlyValidData: false });
     console.log("errors:", errors);
     if (!errors.isEmpty()) {
-      // Need a way to render the dashboard with the dialog open with createFolderForm partial
       return res.status(422).render(view, {
         errors: errors.mapped(),
         inputs,

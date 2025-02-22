@@ -45,32 +45,78 @@ const seedDB = async () => {
     data: await accountsArr,
   });
 
-  console.log(accounts);
-
-  /* const folder = await prisma.folder.create({
-    data: {
-      name: "Folder 0",
-      account: {
-        connect: { id: account.id },
-      },
+  const billDozerBeforeFolder = await prisma.account.findFirst({
+    where: {
+      id: accounts[0].id,
     },
     include: {
+      folders: true,
       files: true,
     },
   });
 
-  const file = await prisma.file.create({
-    data: {
-      name: "A file in Folder 0",
+  console.log("before creating folder");
+  console.log("accounts:", accounts);
+  console.log("billDozerBeforeFolder:", billDozerBeforeFolder);
 
-      account: {
-        connect: { id: account.id },
+  // Create folders for user bill_dozer
+  await prisma.folder.createMany({
+    data: [
+      {
+        name: "Folder 0",
+        accountId: billDozerBeforeFolder.id,
       },
+      {
+        name: "Folder 1",
+        accountId: billDozerBeforeFolder.id,
+      },
+    ],
+  });
+
+  const billDozerAfterFolder = await prisma.account.findFirst({
+    where: {
+      id: accounts[0].id,
+    },
+    include: {
+      folders: true,
+      files: true,
     },
   });
 
-  console.log("before creating folder");
-  console.log("account:", account);
+  console.log("billDozerAfterFolder:", billDozerAfterFolder);
+
+  // Create files for user bill_dozer
+  await prisma.file.createMany({
+    data: [
+      {
+        name: "A file not in a folder",
+        accountId: billDozerAfterFolder.id,
+      },
+      {
+        name: "A file in folder 0",
+        accountId: accounts[0].id,
+        folderId: billDozerAfterFolder.folders[0].id,
+      },
+    ],
+  });
+
+  const billDozer = await prisma.account.findFirst({
+    where: {
+      id: accounts[0].id,
+    },
+    include: {
+      folders: {
+        include: {
+          files: true,
+        },
+      },
+      files: true,
+    },
+  });
+
+  console.log("billDozer:", billDozer);
+
+  /*
 
   console.log("after creating folder");
   console.log("folder:", folder);
@@ -124,8 +170,6 @@ const seedDB = async () => {
   // console.log("account.folders[0].files:", account.folders[0].files);
   console.log("db has been seeded");
 };
-
-// seedDB();
 
 const emptyDB = async () => {
   await prisma.account.deleteMany();

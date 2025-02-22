@@ -84,7 +84,7 @@ model File {
   account   Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
   accountId String
 
-  folder   Folder? @relation(fields: [folderId], references: [id])
+  folder   Folder? @relation(fields: [folderId], references: [id], onDelete: Cascade)
   folderId String?
   // folderId String? @default("root")
 }

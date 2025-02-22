@@ -1,6 +1,18 @@
 # Changelog
 ---
+### 22 FEB 2025
+- 
+---
 ### 21 FEB 2025
+- Created `controls.ejs`, `editFileForm.ejs` and `editFolderForm.ejs` partials.
+- Folder and files can be deleted on the server and removed from the client; clicking the delete button will send a `DELETE` request by calling `fetch()`, the server will send a `200` status code, and the item will be removed from client.
+- Created `deleteItem.js` module.
+- Created Prisma migration `file_folder_on_delete`; deleting a folder will also delete it's files.
+- Added `download`, `file`, `folder`, `newFolder`, and `upload` SVG files to `icons` directory.
+- Renamed `dashboard.ejs` to `drive.ejs`.
+- Deleted `dashboardRouter.js`, and `dashboardController.js` modules.
+- Created `fetchForm` asynchronous function in `dialogController.js`; returns form component corresponding to the `formType` parameter.
+- Created branch `crud_folders`.
 - Commit before merging `files_validation` branch to `main` branch.
 ---
 ### 19 FEB 2025

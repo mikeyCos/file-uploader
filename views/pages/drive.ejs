@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./head', { title: "Drive" }) %>
+  <body>
+    <%- include('./header') %>
+    <main>
+      <section id="drive">
+        <h2>Drive</h2>
+        <%- include('./controls') %>
+      
+        <% if (currentUser.folders.length > 0) { %>
+          <ul>
+            <% currentUser.folders.forEach((folder) => { %>
+              <li>
+                <a href="drive/folder/<%= folder.id %>">
+                  <span><%- include('../../public/assets/icons/folder.svg') %></span>
+                  <span><%= folder.name %></span>
+                </a>
+                <button type="button" onclick="deleteItem(event)" data-action="/drive/folders/<%= folder.id %>/delete">
+                  <%- include('../../public/assets/icons/delete.svg') %>
+                </button>
+                <button type="button" onclick="openDialog(event)" data-form-type="editFolder" data-folder-id="<%= folder.id %>">Rename</button>
+              </li>
+            <% }) %>
+          </ul>
+        <% } %>
+
+        <% if (currentUser.files.length > 0) { %>
+          <ul>
+            <% currentUser.files.forEach((file) => { %>
+              <% if (!file.folderId) { %>
+                <li>
+                  <p>
+                    <span><%- include('../../public/assets/icons/file.svg') %></span>
+                    <span><%= file.name %></span>
+                  </p>
+                  <button type="button" onclick="deleteItem(event)" data-action="/drive/files/<%= file.id %>/delete">
+                    <%- include('../../public/assets/icons/delete.svg') %>
+                  </button>
+                  <button type="button" onclick="openDialog(event)" data-form-type="editFile" data-file-id="<%= file.id %>">Rename</button>
+                </li>
+              <% } %>
+            <% }) %>
+          </ul>
+        <% } %>
+      </section>
+
+      <dialog onclose="onCloseHandler()" onclick="closeDialog(event)"></dialog>
+    </main>
+    <%- include('./footer') %>
+  </body>
+</html>
