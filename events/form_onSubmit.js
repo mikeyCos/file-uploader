@@ -18,13 +18,19 @@ const onSubmit = async (e) => {
   console.log("onSubmit running...");
   console.log(e);
   console.log(e.target);
+  console.log("e.currentTarget:", e.currentTarget);
   e.preventDefault();
-  const form = e.target;
+  const form = e.currentTarget;
+  const { action } = form;
   const { formType } = form.dataset;
   const formData = new FormData(form);
+  console.log("formType:", formType);
+  console.log("action:", action);
+  console.log("window.location:", window.location);
 
   const fetchValidation = formType === "files" ? fetchFiles : fetchFolder;
-  const validationPass = await fetchValidation({
+
+  const validationPass = await fetchValidation(action, {
     method: "POST",
     body: formData,
   })
@@ -44,19 +50,25 @@ const onSubmit = async (e) => {
       return false;
     });
 
-  if (validationPass) form.submit();
+  if (validationPass) {
+    window.location.reload();
+  }
 };
 
-const fetchFiles = ({ method, body }) => {
-  return fetch(`/components/files/upload`, { method, body });
+const fetchFiles = (url, { method, body }) => {
+  console.log("fetchFiles running...");
+  console.log("url:", url);
+  // return fetch(url, { method, body });
 };
 
-const fetchFolder = ({ method, body }) => {
-  return fetch("/components/folder/create", {
-    method,
-    body: new URLSearchParams(body),
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-  });
+const fetchFolder = (url, { method, body }) => {
+  console.log("fetchFolder running...");
+  console.log("url:", url);
+  // return fetch(url, {
+  //   method,
+  //   body: new URLSearchParams(body),
+  //   headers: {
+  //     "Content-Type": "application/x-www-form-urlencoded",
+  //   },
+  // });
 };

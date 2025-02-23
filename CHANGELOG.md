@@ -1,7 +1,9 @@
 # Changelog
 ---
 ### 22 FEB 2025
-- 
+- The `button` elements in `controls.ejs` partial have a data attribute `data-action` with a path value.
+- Clicking on the delete button will show a dialog to confirm deleting the item.
+- Created `deleteForm.ejs` partial.
 ---
 ### 21 FEB 2025
 - Created `controls.ejs`, `editFileForm.ejs` and `editFolderForm.ejs` partials.

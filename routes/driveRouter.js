@@ -21,7 +21,7 @@ driveRouter.post("/folder/create", postFolderCreate);
 // PUT requests
 
 // DELETE requests
-driveRouter.delete("/folders/:folderID/delete", deleteFolder);
-driveRouter.delete("/files/:fileID/delete", deleteFile);
+driveRouter.delete("/folder/:folderID", deleteFolder);
+driveRouter.delete("/file/:fileID", deleteFile);
 
 module.exports = driveRouter;

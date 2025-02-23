@@ -8,11 +8,12 @@ const upload = require("../config/upload");
 
 const componentsController = {
   getUploadFileForm: asyncHandler(async (req, res) => {
-    console.log("res.locals:", res.locals);
+    console.log("getUploadFileForm running...");
     res.render("uploadForm");
   }),
   getAddFolderForm: asyncHandler(async (req, res) => {
     // folderName_onInput
+    console.log("getAddFolderForm running...");
     res.render("createFolderForm");
   }),
   getEditFileForm: asyncHandler(async (req, res) => {
@@ -26,6 +27,7 @@ const componentsController = {
     res.render("editFileForm", { file });
   }),
   getEditFolderForm: asyncHandler(async (req, res) => {
+    console.log("getEditFolderForm");
     console.log("req.params:", req.params);
     const { folderID } = req.params;
     const folder = await prisma.folder.findFirst({
@@ -37,12 +39,22 @@ const componentsController = {
     console.log(folder);
     res.render("editFolderForm", { folder });
   }),
+  getDeleteForm: asyncHandler(async (req, res) => {
+    console.log("getDeleteConfirm running...");
+    console.log(req.params);
+    const { fileID, folderID } = req.params;
+    // If filedID
+    //  "Are you sure you want to delete file, "filename"?"
+    // If folderID
+    //  "Are you sure you want to delete folder, "foldername"?"
+    res.render("deleteForm");
+  }),
   postAddFolderForm: [
-    validateFolder("createFolderForm"),
+    // validateFolder("createFolderForm"),
     asyncHandler(async (req, res) => {
       console.log("postAddFolderForm running...");
       console.log("req.body:", req.body);
-      res.sendStatus(200);
+      // res.sendStatus(200);
     }),
   ],
   postFilesUploadForm: [

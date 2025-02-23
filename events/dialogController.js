@@ -1,9 +1,11 @@
 const dialog = document.querySelector("dialog");
 
 const openDialog = async (e) => {
-  const { formType, folderId, fileId } = e.target.dataset;
-  const id = folderId || fileId;
-  const form = await fetchForm(formType, id);
+  const { action } = e.currentTarget.dataset;
+  console.log("e.target:", e.target);
+  console.log("e.currentTarget:", e.currentTarget);
+  console.log("action:", action);
+  const form = await fetchForm(action);
 
   dialog.append(form);
   dialog.showModal();
@@ -23,8 +25,8 @@ const stopPropagation = (e) => {
   e.stopPropagation();
 };
 
-const fetchForm = async (formType, id) => {
-  const url = `/components/${formType}${id ? `/${id}` : ""}`;
+const fetchForm = async (action) => {
+  const url = `/components/${action}`;
 
   return await fetch(url, {
     method: "GET",

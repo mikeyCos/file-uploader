@@ -1,4 +1,19 @@
-<form action="/drive/folder/edit/<%= locals.folder.id %>" onsubmit="onSubmit(event)" method="POST" onclick="stopPropagation(event)" class="form-edit-folder" data-form-type="editFolder">
+<!-- <form action="/drive/folder/edit/<%= locals.folder.id %>" onsubmit="onSubmit(event)" method="POST" onclick="stopPropagation(event)" class="form-edit-folder" data-form-type="editFolder" data-action="">
+  <h2>Rename</h2>
+  <ul>
+    <li class="form-item">
+      <label for="edit_folder">Rename</label>
+      <input type="text" name="edit_folder" id="edit_folder" value="<%= locals.folder.name %>">
+      <% if (locals.errors?.edit_folder) { %>
+        <p class="input-error active-error"><%= errors?.edit_folder.msg %></p>
+      <% } %>
+    </li>
+  </ul>
+  <button type="button" onclick="closeDialog()">Cancel</button>
+  <button type="submit">Ok</button>
+</form> -->
+
+<form action="/drive/folder/edit/<%= locals.folder.id %>" onsubmit="onSubmit(event)" method="dialog" onclick="stopPropagation(event)" class="form-edit-folder" data-form-type="editFolder" data-action="">
   <h2>Rename</h2>
   <ul>
     <li class="form-item">

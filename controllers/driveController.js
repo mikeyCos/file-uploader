@@ -15,7 +15,7 @@ const driveController = {
     console.log("req.params:", req.params);
   }),
   postFolderCreate: [
-    validateFolder("drive"),
+    validateFolder("createFolderForm"),
     asyncHandler(async (req, res) => {
       console.log("postFolderCreate running...");
       console.log("req.user:", req.user);
@@ -36,7 +36,7 @@ const driveController = {
   ],
   postFilesUpload: [
     upload,
-    validateUpload("drive"),
+    validateUpload("uploadForm"),
     asyncHandler(async (req, res) => {
       console.log("postFilesUpload running...");
       console.log("req.body:", req.body);

@@ -14,8 +14,8 @@ const folderSchema = {
       errorMessage: "Folder name cannot be empty.",
     },
     isLength: {
-      options: { max: 2 },
-      errorMessage: "Folder name cannot exceed 2 characters in length.",
+      options: { max: 10 },
+      errorMessage: "Folder name cannot exceed 10 characters in length.",
     },
     escape: true,
   },
