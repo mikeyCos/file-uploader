@@ -17,18 +17,20 @@ const componentsController = {
     res.render("createFolderForm");
   }),
   getEditFileForm: asyncHandler(async (req, res) => {
-    console.log("req.params:", req.params);
+    console.log("getEditFileForm");
     const { fileID } = req.params;
     const file = await prisma.file.findFirst({
       where: {
         id: fileID,
       },
     });
-    res.render("editFileForm", { file });
+
+    res.render("editFileForm", {
+      file,
+    });
   }),
   getEditFolderForm: asyncHandler(async (req, res) => {
     console.log("getEditFolderForm");
-    console.log("req.params:", req.params);
     const { folderID } = req.params;
     const folder = await prisma.folder.findFirst({
       where: {
@@ -36,18 +38,33 @@ const componentsController = {
       },
     });
 
-    console.log(folder);
-    res.render("editFolderForm", { folder });
+    res.render("editFolderForm", {
+      folder,
+    });
   }),
-  getDeleteForm: asyncHandler(async (req, res) => {
-    console.log("getDeleteConfirm running...");
-    console.log(req.params);
-    const { fileID, folderID } = req.params;
-    // If filedID
-    //  "Are you sure you want to delete file, "filename"?"
-    // If folderID
-    //  "Are you sure you want to delete folder, "foldername"?"
-    res.render("deleteForm");
+  getDeleteFileForm: asyncHandler(async (req, res) => {
+    console.log("getDeleteFileForm running...");
+    const { fileID } = req.params;
+    const file = await prisma.file.findFirst({
+      where: {
+        id: fileID,
+      },
+    });
+    res.render("deleteFileForm", {
+      msg: `Are you sure you want to delete file, "${file.name}"?`,
+    });
+  }),
+  getDeleteFolderForm: asyncHandler(async (req, res) => {
+    console.log("getDeleteFolderForm running...");
+    const { folderID } = req.params;
+    const folder = await prisma.folder.findFirst({
+      where: {
+        id: folderID,
+      },
+    });
+    res.render("deleteFolderForm", {
+      msg: `Are you sure you want to delete folder, "${folder.name}"?`,
+    });
   }),
   postAddFolderForm: [
     // validateFolder("createFolderForm"),

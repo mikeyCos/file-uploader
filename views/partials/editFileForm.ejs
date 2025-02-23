@@ -1,9 +1,9 @@
-<form action="/drive/file/edit/<%= locals.file.id %>" onsubmit="onSubmit(event)" method="POST" onclick="stopPropagation(event)" class="form-edit-file" data-form-type="editFile" data-action="">
+<form action="/drive/file/edit/<%= file.id %>" onsubmit="onSubmit(event)" method="POST" onclick="stopPropagation(event)" class="form-edit-file" data-form-type="editFile" data-method="PUT">
   <h2>Rename</h2>
   <ul>
     <li class="form-item">
       <label for="edit_file">Rename</label>
-      <input type="text" name="edit_file" id="edit_file" value="<%= locals.file.name %>">
+      <input type="text" name="edit_file" id="edit_file" value="<%= file.name %>">
       <% if (locals.errors?.edit_file) { %>
         <p class="input-error active-error"><%= errors?.edit_file.msg %></p>
       <% } %>

@@ -1,5 +1,11 @@
 # Changelog
 ---
+### 23 FEB 2025
+- 
+- Separated component routes for `/form/file/edit/:fileID`, `/form/folder/edit/:folderID`, `/form/file/delete/:fileID`, and `/form/folder/delete/:folderID` paths; each path has their own endpoint.
+- Created `deleteFileForm.ejs` and `deleteFolderForm.ejs` partials.
+- Deleted `deleteForm.ejs`.
+---
 ### 22 FEB 2025
 - The `button` elements in `controls.ejs` partial have a data attribute `data-action` with a path value.
 - Clicking on the delete button will show a dialog to confirm deleting the item.

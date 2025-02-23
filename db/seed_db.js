@@ -97,6 +97,10 @@ const seedDB = async () => {
         accountId: accounts[0].id,
         folderId: billDozerAfterFolder.folders[0].id,
       },
+      {
+        name: "A file 0",
+        accountId: billDozerAfterFolder.id,
+      },
     ],
   });
 

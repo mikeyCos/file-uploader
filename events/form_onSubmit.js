@@ -22,15 +22,14 @@ const onSubmit = async (e) => {
   e.preventDefault();
   const form = e.currentTarget;
   const { action } = form;
-  const { formType } = form.dataset;
+  const { method } = form.dataset;
   const formData = new FormData(form);
-  console.log("formType:", formType);
   console.log("action:", action);
   console.log("window.location:", window.location);
 
-  const fetchValidation = formType === "files" ? fetchFiles : fetchFolder;
+  // const fetchValidation = formType === "files" ? fetchFiles : fetchFolder;
 
-  const validationPass = await fetchValidation(action, {
+  /* const validationPass = await fetchValidation(action, {
     method: "POST",
     body: formData,
   })
@@ -52,7 +51,7 @@ const onSubmit = async (e) => {
 
   if (validationPass) {
     window.location.reload();
-  }
+  } */
 };
 
 const fetchFiles = (url, { method, body }) => {
@@ -72,3 +71,7 @@ const fetchFolder = (url, { method, body }) => {
   //   },
   // });
 };
+
+const fetchDelete = () => {};
+
+const fetchPut = () => {};

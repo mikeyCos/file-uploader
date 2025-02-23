@@ -12,16 +12,19 @@ const openDialog = async (e) => {
 };
 
 const closeDialog = (e) => {
+  console.log("closeDialog running...");
   dialog.close();
 };
 
 const onCloseHandler = () => {
+  console.log("onCloseHandler running...");
   const form = dialog.querySelector("form");
   form.remove();
 };
 
 // stopPropagation on the dialog element's child/children element(s)
 const stopPropagation = (e) => {
+  console.log("stopPropagation running...");
   e.stopPropagation();
 };
 
