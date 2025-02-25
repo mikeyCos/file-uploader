@@ -21,7 +21,7 @@ const driveController = {
       console.log("req.user:", req.user);
       console.log("req.body:", req.body);
       console.log("res.locals", res.locals);
-
+      // Could append or prepend
       await prisma.folder.create({
         data: {
           name: req.body.folder_name,
@@ -31,7 +31,8 @@ const driveController = {
         },
       });
 
-      res.redirect("/drive");
+      // res.redirect("/drive");
+      res.sendStatus(200);
     }),
   ],
   postFilesUpload: [
@@ -41,7 +42,49 @@ const driveController = {
       console.log("postFilesUpload running...");
       console.log("req.body:", req.body);
       console.log("req.files:", req.files);
-      res.redirect("/drive");
+      // res.redirect("/drive");
+      // Could append or prepend
+      res.sendStatus(200);
+    }),
+  ],
+  putFile: [
+    asyncHandler(async (req, res) => {
+      console.log("putFile running...");
+      console.log("req.params:", req.params);
+      console.log("req.body:", req.body);
+      const { fileID } = req.params;
+      const { file_name } = req.body;
+      const file = await prisma.file.update({
+        where: {
+          id: fileID,
+        },
+        data: {
+          name: file_name,
+        },
+      });
+
+      // res.sendStatus(200);
+      res.render("itemFile", { file });
+    }),
+  ],
+  putFolder: [
+    asyncHandler(async (req, res) => {
+      console.log("putFolder running...");
+      console.log("req.params:", req.params);
+      console.log("req.body:", req.body);
+      const { folderID } = req.params;
+      const { folder_name } = req.body;
+      const folder = await prisma.folder.update({
+        where: {
+          id: folderID,
+        },
+        data: {
+          name: folder_name,
+        },
+      });
+
+      // res.sendStatus(200);
+      res.render("itemFolder", { folder });
     }),
   ],
   deleteFolder: asyncHandler(async (req, res) => {
@@ -65,12 +108,12 @@ const driveController = {
     console.log("deleteFile running...");
 
     // Need to validate req.params.fileID
-    const { fileID } = req.params;
+    /* const { fileID } = req.params;
     await prisma.file.delete({
       where: {
         id: fileID,
       },
-    });
+    }); */
 
     res.sendStatus(200);
   }),

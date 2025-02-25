@@ -11,16 +11,7 @@
         <% if (currentUser.folders.length > 0) { %>
           <ul class="folders">
             <% currentUser.folders.forEach((folder) => { %>
-              <li>
-                <a href="drive/folder/<%= folder.id %>">
-                  <span><%- include('../../public/assets/icons/folder.svg') %></span>
-                  <span><%= folder.name %></span>
-                </a>
-                <button type="button" onclick="openDialog(event)" data-action="form/folder/delete/<%= folder.id %>" data-method="delete">
-                  <%- include('../../public/assets/icons/delete.svg') %>
-                </button>
-                <button type="button" onclick="openDialog(event)" data-action="form/folder/edit/<%= folder.id %>">Rename</button>
-              </li>
+              <%- include('./itemFolder', { folder }) %>
             <% }) %>
           </ul>
         <% } %>
@@ -29,16 +20,7 @@
           <ul class="files">
             <% currentUser.files.forEach((file) => { %>
               <% if (!file.folderId) { %>
-                <li>
-                  <p>
-                    <span><%- include('../../public/assets/icons/file.svg') %></span>
-                    <span><%= file.name %></span>
-                  </p>
-                  <button type="button" onclick="openDialog(event)" data-action="form/file/delete/<%= file.id %>" data-method="delete">
-                    <%- include('../../public/assets/icons/delete.svg') %>
-                  </button>
-                  <button type="button" onclick="openDialog(event)" data-action="form/file/edit/<%= file.id %>">Rename</button>
-                </li>
+                <%- include('./itemFile', { file }) %>
               <% } %>
             <% }) %>
           </ul>

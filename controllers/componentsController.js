@@ -18,6 +18,7 @@ const componentsController = {
   }),
   getEditFileForm: asyncHandler(async (req, res) => {
     console.log("getEditFileForm");
+    console.log(req.params);
     const { fileID } = req.params;
     const file = await prisma.file.findFirst({
       where: {
@@ -31,6 +32,7 @@ const componentsController = {
   }),
   getEditFolderForm: asyncHandler(async (req, res) => {
     console.log("getEditFolderForm");
+    console.log(req.params);
     const { folderID } = req.params;
     const folder = await prisma.folder.findFirst({
       where: {
@@ -51,6 +53,7 @@ const componentsController = {
       },
     });
     res.render("deleteFileForm", {
+      fileID,
       msg: `Are you sure you want to delete file, "${file.name}"?`,
     });
   }),
@@ -63,28 +66,10 @@ const componentsController = {
       },
     });
     res.render("deleteFolderForm", {
+      folderID,
       msg: `Are you sure you want to delete folder, "${folder.name}"?`,
     });
   }),
-  postAddFolderForm: [
-    // validateFolder("createFolderForm"),
-    asyncHandler(async (req, res) => {
-      console.log("postAddFolderForm running...");
-      console.log("req.body:", req.body);
-      // res.sendStatus(200);
-    }),
-  ],
-  postFilesUploadForm: [
-    upload,
-    validateUpload("uploadForm"),
-    asyncHandler(async (req, res) => {
-      console.log("postFilesUploadForm running...");
-      console.log("req.body:", req.body);
-      console.log("req.files:", req.files);
-
-      res.sendStatus(200);
-    }),
-  ],
 };
 
 module.exports = componentsController;

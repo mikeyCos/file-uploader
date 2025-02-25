@@ -1,10 +1,21 @@
 # Changelog
 ---
+### 24 FEB 2025
+- Adding a folder will refresh the page with `window.location.reload();`.
+- Created `itemFile.ejs` and `itemFolder.ejs` partials.
+- Removed `post*` methods from `componentsController.js` module.
+- The `onSubmit` asynchronous function now accepts a callback function; these callback functions will call the form's specific `fetch` function and manipulate the DOM.
+- Added `data-item-id` attribute to forms for `PUT` and `DELETE` requests.
+- Removed `data-method` and `data-form-type` attributes from forms.
+---
 ### 23 FEB 2025
-- 
+- The `name_onInput.js` module now selects the submit button based on the input's form instead of selecting from the `document`. 
+- Changed `folderName_onInput.js` to `name_onInput.js`.
+- new commit
 - Separated component routes for `/form/file/edit/:fileID`, `/form/folder/edit/:folderID`, `/form/file/delete/:fileID`, and `/form/folder/delete/:folderID` paths; each path has their own endpoint.
 - Created `deleteFileForm.ejs` and `deleteFolderForm.ejs` partials.
 - Deleted `deleteForm.ejs`.
+- All `form` elements in a `dialog` element will have the attribute `method="dialog"`. 
 ---
 ### 22 FEB 2025
 - The `button` elements in `controls.ejs` partial have a data attribute `data-action` with a path value.

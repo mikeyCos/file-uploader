@@ -8,8 +8,6 @@ const {
   getEditFolderForm,
   getDeleteFileForm,
   getDeleteFolderForm,
-  postAddFolderForm,
-  postFilesUploadForm,
 } = require("../controllers/componentsController");
 
 const componentsRouter = new Router();
@@ -27,7 +25,9 @@ componentsRouter.get("/form/file/delete/:fileID", getDeleteFileForm);
 componentsRouter.get("/form/folder/delete/:folderID", getDeleteFolderForm);
 
 // POST requests
-componentsRouter.post("/form/folder/create", postAddFolderForm);
-componentsRouter.post("/form/files/upload", postFilesUploadForm);
+// componentsRouter.post("/form/folder/create", postAddFolderForm);
+// componentsRouter.post("/form/files/upload", postFilesUploadForm);
+// componentsRouter.post("/form/file/edit/:fileID", postEditFileForm);
+// componentsRouter.post("/form/folder/edit/:folderID", postEditFolderForm);
 
 module.exports = componentsRouter;

@@ -1,11 +1,11 @@
-<form action="/drive/folder/edit/<%= folder.id %>" onsubmit="onSubmit(event)" method="dialog" onclick="stopPropagation(event)" class="form-edit-folder" data-form-type="editFolder" data-method="PUT">
+<form action="/drive/folder/<%= folder.id %>" onsubmit="onSubmit(event, editItem)" method="dialog" onclick="stopPropagation(event)" class="form-edit-folder" data-item-id="<%= folder.id %>">
   <h2>Rename</h2>
   <ul>
     <li class="form-item">
-      <label for="edit_folder">Rename</label>
-      <input type="text" name="edit_folder" id="edit_folder" oninput="folderName_onInput(event)"  value="<%= folder.name %>">
-      <% if (locals.errors?.edit_folder) { %>
-        <p class="input-error active-error"><%= errors?.edit_folder.msg %></p>
+      <label for="folder_name">Rename</label>
+      <input type="text" name="folder_name" id="folder_name" oninput="name_onInput(event)"  value="<%= folder.name %>">
+      <% if (locals.errors?.folder_name) { %>
+        <p class="input-error active-error"><%= errors?.folder_name.msg %></p>
       <% } %>
     </li>
   </ul>

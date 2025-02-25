@@ -4,6 +4,8 @@ const {
   getDriveFolder,
   postFilesUpload,
   postFolderCreate,
+  putFile,
+  putFolder,
   deleteFolder,
   deleteFile,
 } = require("../controllers/driveController");
@@ -19,9 +21,11 @@ driveRouter.post("/files/upload", postFilesUpload);
 driveRouter.post("/folder/create", postFolderCreate);
 
 // PUT requests
+driveRouter.put("/file/:fileID");
+driveRouter.put("/folder/:folder");
 
 // DELETE requests
-driveRouter.delete("/folder/:folderID", deleteFolder);
 driveRouter.delete("/file/:fileID", deleteFile);
+driveRouter.delete("/folder/:folderID", deleteFolder);
 
 module.exports = driveRouter;
