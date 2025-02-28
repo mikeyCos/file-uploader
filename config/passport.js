@@ -34,15 +34,16 @@ passport.serializeUser((account, done) => {
 
 passport.deserializeUser(async (id, done) => {
   console.log("deserializeUser running...");
+  // What attributes should be included and excluded on the current user?
   try {
     const account = await prisma.account.findFirst({
       where: {
         id: id,
       },
-      include: {
-        folders: true,
-        files: true,
-      },
+      // include: {
+      //   folders: true,
+      //   files: true,
+      // },
       omit: {
         password: true,
       },

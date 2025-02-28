@@ -54,32 +54,6 @@ const onSubmit = async (e, cb) => {
   //    Do something...
 
   // Refresh the current page or manipulate the DOM?
-
-  // const fetchValidation = formType === "files" ? fetchFiles : fetchFolder;
-
-  /* const validationPass = await fetchValidation(action, {
-    method: "POST",
-    body: formData,
-  })
-    .then(async (res) => {
-      if (!res.ok) {
-        const rawHTML = await res.text();
-        // return Promise.reject(rawHTML);
-        throw new Error(rawHTML);
-      }
-
-      return true;
-    })
-    .catch((err) => {
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(err, "text/html");
-      form.replaceWith(doc.querySelector("form"));
-      return false;
-    });
-
-  if (validationPass) {
-    window.location.reload();
-  } */
 };
 
 const uploadFiles = async (url, { body }) => {
@@ -93,19 +67,17 @@ const uploadFiles = async (url, { body }) => {
         throw new Error(rawHTML);
       }
 
-      // return true;
+      // Render new list of files?
+      // Replace old list with new list of files
+      window.location.reload();
+      return { ok: true };
     })
     .catch((err) => {
       const parser = new DOMParser();
       const doc = parser.parseFromString(err, "text/html");
-      form.replaceWith(doc.querySelector("form"));
-      // return false;
+      const newForm = doc.querySelector("form");
+      return { ok: false, newForm };
     });
-
-  // If response.ok is true
-  //    Do something
-  // If response.ok is false
-  //    Throw new error
 };
 
 const createFolder = async (url, { body }) => {
@@ -125,6 +97,8 @@ const createFolder = async (url, { body }) => {
         throw new Error(rawHTML);
       }
 
+      // Render new list of folders?
+      // Replace old list with new list of folders
       window.location.reload();
       return { ok: true };
     })
@@ -136,12 +110,6 @@ const createFolder = async (url, { body }) => {
       // return false;
       return { ok: false, newForm };
     });
-
-  // If response.ok is true
-  //    Do something
-  // If response.ok is false
-  //    Throw new error
-  //    Replace form with new form
 };
 
 const editItem = async (url, { body, itemId }) => {
@@ -149,27 +117,30 @@ const editItem = async (url, { body, itemId }) => {
   console.log("url:", url);
   return fetch(url, { method: "PUT", body: new URLSearchParams(body) })
     .then(async (res) => {
+      console.log(res);
       const rawHTML = await res.text();
-      if (res.ok) {
-        return rawHTML;
+      if (!res.ok) {
+        throw new Error(rawHTML);
       }
 
-      throw new Error(rawHTML);
+      return rawHTML;
     })
     .then(async (html) => {
       const parser = new DOMParser();
       const doc = parser.parseFromString(html, "text/html");
+      const newItem = doc.querySelector("li");
+      const oldItem = document.querySelector(`li[data-item-id="${itemId}"]`);
+
+      oldItem.replaceWith(newItem);
+      return { ok: true };
     })
     .catch((err) => {
+      console.log(err);
       const parser = new DOMParser();
       const doc = parser.parseFromString(err, "text/html");
-      form.replaceWith(doc.querySelector("form"));
+      const newForm = doc.querySelector("form");
+      return { ok: false, newForm };
     });
-  // Need item from DOM
-  // If response.ok is true
-  //    Refresh page
-  //    OR
-  //    Replace item with new item(?)
 };
 
 const deleteItem = async (url, { itemId }) => {

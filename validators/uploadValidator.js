@@ -50,7 +50,7 @@ const validateFileSize = (filename, bytes) => {
 const validateFiles = async (values, { req }) => {
   console.log("validateFiles running...");
   console.log("req.files:", req.files);
-  const filesLimit = 10;
+  const filesLimit = 2;
   const { files } = req;
 
   // Is this needed if submit button is disabled?
@@ -58,7 +58,7 @@ const validateFiles = async (values, { req }) => {
   if (files.length > filesLimit)
     throw new Error("The number of files exceed limit.");
 
-  files.every((file) => {
+  for (const file in files) {
     const { originalname, mimetype, size } = file;
     const filenameArr = originalname.split(".");
     const ext = filenameArr[filenameArr.length - 1];
@@ -66,7 +66,7 @@ const validateFiles = async (values, { req }) => {
     validateFileExtension(ext);
     validateFileMIMEType(ext, mimetype);
     validateFileSize(originalname, size);
-  });
+  }
 };
 
 const filesSchema = {
@@ -81,7 +81,6 @@ const filesSchema = {
 
 const validateUpload = (view) => {
   return asyncHandler(async (req, res, next) => {
-    // checkSchema(filesSchema, ["body"]);
     console.log("testing...");
     await checkSchema(filesSchema, ["body"]).run(req);
     const errors = validationResult(req);
@@ -97,5 +96,7 @@ const validateUpload = (view) => {
     next();
   });
 };
+
+// How to separate validation for file name?
 
 module.exports = validateUpload;

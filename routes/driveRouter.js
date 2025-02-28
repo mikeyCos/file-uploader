@@ -21,8 +21,8 @@ driveRouter.post("/files/upload", postFilesUpload);
 driveRouter.post("/folder/create", postFolderCreate);
 
 // PUT requests
-driveRouter.put("/file/:fileID");
-driveRouter.put("/folder/:folder");
+driveRouter.put("/file/:fileID", putFile);
+driveRouter.put("/folder/:folderID", putFolder);
 
 // DELETE requests
 driveRouter.delete("/file/:fileID", deleteFile);

@@ -1,5 +1,14 @@
 # Changelog
 ---
+### 27 FEB 2025
+- Folders and files are selected in with `getDrive` method in `driveController.js` module.
+- Omitted `folders` and `files` attributes from `prisma.account.findFirst()` in `passport.js` module.
+- Deleted `fileValidator.js` module.
+- Submitting `form .form-edit-folder` will validate the input and either submit the form or re-render the form with an error message.
+- Renamed `createFolderValidator.js` module to `folderValidator.js`.
+- Editing an item will replace the old list item with a new list item.
+- Created `folder.ejs` page.
+---
 ### 24 FEB 2025
 - Adding a folder will refresh the page with `window.location.reload();`.
 - Created `itemFile.ejs` and `itemFolder.ejs` partials.

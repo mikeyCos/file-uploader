@@ -1,10 +1,5 @@
 const asyncHandler = require("express-async-handler");
-const { validationResult, matchedData } = require("express-validator");
-const validateFolder = require("../validators/createFolderValidator");
-const validateUpload = require("../validators/uploadValidator");
-// const uploadFiles = require("../config/upload");
 const prisma = require("../db/prisma");
-const upload = require("../config/upload");
 
 const componentsController = {
   getUploadFileForm: asyncHandler(async (req, res) => {

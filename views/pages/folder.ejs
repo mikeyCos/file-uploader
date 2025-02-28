@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-  <%- include('./head', { title: "Drive" }) %>
+  <%- include('./head', { title: "Folder" }) %>
   <body>
     <%- include('./header') %>
     <main>
       <section id="drive">
-        <h2>Drive</h2>
+        <h2><%= folder.name %></h2>
         <%- include('./controls') %>
       
-        <% if (folders.length > 0) { %>
+        <!-- <% if (currentUser.folders.length > 0) { %>
           <ul class="folders">
-            <% folders.forEach((folder) => { %>
+            <% currentUser.folders.forEach((folder) => { %>
               <%- include('./itemFolder', { folder }) %>
             <% }) %>
           </ul>
-        <% } %>
+        <% } %> -->
 
-        <% if (files.length > 0) { %>
+        <% if (folder.files.length > 0) { %>
           <ul class="files">
-            <% files.forEach((file) => { %>
+            <% folder.files.forEach((file) => { %>
               <%- include('./itemFile', { file }) %>
             <% }) %>
           </ul>

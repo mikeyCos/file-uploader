@@ -2,17 +2,37 @@ const asyncHandler = require("express-async-handler");
 const upload = require("../config/upload");
 const prisma = require("../db/prisma");
 const validateUpload = require("../validators/uploadValidator");
-
-const validateFolder = require("../validators/createFolderValidator");
+const validateFilename = require("../validators/filenameValidator");
+const validateFolder = require("../validators/folderValidator");
 
 const driveController = {
   getDrive: asyncHandler(async (req, res) => {
     console.log("getDrive running...");
-    res.render("drive");
+    const folders = await prisma.folder.findMany();
+    const files = await prisma.file.findMany({
+      where: {
+        folderId: null,
+      },
+    });
+    res.render("drive", { folders, files });
   }),
   getDriveFolder: asyncHandler(async (req, res) => {
     console.log("getDriveFolder running...");
     console.log("req.params:", req.params);
+    const { folderID } = req.params;
+    const folder = await prisma.folder.findFirst({
+      where: {
+        id: folderID,
+      },
+      include: {
+        files: true,
+      },
+    });
+
+    console.log(folder);
+
+    res.render("folder", { folder });
+    // res.sendStatus(200);
   }),
   postFolderCreate: [
     validateFolder("createFolderForm"),
@@ -32,6 +52,8 @@ const driveController = {
       });
 
       // res.redirect("/drive");
+      // Re-render folders?
+      // Could append or prepend or replaceWith
       res.sendStatus(200);
     }),
   ],
@@ -43,11 +65,13 @@ const driveController = {
       console.log("req.body:", req.body);
       console.log("req.files:", req.files);
       // res.redirect("/drive");
-      // Could append or prepend
+      // Re-render files?
+      // Could append or prepend or replaceWith
       res.sendStatus(200);
     }),
   ],
   putFile: [
+    validateFilename("editFileForm"),
     asyncHandler(async (req, res) => {
       console.log("putFile running...");
       console.log("req.params:", req.params);
@@ -63,17 +87,17 @@ const driveController = {
         },
       });
 
-      // res.sendStatus(200);
-      res.render("itemFile", { file });
+      res.status(200).render("itemFile", { file });
     }),
   ],
   putFolder: [
+    validateFolder("editFolderForm"),
     asyncHandler(async (req, res) => {
       console.log("putFolder running...");
       console.log("req.params:", req.params);
       console.log("req.body:", req.body);
       const { folderID } = req.params;
-      const { folder_name } = req.body;
+      const { folder_name } = res.locals;
       const folder = await prisma.folder.update({
         where: {
           id: folderID,
@@ -83,14 +107,13 @@ const driveController = {
         },
       });
 
-      // res.sendStatus(200);
+      // Is it bad practice to change the req.method?
+      // req.method = "GET";
+      // res.status(200).render("itemFolder", { folder });
       res.render("itemFolder", { folder });
     }),
   ],
   deleteFolder: asyncHandler(async (req, res) => {
-    console.log("deleteFolder running...");
-    console.log("req.params:", req.params);
-    console.log("req.method:", req.method);
     // Need to validate req.params.folderID
     const { folderID } = req.params;
     await prisma.folder.delete({
