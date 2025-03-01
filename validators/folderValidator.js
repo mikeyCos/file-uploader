@@ -4,7 +4,6 @@ const {
   validationResult,
   matchedData,
 } = require("express-validator");
-const { folder } = require("../db/prisma");
 
 const folderSchema = {
   folder_name: {
@@ -26,12 +25,12 @@ const validateFolder = (view) => {
   return asyncHandler(async (req, res, next) => {
     await checkSchema(folderSchema, ["body"]).run(req);
     const errors = validationResult(req);
-    const inputs = matchedData(req, { onlyValidData: false });
 
     if (!errors.isEmpty()) {
       console.log("req.params:", req.params);
+      const inputs = matchedData(req, { onlyValidData: false });
       const { folderID } = req.params;
-      console.log(folderID);
+      console.log("folderID:", folderID);
       return res.status(422).render(view, {
         errors: errors.mapped(),
         inputs,
@@ -39,11 +38,11 @@ const validateFolder = (view) => {
       });
     }
 
-    res.locals.folder_name = matchedData(req, { onlyValidData: true });
+    res.locals.validData = matchedData(req, { onlyValidData: true });
     next();
   });
 };
 
-// How to separate validation for folder name?
+// Can I reuse this for filename?
 
 module.exports = validateFolder;

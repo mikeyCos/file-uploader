@@ -17,6 +17,12 @@ driveRouter.get("/", getDrive);
 driveRouter.get("/folder/:folderID", getDriveFolder);
 
 // POST requests
+// Need a way to reference the folder
+// /drive/folder/4fb7c85a-25ab-46e5-9194-ccb78acab261
+// /drive
+// /drive/folder/:folderID/files/upload
+// /drive/files/upload
+// driveRouter.post("(/folder/:folderID)?/files/upload", postFilesUpload);
 driveRouter.post("/files/upload", postFilesUpload);
 driveRouter.post("/folder/create", postFolderCreate);
 

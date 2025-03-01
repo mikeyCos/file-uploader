@@ -24,10 +24,7 @@ const onSubmit = async (e, cb) => {
   const { action } = form;
   const { itemId } = form.dataset;
   const formData = new FormData(form);
-  console.log("action:", action);
-  console.log("itemId:", itemId);
   console.log("window.location:", window.location);
-  console.log(cb);
   const { ok, newForm } = await cb(action, { body: formData, itemId });
 
   console.log("ok:", ok);
@@ -69,7 +66,11 @@ const uploadFiles = async (url, { body }) => {
 
       // Render new list of files?
       // Replace old list with new list of files
-      window.location.reload();
+      // Where is window.location.reload in the call stack?
+      setTimeout(() => {
+        window.location.reload();
+      }, 0);
+      // window.location.reload();
       return { ok: true };
     })
     .catch((err) => {
@@ -99,7 +100,10 @@ const createFolder = async (url, { body }) => {
 
       // Render new list of folders?
       // Replace old list with new list of folders
-      window.location.reload();
+      setTimeout(() => {
+        window.location.reload();
+      }, 0);
+      // window.location.reload();
       return { ok: true };
     })
     .catch((err) => {

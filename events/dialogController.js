@@ -1,12 +1,13 @@
 const dialog = document.querySelector("dialog");
 
 const openDialog = async (e) => {
-  const { action } = e.currentTarget.dataset;
-  console.log("e.target:", e.target);
+  const { url } = e.currentTarget.dataset;
   console.log("e.currentTarget:", e.currentTarget);
-  console.log("action:", action);
-  const form = await fetchForm(action);
-
+  console.log("e.currentTarget.dataset:", e.currentTarget.dataset);
+  console.log("url:", url);
+  const form = await fetchForm(url);
+  console.log(form);
+  console.log("window.location:", window.location);
   dialog.append(form);
   dialog.showModal();
 };
@@ -28,10 +29,9 @@ const stopPropagation = (e) => {
   e.stopPropagation();
 };
 
-const fetchForm = async (action) => {
-  const url = `/components/${action}`;
-
-  return await fetch(url, {
+const fetchForm = async (url) => {
+  const fetchURL = `/components/${url}`;
+  return await fetch(fetchURL, {
     method: "GET",
   })
     .then((res) => {

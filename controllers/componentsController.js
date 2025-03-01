@@ -4,11 +4,13 @@ const prisma = require("../db/prisma");
 const componentsController = {
   getUploadFileForm: asyncHandler(async (req, res) => {
     console.log("getUploadFileForm running...");
+    console.log("req.body:", req.body);
     res.render("uploadForm");
   }),
   getAddFolderForm: asyncHandler(async (req, res) => {
     // folderName_onInput
     console.log("getAddFolderForm running...");
+    console.log("req.body:", req.body);
     res.render("createFolderForm");
   }),
   getEditFileForm: asyncHandler(async (req, res) => {

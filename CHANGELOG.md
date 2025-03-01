@@ -1,5 +1,9 @@
 # Changelog
 ---
+### 28 FEB 2025
+- Renamed `data-action` to `data-url`.
+- Replaced logical OR, `||`, operator with nullish coalescing, `??`, operator for `editFileForm.ejs` and `editFolderForm.ejs` partials. 
+---
 ### 27 FEB 2025
 - Folders and files are selected in with `getDrive` method in `driveController.js` module.
 - Omitted `folders` and `files` attributes from `prisma.account.findFirst()` in `passport.js` module.

@@ -8,17 +8,27 @@ const validateFolder = require("../validators/folderValidator");
 const driveController = {
   getDrive: asyncHandler(async (req, res) => {
     console.log("getDrive running...");
+    console.log("req.baseUrl:", req.baseUrl);
+    console.log("req.originalUrl:", req.originalUrl);
+
     const folders = await prisma.folder.findMany();
     const files = await prisma.file.findMany({
       where: {
         folderId: null,
       },
     });
-    res.render("drive", { folders, files });
+
+    res.render("drive", {
+      folders,
+      files,
+    });
   }),
   getDriveFolder: asyncHandler(async (req, res) => {
     console.log("getDriveFolder running...");
     console.log("req.params:", req.params);
+    console.log("req.baseUrl:", req.baseUrl);
+    console.log("req.originalUrl:", req.originalUrl);
+    // Need to validate req.params.folderID
     const { folderID } = req.params;
     const folder = await prisma.folder.findFirst({
       where: {
@@ -29,9 +39,12 @@ const driveController = {
       },
     });
 
-    console.log(folder);
+    console.log("folder:", { folder });
 
-    res.render("folder", { folder });
+    res.render("folder", {
+      folder,
+    });
+    // res.render("folder");
     // res.sendStatus(200);
   }),
   postFolderCreate: [
@@ -41,10 +54,11 @@ const driveController = {
       console.log("req.user:", req.user);
       console.log("req.body:", req.body);
       console.log("res.locals", res.locals);
+      const { folder_name } = res.locals.validData;
       // Could append or prepend
       await prisma.folder.create({
         data: {
-          name: req.body.folder_name,
+          name: folder_name,
           account: {
             connect: { id: req.user.id },
           },
@@ -64,7 +78,8 @@ const driveController = {
       console.log("postFilesUpload running...");
       console.log("req.body:", req.body);
       console.log("req.files:", req.files);
-      // res.redirect("/drive");
+      // How to upload files in a folder?
+      //  Need folder's id
       // Re-render files?
       // Could append or prepend or replaceWith
       res.sendStatus(200);
@@ -75,9 +90,10 @@ const driveController = {
     asyncHandler(async (req, res) => {
       console.log("putFile running...");
       console.log("req.params:", req.params);
-      console.log("req.body:", req.body);
+      console.log("res.locals:", res.locals);
+      // Need to validate req.params.folderID
       const { fileID } = req.params;
-      const { file_name } = req.body;
+      const { file_name } = res.locals.validData;
       const file = await prisma.file.update({
         where: {
           id: fileID,
@@ -96,8 +112,10 @@ const driveController = {
       console.log("putFolder running...");
       console.log("req.params:", req.params);
       console.log("req.body:", req.body);
+      console.log("res.locals:", res.locals);
+      // Need to validate req.params.folderID
       const { folderID } = req.params;
-      const { folder_name } = res.locals;
+      const { folder_name } = res.locals.validData;
       const folder = await prisma.folder.update({
         where: {
           id: folderID,
@@ -107,6 +125,7 @@ const driveController = {
         },
       });
 
+      console.log("folder:", folder);
       // Is it bad practice to change the req.method?
       // req.method = "GET";
       // res.status(200).render("itemFolder", { folder });

@@ -3,8 +3,8 @@
     <span><%- include('../../public/assets/icons/folder.svg') %></span>
     <span><%= folder.name %></span>
   </a>
-  <button type="button" onclick="openDialog(event)" data-action="form/folder/delete/<%= folder.id %>">
+  <button type="button" onclick="openDialog(event)" data-url="form/folder/delete/<%= folder.id %>">
     <%- include('../../public/assets/icons/delete.svg') %>
   </button>
-  <button type="button" onclick="openDialog(event)" data-action="form/folder/edit/<%= folder.id %>">Rename</button>
+  <button type="button" onclick="openDialog(event)" data-url="form/folder/edit/<%= folder.id %>">Rename</button>
 </li>

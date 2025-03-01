@@ -1,4 +1,4 @@
-<form action="/drive/folder/<%= locals.folder?.id || locals.folderID %>" onsubmit="onSubmit(event, editItem)" method="dialog" onclick="stopPropagation(event)" class="form-edit-folder" data-item-id="<%= locals.folder?.id || locals.folderID %>">
+<form action="/drive/folder/<%= locals.folderID ?? folder.id %>" onsubmit="onSubmit(event, editItem)" method="dialog" onclick="stopPropagation(event)" class="form-edit-folder" data-item-id="<%= locals.folderID ?? folder.id %>">
   <h2>Rename</h2>
   <ul>
     <li class="form-item">

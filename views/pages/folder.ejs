@@ -7,14 +7,6 @@
       <section id="drive">
         <h2><%= folder.name %></h2>
         <%- include('./controls') %>
-      
-        <!-- <% if (currentUser.folders.length > 0) { %>
-          <ul class="folders">
-            <% currentUser.folders.forEach((folder) => { %>
-              <%- include('./itemFolder', { folder }) %>
-            <% }) %>
-          </ul>
-        <% } %> -->
 
         <% if (folder.files.length > 0) { %>
           <ul class="files">

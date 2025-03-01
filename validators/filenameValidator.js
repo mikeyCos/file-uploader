@@ -6,7 +6,7 @@ const {
 } = require("express-validator");
 
 const filenameSchema = {
-  upload_files: {
+  file_name: {
     trim: true,
     isEmpty: {
       negated: true,
@@ -23,18 +23,23 @@ const filenameSchema = {
 
 const validateFilename = (view) => {
   return asyncHandler(async (req, res, next) => {
-    console.log("testing...");
+    console.log("validateFilename running...");
     await checkSchema(filenameSchema, ["body"]).run(req);
     const errors = validationResult(req);
-    const inputs = matchedData(req, { onlyValidData: false });
+
     console.log("errors:", errors);
+    console.log("req.params:", req.params);
+    const { fileID } = req.params;
     if (!errors.isEmpty()) {
+      const inputs = matchedData(req, { onlyValidData: false });
       return res.status(422).render(view, {
         errors: errors.mapped(),
         inputs,
+        fileID,
       });
     }
 
+    res.locals.validData = matchedData(req, { onlyValidData: true });
     next();
   });
 };
