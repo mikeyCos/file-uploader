@@ -18,9 +18,13 @@ const driveController = {
       },
     });
 
+    // /drive/files/upload
+    const formAction = `${req.originalUrl}/files/upload`;
+
     res.render("drive", {
       folders,
       files,
+      formAction,
     });
   }),
   getDriveFolder: asyncHandler(async (req, res) => {
@@ -41,8 +45,12 @@ const driveController = {
 
     console.log("folder:", { folder });
 
+    // /drive/folder/:folderID/files/upload
+    const formAction = `${req.originalUrl}/files/upload`;
+
     res.render("folder", {
       folder,
+      formAction,
     });
     // res.render("folder");
     // res.sendStatus(200);

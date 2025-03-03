@@ -1,5 +1,10 @@
 # Changelog
 ---
+### 03 MAR 2025
+- The dialog's `onCloseHandler` will remove the dialog's `firstChild` node; i.e., `dialog.firstChild.remove()`/
+- Created `fileDetails.ejs` partial; this will render a file's name, size, and created date.
+- Added `data-form-action` attribute to buttons that will open the dialog; the value will be used when the form is submitted.
+---
 ### 28 FEB 2025
 - Renamed `data-action` to `data-url`.
 - Replaced logical OR, `||`, operator with nullish coalescing, `??`, operator for `editFileForm.ejs` and `editFolderForm.ejs` partials. 

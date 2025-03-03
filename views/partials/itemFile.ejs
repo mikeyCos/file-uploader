@@ -3,8 +3,9 @@
     <span><%- include('../../public/assets/icons/file.svg') %></span>
     <span><%= file.name %></span>
   </p>
-  <button type="button" onclick="openDialog(event)" data-url="form/file/delete/<%= file.id %>">
+  <button type="button" onclick="openDialog(event)" data-url="form/file/delete/<%= file.id %>" data-form-action="/drive/file/<%= file.id %>">
     <%- include('../../public/assets/icons/delete.svg') %>
   </button>
-  <button type="button" onclick="openDialog(event)" data-url="form/file/edit/<%= file.id %>">Rename</button>
+  <button type="button" onclick="openDialog(event)" data-url="form/file/edit/<%= file.id %>" data-form-action="/drive/file/<%= locals.fileID ?? file.id %>">Rename</button>
+  <button type="button" onClick="openDialog(event)" data-url="/file/details/<%= file.id %>">Details</button>
 </li>

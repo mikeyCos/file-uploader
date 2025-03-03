@@ -90,6 +90,62 @@ Hello world,
 
 Pellentesque tincidunt vel ante lobortis vehicula. Donec ex justo, volutpat nec ultricies non, elementum nec nibh. Maecenas porttitor est ac nibh congue, sed placerat lorem bibendum. Duis non ante in ex sollicitudin pulvinar nec sit amet turpis. Pellentesque ac elit sed libero vehicula convallis. Pellentesque tincidunt tellus nec lacus mollis pellentesque. Integer tempus sit amet nunc a auctor. Morbi at ullamcorper dolor, non placerat orci. Ut ut efficitur metus. In efficitur enim id sodales porta. Phasellus scelerisque, augue sit amet semper suscipit, lacus nunc laoreet lorem, sit amet elementum orci justo in risus. Ut diam est, egestas sed ligula ut, cursus dignissim nibh. Mauris in est dui. Pellentesque in sem ut dolor laoreet porta. Etiam vitae accumsan tortor. Vestibulum magna mi, sagittis eget consequat a, tincidunt in ligula.
 
+Hard time setting up middle wares for rendering components used in a `dialog` element.
+
+```js
+setEditContent: asyncHandler(async (req, res, next) => {
+  const { fileID, folderID } = req.params;
+  if (fileID) {
+    const file = await prisma.file.findFirst({
+      where: {
+        id: fileID,
+      },
+    });
+
+    res.locals.form = {
+      action: `/drive/file/edit/${fileID}}`,
+      method: "PUT",
+      class: "form-edit-file",
+      label: "edit_file",
+      value: file.name,
+    };
+  }
+  if (folderID) {
+    const folder = await prisma.folder.findFirst({
+      where: {
+        id: folderID,
+      },
+    });
+
+    res.locals.form = {
+      action: `/drive/folder/edit/${folderID}}`,
+      method: "PUT",
+      class: "form-edit-folder",
+      label: "edit_folder",
+      value: folder.name,
+    };
+  }
+  next();
+})
+
+// The next middleware
+getEditForm: asyncHandler(async (req, res) => {
+  res.render("editForm");
+})
+
+// versus
+getEditFileForm: asyncHandler(async (req, res) => {
+  const { fileID } = req.params;
+  const file = await prisma.file.findFirst({
+    where: {
+      id: fileID,
+    },
+  });
+
+  res.render("editFileForm");
+})
+```
+
 To failing forward, cheers!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -157,19 +213,21 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 ## Roadmap
 
-- [x] Create skeleton components.
-- [ ] Seed database.
-  - [ ] Create database schemas.
+- [x] Create skeleton components
+- [ ] Seed database
+  - [ ] Create database schemas
     - [ ] Session
     - [ ] User
     - [ ] Folder
       - [ ] Folder can hold folders and files
     - [ ] File
-- [ ] Create modal that will display different forms based on button pressed
-  - [ ] Create file upload form
+- [ ] Create modal that will display content based on button pressed
+  - [ ] Create a file upload form
     - [ ] Validate file extension and/or size
-  - [ ] Created create folder form
+    - [ ] A reference location is needed to add the file to a corresponding folder
+  - [ ] Create a create folder form
     - [ ] Validate and sanitize input
+  - [ ] Create a file card
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -199,7 +257,29 @@ Project Link: [https://github.com/mikeyCos/cv-application](https://github.com/mi
 
 1. Is there any situation when the options object for `multer` is required when `express-validator` is used to validate uploaded files? Specifically the [fileFilter](https://github.com/expressjs/multer/tree/master?tab=readme-ov-file#filefilter) option.
 2. When is it more appropriate to validate files? Before or after send the files to the server? Is it redundant to validate the same properties in the front-end and back-end?
-3. Is it bad practice to call `res.redirect()` on the sever then set `window.location = res.url` on the client?
+3. Is it bad practice to call `res.redirect()` on the sever then set `window.location = res.url` on the client? For example,
+```js
+// Client
+// Example action value
+const action = "/drive/folder/b4462c08-f57e-4196-a44c-6c18de14277b/delete";
+await fetch(action, {
+  method: "DELETE",
+}).then((res) => {
+  if (res.redirected) window.location = res.url;
+});
+
+// Server
+asyncHandler(async (req, res) => {
+  const { folderID } = req.params;
+  await prisma.folder.delete({
+    where: {
+      id: folderID,
+    },
+  }); 
+  // This is fetched from the client and causes 2 GET requests
+  res.redirect("/drive");
+  }),
+```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

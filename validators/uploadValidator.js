@@ -5,6 +5,7 @@ const {
   matchedData,
 } = require("express-validator");
 const fileRegexes = require("./regexes/fileRegexes");
+const { folder } = require("../db/prisma");
 
 const validateFileExtension = (ext) => {
   console.log("validateFileExtension running...");
@@ -82,7 +83,7 @@ const filesSchema = {
 
 const validateUpload = (view) => {
   return asyncHandler(async (req, res, next) => {
-    console.log("testing...");
+    console.log("validateUpload...");
     console.log("req.originalUrl:", req.originalUrl);
     await checkSchema(filesSchema, ["body"]).run(req);
     const errors = validationResult(req);
@@ -92,6 +93,7 @@ const validateUpload = (view) => {
       return res.status(422).render(view, {
         errors: errors.mapped(),
         inputs,
+        formAction: req.originalUrl,
       });
     }
 

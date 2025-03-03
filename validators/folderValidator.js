@@ -14,8 +14,8 @@ const folderSchema = {
       errorMessage: "Folder name cannot be empty.",
     },
     isLength: {
-      options: { max: 10 },
-      errorMessage: "Folder name cannot exceed 10 characters in length.",
+      options: { max: 25 },
+      errorMessage: "Folder name cannot exceed 25 characters in length.",
     },
     escape: true,
   },
@@ -30,11 +30,13 @@ const validateFolder = (view) => {
       console.log("req.params:", req.params);
       const inputs = matchedData(req, { onlyValidData: false });
       const { folderID } = req.params;
+      console.log("req.originalUrl:", req.originalUrl);
       console.log("folderID:", folderID);
       return res.status(422).render(view, {
         errors: errors.mapped(),
         inputs,
         folderID,
+        formAction: req.originalUrl,
       });
     }
 

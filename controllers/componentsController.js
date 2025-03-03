@@ -2,6 +2,17 @@ const asyncHandler = require("express-async-handler");
 const prisma = require("../db/prisma");
 
 const componentsController = {
+  getFileDetails: asyncHandler(async (req, res) => {
+    console.log("getFileDetails running...");
+    const { fileID } = req.params;
+    const file = await prisma.file.findFirst({
+      where: {
+        id: fileID,
+      },
+    });
+
+    res.render("fileDetails", { file });
+  }),
   getUploadFileForm: asyncHandler(async (req, res) => {
     console.log("getUploadFileForm running...");
     console.log("req.body:", req.body);
@@ -49,6 +60,7 @@ const componentsController = {
         id: fileID,
       },
     });
+
     res.render("deleteFileForm", {
       fileID,
       msg: `Are you sure you want to delete file, "${file.name}"?`,

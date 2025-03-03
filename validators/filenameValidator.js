@@ -14,8 +14,8 @@ const filenameSchema = {
       errorMessage: "File name cannot be empty.",
     },
     isLength: {
-      options: { max: 10 },
-      errorMessage: "File name cannot exceed 10 characters in length.",
+      options: { max: 25 },
+      errorMessage: "File name cannot exceed 25 characters in length.",
     },
     escape: true,
   },
@@ -36,6 +36,7 @@ const validateFilename = (view) => {
         errors: errors.mapped(),
         inputs,
         fileID,
+        formAction: req.originalUrl,
       });
     }
 

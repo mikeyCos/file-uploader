@@ -2,6 +2,7 @@ const { Router } = require("express");
 const prisma = require("../db/prisma");
 const asyncHandler = require("express-async-handler");
 const {
+  getFileDetails,
   getUploadFileForm,
   getAddFolderForm,
   getEditFileForm,
@@ -23,6 +24,7 @@ componentsRouter.get("/form/file/edit/:fileID", getEditFileForm);
 componentsRouter.get("/form/folder/edit/:folderID", getEditFolderForm);
 componentsRouter.get("/form/file/delete/:fileID", getDeleteFileForm);
 componentsRouter.get("/form/folder/delete/:folderID", getDeleteFolderForm);
+componentsRouter.get("/file/details/:fileID", getFileDetails);
 
 // POST requests
 // componentsRouter.post("/form/folder/create", postAddFolderForm);
