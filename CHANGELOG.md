@@ -1,6 +1,7 @@
 # Changelog
 ---
 ### 04 MAR 2025
+- Created `supabase` branch.
 - Commit before merging `crud_folders` branch to `main` branch.
 ---
 ### 03 MAR 2025
