@@ -1,5 +1,8 @@
 # Changelog
 ---
+### 04 MAR 2025
+- Commit before merging `crud_folders` branch to `main` branch.
+---
 ### 03 MAR 2025
 - The dialog's `onCloseHandler` will remove the dialog's `firstChild` node; i.e., `dialog.firstChild.remove()`/
 - Created `fileDetails.ejs` partial; this will render a file's name, size, and created date.
