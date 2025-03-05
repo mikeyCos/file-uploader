@@ -1,6 +1,9 @@
 # Changelog
 ---
 ### 04 MAR 2025
+- Created `supabase.js` and `seed_buckets.js` modules.
+- Updated `bcryptjs` and `primsa` packages.
+- Installed `@supabase/supabase-js` to `devDependencies`.
 - Created `supabase` branch.
 - Commit before merging `crud_folders` branch to `main` branch.
 ---

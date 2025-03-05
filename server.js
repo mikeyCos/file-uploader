@@ -16,13 +16,6 @@ app.use(staticPaths.map((path) => express.static(path)));
 app.set("views", viewsPaths);
 app.set("view engine", "ejs");
 
-// What to call this block?
-// const sessionStore = new pgSession({
-//   pool: pool,
-//   tableName: "account_sessions",
-//   createTableIfMissing: true,
-// });
-
 const sessionStore = new PrismaSessionStore(prisma, {
   checkPeriod: 2 * 60 * 1000, // 2 mins * 60 secs * 1000 ms
   dbRecordIdIsSessionId: true,
