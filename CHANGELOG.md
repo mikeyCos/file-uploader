@@ -1,5 +1,12 @@
 # Changelog
 ---
+### 06 MAR 2025
+- 
+---
+### 05 MAR 2025
+- Files can be uploaded to Supabase.
+- Installed `base64-arraybuffer` package.
+----
 ### 04 MAR 2025
 - Created `supabase.js` and `seed_buckets.js` modules.
 - Updated `bcryptjs` and `primsa` packages.

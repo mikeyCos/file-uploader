@@ -43,7 +43,7 @@ const validateFileMIMEType = (ext, mimetype) => {
 const validateFileSize = (filename, bytes) => {
   console.log("validateFileSize running...");
   // const fileSizeLimit = 1;
-  const fileSizeLimit = 1;
+  const fileSizeLimit = 5000000;
   if (bytes > fileSizeLimit)
     throw `The file, ${filename}, exceeds file size limit.`;
 };

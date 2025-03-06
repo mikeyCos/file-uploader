@@ -228,6 +228,8 @@ _For more examples, please refer to the [Documentation](https://example.com)_
   - [ ] Create a create folder form
     - [ ] Validate and sanitize input
   - [ ] Create a file card
+- [ ] Upload an array of files to Supabase
+  - [ ] 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

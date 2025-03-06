@@ -1,6 +1,8 @@
 const asyncHandler = require("express-async-handler");
+const { decode } = require("base64-arraybuffer");
 const upload = require("../config/upload");
 const prisma = require("../db/prisma");
+const supabase = require("../db/supabase");
 const validateUpload = require("../validators/uploadValidator");
 const validateFilename = require("../validators/filenameValidator");
 const validateFolder = require("../validators/folderValidator");
@@ -90,6 +92,20 @@ const driveController = {
       //  Need folder's id
       // Re-render files?
       // Could append or prepend or replaceWith
+
+      // Need to upload files to Supabase
+      // Need to know the folder these files are uploading to
+      for (const file of req.files) {
+        console.log("file:", file);
+        const fileBase64 = decode(file.buffer.toString("base64"));
+        console.log("fileBase64:", fileBase64);
+        await supabase.storage
+          .from("drives")
+          .upload(`/${file.originalname}`, fileBase64, {
+            contentType: file.mimetype,
+          });
+      }
+
       res.sendStatus(200);
     }),
   ],
