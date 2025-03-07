@@ -41,7 +41,7 @@ app.use(passport.session());
 app.use(express.urlencoded({ extended: true }));
 
 // Application-level
-// app.use(logger);
+app.use(logger(""));
 
 app.use((req, res, next) => {
   console.log("application-level middleware running...");

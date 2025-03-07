@@ -86,7 +86,7 @@ const seedDB = async () => {
   console.log("billDozerAfterFolder:", billDozerAfterFolder);
 
   // Create files for user bill_dozer
-  await prisma.file.createMany({
+  /* await prisma.file.createMany({
     data: [
       {
         name: "A file not in a folder",
@@ -102,7 +102,7 @@ const seedDB = async () => {
         accountId: billDozerAfterFolder.id,
       },
     ],
-  });
+  }); */
 
   const billDozer = await prisma.account.findFirst({
     where: {

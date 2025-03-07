@@ -1,5 +1,13 @@
 # Changelog
 ---
+### 07 MAR 2025
+- Created `getFileExtension.js` and `getFilesFromPath.js` utility modules.
+- Renamed `seed_buckets.js` module to `seed_bucket.js`.
+- Added `size` and `url` fields to `File` Prisma model.
+- Added `text` parameter to `logger` function; the function must be called to return a middleware.
+- Updated `bcryptjs` package.
+- Split route paths for `postFilesUpload`.
+---
 ### 06 MAR 2025
 - A `RegExp` object is created in `uploadValidator.js` module and tests again the `mimetype` string.
 - Added `uploads/` directory to `.gitignore`.
@@ -12,7 +20,7 @@
 ----
 ### 04 MAR 2025
 - Created `supabase.js` and `seed_buckets.js` modules.
-- Updated `bcryptjs` and `primsa` packages.
+- Updated `primsa` package.
 - Installed `@supabase/supabase-js` to `devDependencies`.
 - Created `supabase` branch.
 - Commit before merging `crud_folders` branch to `main` branch.

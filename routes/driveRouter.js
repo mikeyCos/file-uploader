@@ -22,7 +22,10 @@ driveRouter.get("/folder/:folderID", getDriveFolder);
 // /drive
 // /drive/folder/:folderID/files/upload
 // /drive/files/upload
-driveRouter.post("(/folder/:folderID)?/files/upload", postFilesUpload);
+driveRouter.post(
+  ["/files/upload", "/folder/:folderID/files/upload"],
+  postFilesUpload
+);
 // driveRouter.post("/files/upload", postFilesUpload);
 driveRouter.post("/folder/create", postFolderCreate);
 

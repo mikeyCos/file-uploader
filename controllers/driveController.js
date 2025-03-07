@@ -88,6 +88,9 @@ const driveController = {
       console.log("postFilesUpload running...");
       console.log("req.body:", req.body);
       console.log("req.files:", req.files);
+      console.log("req.params:", req.params);
+      const { folderID } = req.params;
+      const { user } = req;
       // How to upload files in a folder?
       //  Need folder's id
       // Re-render files?
@@ -95,15 +98,31 @@ const driveController = {
 
       // Need to upload files to Supabase
       // Need to know the folder these files are uploading to
+      // Folder needs to be tied to req.user.id and the folder it was put in
+      // For example,
+      //  In the users' drive's root
+      //    /req.user.id/file.name
+      //  In a folder
+      //    /req.user.id/folder.id/file.name
       for (const file of req.files) {
         console.log("file:", file);
         const fileBase64 = decode(file.buffer.toString("base64"));
-        console.log("fileBase64:", fileBase64);
-        await supabase.storage
-          .from("drives")
-          .upload(`/${file.originalname}`, fileBase64, {
-            contentType: file.mimetype,
-          });
+        const storagePath = `/${user.id}${folderID ? `/${folderID}` : ""}/${
+          file.originalname
+        }`;
+        console.log("storagePath:", storagePath);
+        /* await supabase.storage.from("drives").upload(storagePath, fileBase64, {
+          contentType: file.mimetype,
+        });
+
+        await prisma.file.create({
+          data: {
+            name: file.originalname,
+            size: file.size,
+            url: storagePath,
+            accountId: user.id,
+          }
+        }) */
       }
 
       res.sendStatus(200);

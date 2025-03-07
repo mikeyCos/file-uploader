@@ -282,6 +282,7 @@ asyncHandler(async (req, res) => {
   res.redirect("/drive");
   }),
 ```
+4. What are situations in Node where it makes more sense to use synchronous code over asynchronous code?
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -328,3 +329,4 @@ asyncHandler(async (req, res) => {
 [CSS3]: https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white
 [CSS3-url]: https://www.w3.org/TR/2001/WD-css3-roadmap-20010523/
 [product-screenshot]: ./demo/media/project_screenshot_01.png
+
