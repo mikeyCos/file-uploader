@@ -1,7 +1,10 @@
 # Changelog
 ---
 ### 06 MAR 2025
-- 
+- A `RegExp` object is created in `uploadValidator.js` module and tests again the `mimetype` string.
+- Added `uploads/` directory to `.gitignore`.
+- Redefined exported object in `allowedMimeTypes.js` module; used string values for MIME types instead of regular expressions.
+- Renamed `fileRegexes.js` module to `allowedMimeTypes.js`.
 ---
 ### 05 MAR 2025
 - Files can be uploaded to Supabase.

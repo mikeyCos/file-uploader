@@ -172,7 +172,7 @@ const seedDB = async () => {
   }); */
   // console.log("account.folders:", account.folders);
   // console.log("account.folders[0].files:", account.folders[0].files);
-  console.log("db has been seeded");
+  console.log("db has been seeded!");
 };
 
 const emptyDB = async () => {

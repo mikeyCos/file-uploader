@@ -136,4 +136,4 @@ fly.toml
 .github
 
 # Temporary directory for saving uploads
-./uploads
+uploads/

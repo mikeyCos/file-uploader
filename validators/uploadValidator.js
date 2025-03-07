@@ -4,20 +4,21 @@ const {
   validationResult,
   matchedData,
 } = require("express-validator");
-const fileRegexes = require("./regexes/fileRegexes");
+const allowedMimeTypes = require("./allowedMimeTypes/allowedMimeTypes");
 const { folder } = require("../db/prisma");
 
 const validateFileExtension = (ext) => {
   console.log("validateFileExtension running...");
   console.log("ext:", ext);
-  if (!fileRegexes[ext])
+  if (!allowedMimeTypes[ext])
     throw new Error(`File extension, "${ext}", is not supported.`);
 };
 
 const validateFileMIMEType = (ext, mimetype) => {
   console.log("validateFileMIMEType running...");
   // const type = mimetype.split("/", 2);
-  const regexResult = fileRegexes[ext].test(mimetype);
+  const mimetypeRegex = new RegExp(`^${allowedMimeTypes[ext]}$`);
+  const regexResult = mimetypeRegex.test(mimetype);
   if (!regexResult)
     throw new Error(`MIME Type, "${mimetype}", is not supported.`);
   /*  switch (type) {
