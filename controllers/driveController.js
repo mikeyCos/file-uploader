@@ -111,6 +111,7 @@ const driveController = {
           file.originalname
         }`;
         console.log("storagePath:", storagePath);
+        console.log(fileBase64);
         /* await supabase.storage.from("drives").upload(storagePath, fileBase64, {
           contentType: file.mimetype,
         });
@@ -121,8 +122,8 @@ const driveController = {
             size: file.size,
             url: storagePath,
             accountId: user.id,
-          }
-        }) */
+          },
+        }); */
       }
 
       res.sendStatus(200);
@@ -177,6 +178,11 @@ const driveController = {
   ],
   deleteFolder: asyncHandler(async (req, res) => {
     // Need to validate req.params.folderID
+    // What to do if there are files in folder?
+    // Option 1
+    //  Delete files
+    // Option 2
+    //  Remove folder relation
     const { folderID } = req.params;
     await prisma.folder.delete({
       where: {
@@ -193,6 +199,7 @@ const driveController = {
     console.log("deleteFile running...");
 
     // Need to validate req.params.fileID
+    // Need to delete from supabase.storage
     /* const { fileID } = req.params;
     await prisma.file.delete({
       where: {

@@ -1,5 +1,10 @@
 # Changelog
 ---
+### 09 MAR 2025
+- Created `generateRandomIndex.js` module; accepts an array and number upperBound parameters.
+- Changed `prisma.folder.createMany()` to `prisma.folder.createManyAndReturn()` in `seed_db.js` module.
+- Renamed database scripts in `package.json` from `db-seed` to `seed-db` and `db-empty` to `empty-db`.
+---
 ### 07 MAR 2025
 - Created `getFileExtension.js` and `getFilesFromPath.js` utility modules.
 - Renamed `seed_buckets.js` module to `seed_bucket.js`.

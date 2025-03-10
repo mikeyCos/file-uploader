@@ -1,5 +1,6 @@
 const prisma = require("./prisma");
 const bcrypt = require("bcryptjs");
+const seedBucket = require("./seed_bucket");
 
 const accountsArr = Promise.all(
   [
@@ -45,46 +46,28 @@ const seedDB = async () => {
     data: await accountsArr,
   });
 
-  const billDozerBeforeFolder = await prisma.account.findFirst({
+  const billDozer = await prisma.account.findFirst({
     where: {
       id: accounts[0].id,
     },
-    include: {
-      folders: true,
-      files: true,
-    },
   });
 
-  console.log("before creating folder");
-  console.log("accounts:", accounts);
-  console.log("billDozerBeforeFolder:", billDozerBeforeFolder);
-
   // Create folders for user bill_dozer
-  await prisma.folder.createMany({
+  const folders = await prisma.folder.createManyAndReturn({
     data: [
       {
         name: "Folder 0",
-        accountId: billDozerBeforeFolder.id,
+        accountId: billDozer.id,
       },
       {
         name: "Folder 1",
-        accountId: billDozerBeforeFolder.id,
+        accountId: billDozer.id,
       },
     ],
   });
 
-  const billDozerAfterFolder = await prisma.account.findFirst({
-    where: {
-      id: accounts[0].id,
-    },
-    include: {
-      folders: true,
-      files: true,
-    },
-  });
-
-  console.log("billDozerAfterFolder:", billDozerAfterFolder);
-
+  // userID, folderIDs, bucketID = "drives", filesPath
+  await seedBucket(billDozer.id, folders);
   // Create files for user bill_dozer
   /* await prisma.file.createMany({
     data: [
@@ -104,7 +87,7 @@ const seedDB = async () => {
     ],
   }); */
 
-  const billDozer = await prisma.account.findFirst({
+  const billDozerAfterSeed = await prisma.account.findFirst({
     where: {
       id: accounts[0].id,
     },
@@ -118,7 +101,7 @@ const seedDB = async () => {
     },
   });
 
-  console.log("billDozer:", billDozer);
+  console.log("billDozerAfterSeed:", billDozerAfterSeed);
 
   /*
 

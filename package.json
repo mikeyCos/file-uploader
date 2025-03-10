@@ -7,8 +7,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon server.js",
-    "db-seed": "node -e 'require(\"./db/seed_db\").seedDB()'",
-    "db-empty": "node -e 'require(\"./db/seed_db\").emptyDB()'"
+    "seed-db": "node -e 'require(\"./db/seed_db\").seedDB()'",
+    "empty-db": "node -e 'require(\"./db/seed_db\").emptyDB()'"
   },
   "author": "MikeyCos",
   "license": "ISC",
