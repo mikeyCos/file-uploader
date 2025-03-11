@@ -28,22 +28,22 @@ const seedBucket = async (userID, folders, bucketID = "drives", filesPath) => {
     const { id: folderID } = folders[randomFolderIndex] ?? {};
     const { originalname, buffer, mimetype } = file;
     const fileBase64 = decode(buffer.toString("base64"));
-    const storagePath = `/${userID}${
+    const storagePath = `${userID}${
       folderID ? `/${folderID}` : ""
     }/${originalname}`;
 
-    console.log("file:", file);
-    console.log("storagePath:", storagePath);
-    console.log("folderID:", folderID);
     await supabase.storage
       .from(bucketID)
       .upload(storagePath, fileBase64, { contentType: mimetype });
+
+    const { data } = supabase.storage.from(bucketID).getPublicUrl(storagePath);
 
     await prisma.file.create({
       data: {
         name: originalname,
         size: file.size,
-        url: storagePath,
+        url: data.publicUrl,
+        storagePath: storagePath,
         accountId: userID,
         folderId: folderID,
       },

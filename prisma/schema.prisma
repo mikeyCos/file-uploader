@@ -77,12 +77,13 @@ model Folder {
 // Is there a better way to reference the account without the files field in Account model?
 // How can files 
 model File {
-  id        String   @id @default(uuid())
-  name      String   @default("New file")
-  size      Int
-  url       String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String   @id @default(uuid())
+  name        String   @default("New file")
+  size        Int
+  url         String
+  storagePath String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   account   Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
   accountId String

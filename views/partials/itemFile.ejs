@@ -8,7 +8,6 @@
   </button>
   <button type="button" onclick="openDialog(event)" data-url="form/file/edit/<%= file.id %>" data-form-action="/drive/file/<%= locals.fileID ?? file.id %>">Rename</button>
   <button type="button" onClick="openDialog(event)" data-url="/file/details/<%= file.id %>">Details</button>
-  <button type="button" onClick="downloadFile(event)" data-url="drive/download/file/<%= file.id %>">Download</button>
-  <!-- <a href="/drive/download/file/<%= file.url %>" download="<%= file.name %>">Download</a> -->
-  <!-- <a href="<%= file.url %>" download="<%= file.name %>">Download</a> -->
+  <!-- <button type="button" onClick="downloadFile(event)" data-url="drive/download/file/<%= file.id %>">Download</button> -->
+  <a href="<%= file.url %>?download" download="<%= file.name %>">Download</a>
 </li>

@@ -1,10 +1,15 @@
 # Changelog
 ---
+### 11 MAR 2025
+- Deleting a folder now deletes all files inside the folder.
+- Enabled a download `anchor` element; 
+- Added `storagePath` field to `File` Prisma model.
+---
 ### 10 MAR 2025
 - Files can be individually downloaded by clicking the download button.
 - Created `downloadFile.js` module in the `events` directory.
 - Created `generateStoragePath.js` module; accepts `userID`, `filename`, `folderID` parameters.
-- Created `utils.js` module; 
+- Created `utils.js` module; exports all utility modules from a central source.
 ---
 ### 09 MAR 2025
 - Created `generateRandomIndex.js` module; accepts an array and number upperBound parameters.

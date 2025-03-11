@@ -283,6 +283,7 @@ asyncHandler(async (req, res) => {
   }),
 ```
 4. What are situations in Node where it makes more sense to use synchronous code over asynchronous code?
+5. Is it more accessible to use an `anchor` element over a `button` element to handle downloads? What are situations, if any, where it makes sense to use one over the other?
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

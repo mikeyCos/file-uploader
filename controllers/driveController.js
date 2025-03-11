@@ -7,7 +7,7 @@ const supabase = require("../db/supabase");
 const validateUpload = require("../validators/uploadValidator");
 const validateFilename = require("../validators/filenameValidator");
 const validateFolder = require("../validators/folderValidator");
-const { generateStoragePath } = require("../utils/generateStoragePath");
+const { generateStoragePath } = require("../utils/utils");
 
 const driveController = {
   getDrive: asyncHandler(async (req, res) => {
@@ -88,10 +88,10 @@ const driveController = {
     validateUpload("uploadForm"),
     asyncHandler(async (req, res) => {
       console.log("postFilesUpload running...");
-      console.log("req.body:", req.body);
+      // console.log("req.body:", req.body);
       console.log("req.files:", req.files);
       console.log("req.params:", req.params);
-      const { user } = req;
+      const { user, files } = req;
       const { folderID } = req.params;
 
       // How to upload files in a folder?
@@ -107,30 +107,33 @@ const driveController = {
       //    /req.user.id/file.name
       //  In a folder
       //    /req.user.id/folder.id/file.name
-      for (const file of req.files) {
-        console.log("file:", file);
-        const fileBase64 = decode(file.buffer.toString("base64"));
+      for (const file of files) {
+        const fileBase64 = decode(await file.buffer.toString("base64"));
+        console.log("fileBase64:", fileBase64);
         const storagePath = generateStoragePath(
           user.id,
           file.originalname,
           folderID
         );
 
-        console.log("storagePath:", storagePath);
-        console.log(fileBase64);
-        /* await supabase.storage.from("drives").upload(storagePath, fileBase64, {
+        await supabase.storage.from("drives").upload(storagePath, fileBase64, {
           contentType: file.mimetype,
         });
+
+        const { data } = supabase.storage
+          .from("drives")
+          .getPublicUrl(storagePath);
 
         await prisma.file.create({
           data: {
             name: file.originalname,
             size: file.size,
-            url: storagePath,
+            url: data.publicUrl,
+            storagePath: storagePath,
             accountId: user.id,
             folderId: folderID,
           },
-        }); */
+        });
       }
 
       res.sendStatus(200);
@@ -203,11 +206,20 @@ const driveController = {
     // Option 2
     //  Remove folder relation
     const { folderID } = req.params;
-    await prisma.folder.delete({
+    const folder = await prisma.folder.delete({
       where: {
         id: folderID,
       },
+      include: {
+        files: true,
+      },
     });
+
+    if (folder.files.length > 0) {
+      for (const file of folder.files) {
+        await supabase.storage.from("drives").remove([file.storagePath]);
+      }
+    }
 
     // This is fetched from the client and causes 2 GET requests
     // res.redirect("/drive");
@@ -219,47 +231,42 @@ const driveController = {
 
     // Need to validate req.params.fileID
     // Need to delete from supabase.storage
-    /* const { fileID } = req.params;
-    await prisma.file.delete({
-      where: {
-        id: fileID,
-      },
-    }); */
-
-    res.sendStatus(200);
-  }),
-  downloadFile: asyncHandler(async (req, res) => {
-    // Need to validate the file exists
-
-    console.log("downloadFile running...");
     const { fileID } = req.params;
-    console.log("fileID:", fileID);
-
-    const { url, name } = await prisma.file.findFirst({
+    const { storagePath } = await prisma.file.delete({
       where: {
         id: fileID,
       },
     });
 
-    const { data, error } = await supabase.storage.from("drives").download(url);
+    console.log("storagePath:", storagePath);
+    await supabase.storage.from("drives").remove([storagePath]);
+
+    res.sendStatus(200);
+  }),
+  downloadFile: asyncHandler(async (req, res) => {
+    // Need to validate the file exists
+    // Use this endpoint if a download button exists
+    // As for downloading directly from supabase
+    // https://supabase.com/docs/guides/storage/serving/downloads
+    console.log("downloadFile running...");
+    const { fileID } = req.params;
+    console.log("fileID:", fileID);
+
+    const { storagePath, name } = await prisma.file.findFirst({
+      where: {
+        id: fileID,
+      },
+    });
+
+    // const { data, error } = await supabase.storage.from("drives").download(storagePath);
+
+    // res.attachment sets the headers
+    // Content-Disposition: attachment; filename="[filename]"
+    // Content-Type: [file_mimetype]
+    // res.attachment(name);
     // const buffer = Buffer.from(await data.arrayBuffer());
-    // console.log("file:", file);
-    console.log("data:", data);
-    console.log("url:", url);
-    console.log("name:", name);
-    // res.download(url);
-    // res.setHeader("Content-Disposition", `attachment; filename="${name}`);
-    // res.setHeader("Content-Type", data.type);
-    // res.download(url, name, (err) => {
-    //   if (err) {
-    //     console.log("err");
-    //     console.log(err);
-    //   }
-    // });
-    // res.attachment(url);
-    const buffer = Buffer.from(await data.arrayBuffer());
-    res.send(buffer);
-    res.end();
+    // res.send(buffer);
+    // res.end();
   }),
 };
 
