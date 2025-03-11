@@ -1,11 +1,13 @@
 const asyncHandler = require("express-async-handler");
 const { decode } = require("base64-arraybuffer");
+const { validationResult, matchedData } = require("express-validator");
 const upload = require("../config/upload");
 const prisma = require("../db/prisma");
 const supabase = require("../db/supabase");
 const validateUpload = require("../validators/uploadValidator");
 const validateFilename = require("../validators/filenameValidator");
 const validateFolder = require("../validators/folderValidator");
+const { generateStoragePath } = require("../utils/generateStoragePath");
 
 const driveController = {
   getDrive: asyncHandler(async (req, res) => {
@@ -89,8 +91,9 @@ const driveController = {
       console.log("req.body:", req.body);
       console.log("req.files:", req.files);
       console.log("req.params:", req.params);
-      const { folderID } = req.params;
       const { user } = req;
+      const { folderID } = req.params;
+
       // How to upload files in a folder?
       //  Need folder's id
       // Re-render files?
@@ -107,9 +110,12 @@ const driveController = {
       for (const file of req.files) {
         console.log("file:", file);
         const fileBase64 = decode(file.buffer.toString("base64"));
-        const storagePath = `/${user.id}${folderID ? `/${folderID}` : ""}/${
-          file.originalname
-        }`;
+        const storagePath = generateStoragePath(
+          user.id,
+          file.originalname,
+          folderID
+        );
+
         console.log("storagePath:", storagePath);
         console.log(fileBase64);
         /* await supabase.storage.from("drives").upload(storagePath, fileBase64, {
@@ -122,6 +128,7 @@ const driveController = {
             size: file.size,
             url: storagePath,
             accountId: user.id,
+            folderId: folderID,
           },
         }); */
       }
@@ -136,9 +143,21 @@ const driveController = {
       console.log("req.params:", req.params);
       console.log("res.locals:", res.locals);
       // Need to validate req.params.folderID
-      const { fileID } = req.params;
+      // Need old path for storage
+      const { user } = req;
+      const { fileID, folderID } = req.params;
       const { file_name } = res.locals.validData;
-      const file = await prisma.file.update({
+
+      console.log("user:", user);
+      console.log("fileID:", fileID);
+      console.log("folderID:", folderID);
+      console.log("file_name:", file_name);
+
+      const validData = matchedData(req);
+      console.log("validData:", validData);
+      // await supabase.storage.from().move();
+
+      /* const file = await prisma.file.update({
         where: {
           id: fileID,
         },
@@ -147,7 +166,7 @@ const driveController = {
         },
       });
 
-      res.status(200).render("itemFile", { file });
+      res.status(200).render("itemFile", { file }); */
     }),
   ],
   putFolder: [
@@ -208,6 +227,39 @@ const driveController = {
     }); */
 
     res.sendStatus(200);
+  }),
+  downloadFile: asyncHandler(async (req, res) => {
+    // Need to validate the file exists
+
+    console.log("downloadFile running...");
+    const { fileID } = req.params;
+    console.log("fileID:", fileID);
+
+    const { url, name } = await prisma.file.findFirst({
+      where: {
+        id: fileID,
+      },
+    });
+
+    const { data, error } = await supabase.storage.from("drives").download(url);
+    // const buffer = Buffer.from(await data.arrayBuffer());
+    // console.log("file:", file);
+    console.log("data:", data);
+    console.log("url:", url);
+    console.log("name:", name);
+    // res.download(url);
+    // res.setHeader("Content-Disposition", `attachment; filename="${name}`);
+    // res.setHeader("Content-Type", data.type);
+    // res.download(url, name, (err) => {
+    //   if (err) {
+    //     console.log("err");
+    //     console.log(err);
+    //   }
+    // });
+    // res.attachment(url);
+    const buffer = Buffer.from(await data.arrayBuffer());
+    res.send(buffer);
+    res.end();
   }),
 };
 

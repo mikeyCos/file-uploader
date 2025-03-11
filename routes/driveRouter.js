@@ -2,6 +2,7 @@ const { Router } = require("express");
 const {
   getDrive,
   getDriveFolder,
+  downloadFile,
   postFilesUpload,
   postFolderCreate,
   putFile,
@@ -15,6 +16,7 @@ const driveRouter = new Router();
 // GET requests
 driveRouter.get("/", getDrive);
 driveRouter.get("/folder/:folderID", getDriveFolder);
+driveRouter.get("/download/file/:fileID", downloadFile);
 
 // POST requests
 // Need a way to reference the folder

@@ -1,6 +1,6 @@
 const path = require("path");
 const fsPromises = require("node:fs/promises");
-const getFileExtension = require("../utils/getFileExtension");
+const getFileExtension = require("./getFileExtension");
 const allowedMimeTypes = require("../validators/allowedMimeTypes/allowedMimeTypes");
 
 const rootPath = path.join(__dirname, "..");

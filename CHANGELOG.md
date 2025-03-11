@@ -1,5 +1,11 @@
 # Changelog
 ---
+### 10 MAR 2025
+- Files can be individually downloaded by clicking the download button.
+- Created `downloadFile.js` module in the `events` directory.
+- Created `generateStoragePath.js` module; accepts `userID`, `filename`, `folderID` parameters.
+- Created `utils.js` module; 
+---
 ### 09 MAR 2025
 - Created `generateRandomIndex.js` module; accepts an array and number upperBound parameters.
 - Changed `prisma.folder.createMany()` to `prisma.folder.createManyAndReturn()` in `seed_db.js` module.

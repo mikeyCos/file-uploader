@@ -5,7 +5,7 @@ const { PrismaSessionStore } = require("@quixo3/prisma-session-store");
 const prisma = require("./db/prisma");
 const { PORT } = require("./config/environment");
 const { staticPaths, viewsPaths } = require("./paths/paths");
-const logger = require("./utils/logger");
+const { logger } = require("./utils/utils");
 
 const app = express();
 

@@ -1,8 +1,7 @@
 const prisma = require("./prisma");
 const { decode } = require("base64-arraybuffer");
 const supabase = require("./supabase");
-const getFilesFromPath = require("../utils/getFilesFromPath");
-const generateRandomIndex = require("../utils/generateRandomIndex");
+const { generateRandomIndex, getFilesFromPath } = require("../utils/utils");
 
 const seedBucket = async (userID, folders, bucketID = "drives", filesPath) => {
   const { data: bucketExists, error: bucketExistsError } =
