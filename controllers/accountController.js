@@ -2,8 +2,10 @@ const { matchedData, validationResult } = require("express-validator");
 const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
-const validateCreateAccount = require("../validators/createAccountValidator");
-const validateLogin = require("../validators/loginValidator");
+const {
+  validateCreateAccount,
+  validateLogin,
+} = require("../validators/validators");
 const prisma = require("../db/prisma");
 
 const accountController = {

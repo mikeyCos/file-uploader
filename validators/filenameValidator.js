@@ -40,7 +40,8 @@ const validateFilename = (view) => {
       });
     }
 
-    res.locals.validData = matchedData(req, { onlyValidData: true });
+    // Should a validator set a res.locals variable?
+    // res.locals.validData = matchedData(req, { onlyValidData: true });
     next();
   });
 };

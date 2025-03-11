@@ -40,7 +40,6 @@ const validateFolder = (view) => {
       });
     }
 
-    res.locals.validData = matchedData(req, { onlyValidData: true });
     next();
   });
 };

@@ -1,12 +1,14 @@
 const asyncHandler = require("express-async-handler");
 const { decode } = require("base64-arraybuffer");
-const { validationResult, matchedData } = require("express-validator");
+const { matchedData } = require("express-validator");
 const upload = require("../config/upload");
 const prisma = require("../db/prisma");
 const supabase = require("../db/supabase");
-const validateUpload = require("../validators/uploadValidator");
-const validateFilename = require("../validators/filenameValidator");
-const validateFolder = require("../validators/folderValidator");
+const {
+  validateFilename,
+  validateFolder,
+  validateUpload,
+} = require("../validators/validators");
 const { generateStoragePath } = require("../utils/utils");
 
 const driveController = {
@@ -50,14 +52,13 @@ const driveController = {
     console.log("folder:", { folder });
 
     // /drive/folder/:folderID/files/upload
+    // Currently used int he controls partial
     const formAction = `${req.originalUrl}/files/upload`;
 
     res.render("folder", {
       folder,
       formAction,
     });
-    // res.render("folder");
-    // res.sendStatus(200);
   }),
   postFolderCreate: [
     validateFolder("createFolderForm"),
@@ -66,7 +67,7 @@ const driveController = {
       console.log("req.user:", req.user);
       console.log("req.body:", req.body);
       console.log("res.locals", res.locals);
-      const { folder_name } = res.locals.validData;
+      const { folder_name } = matchedData(req, { onlyValidData: true });
       // Could append or prepend
       await prisma.folder.create({
         data: {
@@ -98,6 +99,7 @@ const driveController = {
       //  Need folder's id
       // Re-render files?
       // Could append or prepend or replaceWith
+      // What to do if filename is something that exists in database?
 
       // Need to upload files to Supabase
       // Need to know the folder these files are uploading to
@@ -147,29 +149,39 @@ const driveController = {
       console.log("res.locals:", res.locals);
       // Need to validate req.params.folderID
       // Need old path for storage
+      const { file_name } = matchedData(req, { onlyValidData: true });
       const { user } = req;
-      const { fileID, folderID } = req.params;
-      const { file_name } = res.locals.validData;
+      const { fileID } = req.params;
 
-      console.log("user:", user);
-      console.log("fileID:", fileID);
-      console.log("folderID:", folderID);
-      console.log("file_name:", file_name);
+      const { storagePath: oldStoragePath, folderId } =
+        await prisma.file.findUnique({
+          where: {
+            id: fileID,
+          },
+        });
 
-      const validData = matchedData(req);
-      console.log("validData:", validData);
-      // await supabase.storage.from().move();
+      const newStoragePath = generateStoragePath(user.id, file_name, folderId);
 
-      /* const file = await prisma.file.update({
+      await supabase.storage
+        .from("drives")
+        .move(oldStoragePath, newStoragePath);
+
+      const { data } = supabase.storage
+        .from("drives")
+        .getPublicUrl(newStoragePath);
+
+      const file = await prisma.file.update({
         where: {
           id: fileID,
         },
         data: {
           name: file_name,
+          storagePath: newStoragePath,
+          url: data.publicUrl,
         },
       });
 
-      res.status(200).render("itemFile", { file }); */
+      res.status(200).render("itemFile", { file });
     }),
   ],
   putFolder: [
@@ -181,7 +193,7 @@ const driveController = {
       console.log("res.locals:", res.locals);
       // Need to validate req.params.folderID
       const { folderID } = req.params;
-      const { folder_name } = res.locals.validData;
+      const { folder_name } = matchedData(req, { onlyValidData: true });
       const folder = await prisma.folder.update({
         where: {
           id: folderID,
@@ -192,9 +204,6 @@ const driveController = {
       });
 
       console.log("folder:", folder);
-      // Is it bad practice to change the req.method?
-      // req.method = "GET";
-      // res.status(200).render("itemFolder", { folder });
       res.render("itemFolder", { folder });
     }),
   ],

@@ -5,7 +5,6 @@ const {
   matchedData,
 } = require("express-validator");
 const allowedMimeTypes = require("./allowedMimeTypes/allowedMimeTypes");
-const { folder } = require("../db/prisma");
 
 const validateFileExtension = (ext) => {
   console.log("validateFileExtension running...");

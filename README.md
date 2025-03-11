@@ -223,13 +223,17 @@ _For more examples, please refer to the [Documentation](https://example.com)_
     - [ ] File
 - [ ] Create modal that will display content based on button pressed
   - [ ] Create a file upload form
-    - [ ] Validate file extension and/or size
+    - [ ] Validate file extension
+    - [ ] Validate file size
+    - [ ] Validate file mimetype
     - [ ] A reference location is needed to add the file to a corresponding folder
   - [ ] Create a create folder form
     - [ ] Validate and sanitize input
+  - [ ] Create a share folder form
+    - [ ] Accepts a number of days for expiration duration
   - [ ] Create a file card
+    - [ ] Display the file's name, size, and when it was created
 - [ ] Upload an array of files to Supabase
-  - [ ] 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

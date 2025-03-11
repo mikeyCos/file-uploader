@@ -1,15 +1,18 @@
 # Changelog
 ---
 ### 11 MAR 2025
+- Commit before merging `supabase` branch to `main` branch.
+- Created `validators.js` module; exports all validator modules from a central module.
 - Deleting a folder now deletes all files inside the folder.
-- Enabled a download `anchor` element; 
+- Enabled a download `anchor` element with the `download` attribute; directly downloads file hosted on Supabase.
+- Disabled a download 'button' element.
 - Added `storagePath` field to `File` Prisma model.
 ---
 ### 10 MAR 2025
 - Files can be individually downloaded by clicking the download button.
 - Created `downloadFile.js` module in the `events` directory.
 - Created `generateStoragePath.js` module; accepts `userID`, `filename`, `folderID` parameters.
-- Created `utils.js` module; exports all utility modules from a central source.
+- Created `utils.js` module; exports all utility modules from a central module.
 ---
 ### 09 MAR 2025
 - Created `generateRandomIndex.js` module; accepts an array and number upperBound parameters.
