@@ -13,9 +13,6 @@ const openDialog = async (e) => {
   // /drive/files/upload
   // Issue
   //  Invalid form will render a new form on POST
-  // content.setAttribute("action", formAction);
-  // console.log("form.action:", form.action);
-  // console.log("form.getAttribute('action'):", form.getAttribute("action"));
   dialog.append(content);
   dialog.showModal();
 };

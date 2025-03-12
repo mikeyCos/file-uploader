@@ -1,6 +1,12 @@
 # Changelog
 ---
+### 12 MAR 2025
+- Files can be uploaded, and renamed from folders and subfolders.
+- Subfolders can be created from client to database.
+- Subfolders are seeded in the database and rendered to the client.
+---
 ### 11 MAR 2025
+- Created `self-relating-folders` branch.
 - Commit before merging `supabase` branch to `main` branch.
 - Created `validators.js` module; exports all validator modules from a central module.
 - Deleting a folder now deletes all files inside the folder.

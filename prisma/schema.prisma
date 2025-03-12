@@ -12,7 +12,6 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  // shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 model Session {
@@ -21,35 +20,6 @@ model Session {
   data      String   @db.Text
   expiresAt DateTime
 }
-
-/**
- * model Account {
- * id       String  @id @default(uuid())
- * email    String  @unique
- * name     String
- * username String  @unique
- * password String
- * root     Folder?
- * }
- * // Folders can have files and/or folders
- * model Folder {
- * id        String   @id @default(uuid())
- * name      String   @default("New folder")
- * createdAt DateTime @default(now())
- * updatedAt DateTime @updatedAt
- * account   Account  @relation(fields: [accountId], references: [id])
- * accountId String   @unique
- * files File[] @relation("folder")
- * }
- * model File {
- * id        String   @id @default(uuid())
- * name      String   @default("New file")
- * createdAt DateTime @default(now())
- * updatedAt DateTime @updatedAt
- * folder   Folder @relation("folder", fields: [folderId], references: [id])
- * folderId String
- * }
- */
 
 model Account {
   id       String   @id @default(uuid())
@@ -70,6 +40,10 @@ model Folder {
   updatedAt DateTime @updatedAt
   account   Account  @relation(fields: [accountId], references: [id], onDelete: Cascade)
   accountId String
+
+  parentFolderId String?
+  parentFolder   Folder?  @relation("SubFolders", fields: [parentFolderId], references: [id], onDelete: Cascade)
+  subFolders     Folder[] @relation("SubFolders")
 
   files File[]
 }

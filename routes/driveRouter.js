@@ -28,8 +28,11 @@ driveRouter.post(
   ["/files/upload", "/folder/:folderID/files/upload"],
   postFilesUpload
 );
-// driveRouter.post("/files/upload", postFilesUpload);
-driveRouter.post("/folder/create", postFolderCreate);
+
+driveRouter.post(
+  ["/folder/create", "/folder/:folderID/folder/create"],
+  postFolderCreate
+);
 
 // PUT requests
 driveRouter.put("/file/:fileID", putFile);

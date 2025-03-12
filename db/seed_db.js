@@ -1,6 +1,7 @@
 const prisma = require("./prisma");
 const bcrypt = require("bcryptjs");
-const seedBucket = require("./seed_bucket");
+const { seedBucket, emptyBucket } = require("./seed_bucket");
+const supabase = require("./supabase");
 
 const accountsArr = Promise.all(
   [
@@ -42,124 +43,92 @@ const seedDB = async () => {
   // await prisma.file.deleteMany();
   // await prisma.folder.deleteMany();
 
-  const accounts = await prisma.account.createManyAndReturn({
-    data: await accountsArr,
-  });
+  const [billDauterive, kahnSouphanousinphone, peggyHill] =
+    await prisma.account.createManyAndReturn({
+      data: await accountsArr,
+    });
 
-  const billDozer = await prisma.account.findFirst({
-    where: {
-      id: accounts[0].id,
-    },
-  });
-
-  // Create folders for user bill_dozer
-  const folders = await prisma.folder.createManyAndReturn({
+  // Create folders at the root for user bill_dozer
+  await prisma.folder.createManyAndReturn({
     data: [
       {
         name: "Folder 0",
-        accountId: billDozer.id,
+        accountId: billDauterive.id,
       },
       {
         name: "Folder 1",
-        accountId: billDozer.id,
+        accountId: billDauterive.id,
       },
     ],
   });
 
-  // userID, folderIDs, bucketID = "drives", filesPath
-  await seedBucket(billDozer.id, folders);
-  // Create files for user bill_dozer
-  /* await prisma.file.createMany({
-    data: [
-      {
-        name: "A file not in a folder",
-        accountId: billDozerAfterFolder.id,
-      },
-      {
-        name: "A file in folder 0",
-        accountId: accounts[0].id,
-        folderId: billDozerAfterFolder.folders[0].id,
-      },
-      {
-        name: "A file 0",
-        accountId: billDozerAfterFolder.id,
-      },
-    ],
-  }); */
-
-  const billDozerAfterSeed = await prisma.account.findFirst({
-    where: {
-      id: accounts[0].id,
-    },
-    include: {
-      folders: {
-        include: {
-          files: true,
-        },
-      },
-      files: true,
-    },
-  });
-
-  console.log("billDozerAfterSeed:", billDozerAfterSeed);
-
-  /*
-
-  console.log("after creating folder");
-  console.log("folder:", folder);
-
-  const accountAfterCreatingFolder = await prisma.account.findFirst({
-    where: {
-      id: account.id,
-    },
-    include: {
-      folders: {
-        include: {
-          files: true,
-        },
-      },
-      files: true,
-    },
-  });
-
-  console.log("accountAfterCreatingFolder:", accountAfterCreatingFolder); */
-  /* const account = await prisma.account.create({
+  await prisma.folder.create({
+    include: {},
     data: {
-      name: "Luanne Platter",
-      username: "platter_lp",
-      email: "lp_barber@gmail.com",
-      password: "manGer1&BabY",
-      folders: {
+      name: "Folder with subfolders",
+      accountId: billDauterive.id,
+      subFolders: {
         create: [
           {
-            name: "Folder 0",
-            files: {
-              create: {
-                name: "A file",
-              },
+            name: "Subfolder 0",
+            accountId: billDauterive.id,
+            // parentId: folders[0].id,
+            subFolders: {
+              create: [
+                {
+                  name: "Folder in subfolder 0",
+                  accountId: billDauterive.id,
+                },
+              ],
             },
           },
           {
-            name: "Folder 1",
+            name: "Subfolder 1",
+            accountId: billDauterive.id,
           },
         ],
       },
     },
+  });
+
+  const folders = await prisma.folder.findMany();
+  console.log("folders:", folders);
+  // Create files for user bill_dozer
+  // userID, folderIDs, bucketID = "drives", filesPath
+  // await seedBucket(billDozer.id, folders);
+
+  const billDauteriveAfterSeed = await prisma.account.findFirst({
+    where: {
+      id: billDauterive.id,
+    },
     include: {
       folders: {
         include: {
           files: true,
+          subFolders: true,
+          parentFolder: {
+            include: {
+              subFolders: true,
+            },
+          },
         },
       },
+      files: true,
     },
-  }); */
-  // console.log("account.folders:", account.folders);
-  // console.log("account.folders[0].files:", account.folders[0].files);
+  });
+
+  console.log("billDauteriveAfterSeed:", billDauteriveAfterSeed);
+  console.log(
+    "billDauteriveAfterSeed.folders[3].parentFolder:",
+    billDauteriveAfterSeed.folders[3].parentFolder
+  );
+
   console.log("db has been seeded!");
 };
 
 const emptyDB = async () => {
   await prisma.account.deleteMany();
+  await emptyBucket();
   console.log("db has been emptied");
 };
 

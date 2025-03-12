@@ -53,8 +53,8 @@ const seedBucket = async (userID, folders, bucketID = "drives", filesPath) => {
   console.log("The bucket have been seeded!");
 };
 
-const emptyBucket = async (bucketID) => {
+const emptyBucket = async (bucketID = "drives") => {
   await supabase.storage.emptyBucket(bucketID);
 };
 
-module.exports = seedBucket;
+module.exports = { seedBucket, emptyBucket };

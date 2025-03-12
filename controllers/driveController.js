@@ -14,10 +14,15 @@ const { generateStoragePath } = require("../utils/utils");
 const driveController = {
   getDrive: asyncHandler(async (req, res) => {
     console.log("getDrive running...");
+    console.log("req.params:", req.params);
     console.log("req.baseUrl:", req.baseUrl);
     console.log("req.originalUrl:", req.originalUrl);
 
-    const folders = await prisma.folder.findMany();
+    const folders = await prisma.folder.findMany({
+      where: {
+        parentFolderId: null,
+      },
+    });
     const files = await prisma.file.findMany({
       where: {
         folderId: null,
@@ -25,7 +30,7 @@ const driveController = {
     });
 
     // /drive/files/upload
-    const formAction = `${req.originalUrl}/files/upload`;
+    const formAction = req.originalUrl;
 
     res.render("drive", {
       folders,
@@ -46,6 +51,7 @@ const driveController = {
       },
       include: {
         files: true,
+        subFolders: true,
       },
     });
 
@@ -53,7 +59,7 @@ const driveController = {
 
     // /drive/folder/:folderID/files/upload
     // Currently used int he controls partial
-    const formAction = `${req.originalUrl}/files/upload`;
+    const formAction = req.originalUrl;
 
     res.render("folder", {
       folder,
@@ -63,18 +69,27 @@ const driveController = {
   postFolderCreate: [
     validateFolder("createFolderForm"),
     asyncHandler(async (req, res) => {
+      const { folderID } = req.params;
       console.log("postFolderCreate running...");
       console.log("req.user:", req.user);
       console.log("req.body:", req.body);
       console.log("res.locals", res.locals);
+      console.log("req.params:", req.params);
       const { folder_name } = matchedData(req, { onlyValidData: true });
-      // Could append or prepend
+
       await prisma.folder.create({
         data: {
           name: folder_name,
           account: {
             connect: { id: req.user.id },
           },
+          ...(folderID && {
+            parentFolder: {
+              connect: {
+                id: folderID,
+              },
+            },
+          }),
         },
       });
 
@@ -224,11 +239,28 @@ const driveController = {
       },
     });
 
+    // Need to delete files from supabase.storage that are nested in a parent folder
     if (folder.files.length > 0) {
       for (const file of folder.files) {
         await supabase.storage.from("drives").remove([file.storagePath]);
       }
     }
+
+    /* const folder = await prisma.folder.findFirst({
+      where: {
+        id: folderID,
+      },
+      include: {
+        files: true,
+        subFolders: {
+          include: {
+            subFolders: true,
+          },
+        },
+      },
+    }); */
+
+    console.log(folder);
 
     // This is fetched from the client and causes 2 GET requests
     // res.redirect("/drive");

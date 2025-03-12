@@ -14,7 +14,7 @@
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^3.1.4",
-    "prisma": "^6.3.1"
+    "prisma": "^6.5.0"
   },
   "dependencies": {
     "@quixo3/prisma-session-store": "^3.1.13",

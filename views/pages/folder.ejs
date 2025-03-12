@@ -15,6 +15,14 @@
             <% }) %>
           </ul>
         <% } %>
+
+        <% if (folder.subFolders.length > 0) { %>
+          <ul class="folders">
+            <% folder.subFolders.forEach((folder) => { %>
+              <%- include('./itemFolder', { folder }) %>
+            <% }) %>
+          </ul>
+        <% } %>
       </section>
 
       <dialog onclose="onCloseHandler()" onclick="closeDialog(event)"></dialog>
