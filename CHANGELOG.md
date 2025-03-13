@@ -1,5 +1,8 @@
 # Changelog
 ---
+### 13 MAR 2025
+- Commit before merging `self-relating-folders` branch to `main` branch.
+---
 ### 12 MAR 2025
 - Deleting a folder will delete all it's children folder and their existing files.
 - Removed `onDelete: Cascade` from `account` and `parentFolder` fields.
