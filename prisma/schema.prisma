@@ -38,11 +38,11 @@ model Folder {
   name      String   @default("New folder")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  account   Account  @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  account   Account  @relation(fields: [accountId], references: [id])
   accountId String
 
   parentFolderId String?
-  parentFolder   Folder?  @relation("SubFolders", fields: [parentFolderId], references: [id], onDelete: Cascade)
+  parentFolder   Folder?  @relation("SubFolders", fields: [parentFolderId], references: [id])
   subFolders     Folder[] @relation("SubFolders")
 
   files File[]
@@ -59,7 +59,7 @@ model File {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  account   Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  account   Account @relation(fields: [accountId], references: [id])
   accountId String
 
   folder   Folder? @relation(fields: [folderId], references: [id], onDelete: Cascade)

@@ -1,8 +1,12 @@
 # Changelog
 ---
 ### 12 MAR 2025
+- Deleting a folder will delete all it's children folder and their existing files.
+- Removed `onDelete: Cascade` from `account` and `parentFolder` fields.
+- Temporarily created `deleteFolderFiles.js` in `utils` directory.
 - Files can be uploaded, and renamed from folders and subfolders.
 - Subfolders can be created from client to database.
+- Changed `formAction` from `${req.originalUrl}/files/upload` to `req.originalUrl`.
 - Subfolders are seeded in the database and rendered to the client.
 ---
 ### 11 MAR 2025

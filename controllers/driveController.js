@@ -10,6 +10,7 @@ const {
   validateUpload,
 } = require("../validators/validators");
 const { generateStoragePath } = require("../utils/utils");
+const deleteFolderFiles = require("../utils/deleteFolderFiles");
 
 const driveController = {
   getDrive: asyncHandler(async (req, res) => {
@@ -229,38 +230,25 @@ const driveController = {
     //  Delete files
     // Option 2
     //  Remove folder relation
+    console.log("deleteFolder running...");
     const { folderID } = req.params;
-    const folder = await prisma.folder.delete({
+    /* const folder = await prisma.folder.delete({
       where: {
         id: folderID,
       },
       include: {
         files: true,
-      },
-    });
-
-    // Need to delete files from supabase.storage that are nested in a parent folder
-    if (folder.files.length > 0) {
-      for (const file of folder.files) {
-        await supabase.storage.from("drives").remove([file.storagePath]);
-      }
-    }
-
-    /* const folder = await prisma.folder.findFirst({
-      where: {
-        id: folderID,
-      },
-      include: {
-        files: true,
-        subFolders: {
-          include: {
-            subFolders: true,
-          },
-        },
       },
     }); */
 
-    console.log(folder);
+    // Need to delete files from supabase.storage that are nested in a parent folder
+    /* if (folder.files.length > 0) {
+      for (const file of folder.files) {
+        await supabase.storage.from("drives").remove([file.storagePath]);
+      }
+    } */
+
+    deleteFolderFiles(folderID);
 
     // This is fetched from the client and causes 2 GET requests
     // res.redirect("/drive");
