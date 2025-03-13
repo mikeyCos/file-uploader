@@ -1,6 +1,7 @@
 # Changelog
 ---
 ### 13 MAR 2025
+- Created `share-folder` branch.
 - Commit before merging `self-relating-folders` branch to `main` branch.
 ---
 ### 12 MAR 2025
