@@ -1,6 +1,10 @@
 # Changelog
 ---
 ### 13 MAR 2025
+- Created `copyToClipboard.js` in `events` directory; this will write the `#shareURL` input's value into the clipboard.
+- Created `SharedFolders` Prisma model.
+- Created `shareFolderForm.ejs` and `shareFolderOutput.ejs` partials.
+- Created `sharedRouter.js` and and `shareController.js` modules.
 - Created `share-folder` branch.
 - Commit before merging `self-relating-folders` branch to `main` branch.
 ---

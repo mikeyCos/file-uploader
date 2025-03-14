@@ -7,4 +7,5 @@
     <%- include('../../public/assets/icons/delete.svg') %>
   </button>
   <button type="button" onclick="openDialog(event)" data-url="form/folder/edit/<%= folder.id %>" data-form-action="/drive/folder/<%= folder.id %>">Rename</button>
+  <button type="button" onclick="openDialog(event)" data-url="form/folder/share/<%= folder.id %>" data-form-action="/share/<%= folder.id %>">Share</button>
 </li>

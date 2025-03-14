@@ -22,13 +22,11 @@ const deleteFolderFiles = async (folderID) => {
   // Delete files
   if (folder.files.length > 0) {
     for (const file of folder.files) {
-      console.log("file.storagePath:", file.storagePath);
       await supabase.storage.from("drives").remove([file.storagePath]);
     }
   }
 
   for (const subfolder of folder.subFolders) {
-    console.log("subfolder:", subfolder);
     await deleteFolderFiles(subfolder.id);
   }
 };

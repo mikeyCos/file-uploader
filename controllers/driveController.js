@@ -277,25 +277,24 @@ const driveController = {
     // Use this endpoint if a download button exists
     // As for downloading directly from supabase
     // https://supabase.com/docs/guides/storage/serving/downloads
-    console.log("downloadFile running...");
     const { fileID } = req.params;
-    console.log("fileID:", fileID);
-
     const { storagePath, name } = await prisma.file.findFirst({
       where: {
         id: fileID,
       },
     });
 
-    // const { data, error } = await supabase.storage.from("drives").download(storagePath);
+    const { data, error } = await supabase.storage
+      .from("drives")
+      .download(storagePath);
 
     // res.attachment sets the headers
     // Content-Disposition: attachment; filename="[filename]"
     // Content-Type: [file_mimetype]
-    // res.attachment(name);
-    // const buffer = Buffer.from(await data.arrayBuffer());
-    // res.send(buffer);
-    // res.end();
+    res.attachment(name);
+    const buffer = Buffer.from(await data.arrayBuffer());
+    res.send(buffer);
+    res.end();
   }),
 };
 

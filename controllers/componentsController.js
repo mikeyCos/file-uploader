@@ -79,6 +79,12 @@ const componentsController = {
       msg: `Are you sure you want to delete folder, "${folder.name}"?`,
     });
   }),
+  getShareFolderForm: asyncHandler(async (req, res) => {
+    console.log("getShareFolderForm running...");
+    const { folderID } = req.params;
+
+    res.render("shareFolderForm", { folderID });
+  }),
 };
 
 module.exports = componentsController;

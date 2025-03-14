@@ -4,6 +4,7 @@ const accountRouter = require("./accountRouter");
 const supportRouter = require("./supportRouter");
 const driveRouter = require("./driveRouter");
 const componentsRouter = require("./componentsRouter");
+const shareRouter = require("./shareRouter");
 
 /* const path = require("path");
 const rootPath = path.join(__dirname, "..");
@@ -27,6 +28,7 @@ const routes = (app) => {
   // Protected routes
   app.use("/account", accountRouter); // Rename to auth or an array of mounts ["/login", "/signup"]
   app.use("/drive", [checkAuth], driveRouter);
+  app.use("/share", shareRouter);
 
   app.use((req, res, next) => {
     next({ status: 404, error: "Page not found" });

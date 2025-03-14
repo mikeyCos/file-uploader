@@ -66,3 +66,10 @@ model File {
   folderId String?
   // folderId String? @default("root")
 }
+
+model SharedFolders {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+  folderId  String
+}

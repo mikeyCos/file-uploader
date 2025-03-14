@@ -1,0 +1,14 @@
+<form action="" method="dialog" onsubmit="onSubmit(event, shareFolder)" onclick="stopPropagation(event)" data-item-id="<%= folderID %>">
+  <h2>Share Folder</h2>
+  <ul>
+    <li class="form-item">
+      <label for="share_duration">Enter number for share duration</label>
+      <input type="number" name="share_duration" id="share_duration">
+      <% if (locals.errors?.share_duration) { %>
+        <p class="input-error active-error"><%= errors.share_duration.msg %></p>
+      <% } %>
+    </li>
+  </ul>
+  <button type="button" onclick="closeDialog()">Cancel</button>
+  <button type="submit">Share</button>
+</form>

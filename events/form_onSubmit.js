@@ -25,11 +25,12 @@ const onSubmit = async (e, cb) => {
   const { itemId } = form.dataset;
   const formData = new FormData(form);
   console.log("window.location:", window.location);
-  const { ok, newForm } = await cb(action, { body: formData, itemId });
+  const { ok, newForm, content } = await cb(action, { body: formData, itemId });
 
   console.log("ok:", ok);
   console.log("newForm:", newForm);
   if (ok) {
+    if (content) return form.replaceWith(content);
     form.submit();
   } else {
     form.replaceWith(newForm);
@@ -166,4 +167,21 @@ const deleteItem = async (url, { itemId }) => {
   //    OR
   //    Remove item from DOM
   //    Close dialog
+};
+
+const shareFolder = async (url) => {
+  console.log(url);
+  return fetch(url, { method: "POST" })
+    .then(async (res) => {
+      console.log(res);
+      const rawHTML = await res.text();
+      return rawHTML;
+    })
+    .then(async (html) => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, "text/html");
+      const content = doc.body.firstChild;
+
+      return { ok: true, content };
+    });
 };
