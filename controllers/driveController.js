@@ -2,7 +2,7 @@ const asyncHandler = require("express-async-handler");
 const { decode } = require("base64-arraybuffer");
 const { matchedData } = require("express-validator");
 const upload = require("../config/upload");
-const prisma = require("../db/prisma");
+const { prisma } = require("../db/prisma");
 const supabase = require("../db/supabase");
 const {
   validateFilename,

@@ -1,4 +1,5 @@
 <article onclick="stopPropagation(event)">
+  <p>The URL will expire at <span class="date"><%= expiresAt %></span></p>
   <label for="sharedURL">Shared URL:</label>
   <input type="text" name="sharedURL" id="sharedURL" value="<%= shareURL %>" disabled>
   <button type="button" onClick="copyToClipboard(event)">Copy</button>

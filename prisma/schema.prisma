@@ -34,11 +34,12 @@ model Account {
 // How to have nested folders?
 // How to dictate a folder is shareable with a expiration date?
 model Folder {
-  id        String   @id @default(uuid())
-  name      String   @default("New folder")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  account   Account  @relation(fields: [accountId], references: [id])
+  id        String    @id @default(uuid())
+  name      String    @default("New folder")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  expiresAt DateTime?
+  account   Account   @relation(fields: [accountId], references: [id], onDelete: Cascade)
   accountId String
 
   parentFolderId String?
@@ -59,7 +60,7 @@ model File {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  account   Account @relation(fields: [accountId], references: [id])
+  account   Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
   accountId String
 
   folder   Folder? @relation(fields: [folderId], references: [id], onDelete: Cascade)
@@ -67,9 +68,9 @@ model File {
   // folderId String? @default("root")
 }
 
-model SharedFolders {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  expiresAt DateTime
-  folderId  String
-}
+// model SharedFolders {
+//   id        String   @id @default(uuid())
+//   createdAt DateTime @default(now())
+//   expiresAt DateTime
+//   folderId  String
+// }

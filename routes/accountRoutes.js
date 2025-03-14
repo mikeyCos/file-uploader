@@ -15,22 +15,18 @@ const {
  * Possible solution:
  * https://stackoverflow.com/questions/72376698/redirect-even-if-user-uses-back-button-node-js
  */
-const accountRouter = new Router();
+const accountRoutes = (isAuth) => {
+  const accountRouter = new Router();
 
-const isAuthenticated = (req, res, next) => {
-  console.log("isAuthenticated running...");
-  // If an account is logged in, redirect to the root
-  if (req.isAuthenticated()) return res.redirect("/");
-  next();
+  // GET requests
+  accountRouter.get("/login", getLogin);
+  accountRouter.get("/create", getCreateAccount);
+
+  // POST requests
+  accountRouter.post("/login", postLogin);
+  accountRouter.post("/logout", isAuth, postLogout);
+  accountRouter.post("/create", postCreateAccount);
+  return accountRouter;
 };
 
-// GET requests
-accountRouter.get("/login", getLogin);
-accountRouter.get("/create", getCreateAccount);
-
-// POST requests
-accountRouter.post("/login", postLogin);
-accountRouter.post("/logout", postLogout);
-accountRouter.post("/create", postCreateAccount);
-
-module.exports = accountRouter;
+module.exports = accountRoutes;

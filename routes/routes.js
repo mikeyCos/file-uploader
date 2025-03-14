@@ -1,16 +1,12 @@
-const indexRouter = require("./indexRouter");
-const placeholderRouter = require("./placeholderRouter");
-const accountRouter = require("./accountRouter");
-const supportRouter = require("./supportRouter");
-const driveRouter = require("./driveRouter");
-const componentsRouter = require("./componentsRouter");
-const shareRouter = require("./shareRouter");
+const indexRoutes = require("./indexRoutes");
+const placeholderRoutes = require("./placeholderRoutes");
+const accountRoutes = require("./accountRoutes");
+const supportRoutes = require("./supportRoutes");
+const driveRoutes = require("./driveRoutes");
+const componentsRoutes = require("./componentsRoutes");
+const shareRoutes = require("./shareRoutes");
 
-/* const path = require("path");
-const rootPath = path.join(__dirname, "..");
-const viewsPartialsPath = path.join(rootPath, "views/partials"); */
-
-const checkAuth = (req, res, next) => {
+const isAuth = (req, res, next) => {
   console.log("req.path:", req.path);
   if (req.isAuthenticated()) {
     return next();
@@ -20,15 +16,17 @@ const checkAuth = (req, res, next) => {
 
 // Router-level
 const routes = (app) => {
-  app.use("/", indexRouter);
-  app.use("/placeholderA", placeholderRouter);
-  app.use("/support", supportRouter);
-  app.use("/components", componentsRouter);
+  app.use("/", indexRoutes());
+  app.use("/placeholderA", placeholderRoutes());
+  app.use("/support", supportRoutes());
+  app.use("/components", componentsRoutes());
 
-  // Protected routes
-  app.use("/account", accountRouter); // Rename to auth or an array of mounts ["/login", "/signup"]
-  app.use("/drive", [checkAuth], driveRouter);
-  app.use("/share", shareRouter);
+  // Fully-Protected routes
+  app.use("/drive", isAuth, driveRoutes()); // isAuth will be on all /drive paths
+
+  // Semi-Protected routes
+  app.use("/account", accountRoutes(isAuth)); // isAuth will only be on /logout path; is this needed?
+  app.use("/share", shareRoutes(isAuth)); // isAuth will only be on the post path
 
   app.use((req, res, next) => {
     next({ status: 404, error: "Page not found" });

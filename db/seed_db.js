@@ -1,4 +1,4 @@
-const prisma = require("./prisma");
+const { prisma } = require("./prisma");
 const bcrypt = require("bcryptjs");
 const { seedBucket, emptyBucket } = require("./seed_bucket");
 const supabase = require("./supabase");
@@ -39,6 +39,7 @@ const accountsArr = Promise.all(
   .catch((err) => console.log(err.message));
 
 const seedDB = async () => {
+  await emptyDB();
   await prisma.account.deleteMany();
   // await prisma.file.deleteMany();
   // await prisma.folder.deleteMany();
@@ -127,6 +128,9 @@ const seedDB = async () => {
 };
 
 const emptyDB = async () => {
+  /* await prisma.file.deleteMany();
+  await prisma.folder.deleteMany();
+  await prisma.account.deleteMany(); */
   await prisma.account.deleteMany();
   await emptyBucket();
   console.log("db has been emptied");

@@ -1,6 +1,6 @@
 // https://express-validator.github.io/docs/api/check-schema/
 const { checkSchema } = require("express-validator");
-const prisma = require("../db/prisma");
+const { prisma } = require("../db/prisma");
 
 const confirmPassword = (password, { req }) => {
   return password === req.body.password;

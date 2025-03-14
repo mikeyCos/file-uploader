@@ -229,6 +229,9 @@ _For more examples, please refer to the [Documentation](https://example.com)_
     - [ ] A reference location is needed to add the file to a corresponding folder
   - [ ] Create a create folder form
     - [ ] Validate and sanitize input
+  - [ ] Create a edit folder form
+  - [ ] Create a edit file name form
+    - [ ] The file's name
   - [ ] Create a share folder form
     - [ ] Accepts a number of days for expiration duration
   - [ ] Create a file card
@@ -288,6 +291,22 @@ asyncHandler(async (req, res) => {
 ```
 4. What are situations in Node where it makes more sense to use synchronous code over asynchronous code?
 5. Is it more accessible to use an `anchor` element over a `button` element to handle downloads? What are situations, if any, where it makes sense to use one over the other?
+6. What are some use cases for constructing a Express route? For example, `shareRoutes.js` module exports a function that returns a `Router` object with assigned `router.METHOD` for specific paths. The function also uses a `isAuth` middleware for only the `POST` method.
+```js
+const shareRoutes = (isAuth) => {
+  const shareRouter = new Router();
+
+  // GET requests
+  shareRouter.get("/:folderID", getSharedRoute);
+
+  // POST requests
+  shareRouter.post("/:folderID", isAuth, createSharedRoute);
+
+  return shareRouter;
+};
+
+module.exports = shareRoutes;
+```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

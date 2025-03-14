@@ -24,7 +24,7 @@ const seedBucket = async (userID, folders, bucketID = "drives", filesPath) => {
   console.log("folders:", folders);
   // Upload files from uploadsPath
   for (const file of files) {
-    const randomFolderIndex = generateRandomIndex(files, 1);
+    const randomFolderIndex = generateRandomIndex(folders, 1);
     const { id: folderID } = folders[randomFolderIndex] ?? {};
     const { originalname, buffer, mimetype } = file;
     const fileBase64 = decode(buffer.toString("base64"));

@@ -1,5 +1,12 @@
 # Changelog
 ---
+### 14 MAR 2025
+- Created `validateShareDuration.ejs` module.
+- Added `expiresAt` field to `Folder` Prisma model.
+- Removed `SharedFolders` Prisma model.
+- All `*Routes` are functions that may or may not use a `isAuth` middleware to use on specific router-level paths.
+- Renamed all `*Router.js` modules to `*Routes.js`.
+---
 ### 13 MAR 2025
 - Created `copyToClipboard.js` in `events` directory; this will write the `#shareURL` input's value into the clipboard.
 - Created `SharedFolders` Prisma model.

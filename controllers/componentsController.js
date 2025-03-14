@@ -1,5 +1,5 @@
 const asyncHandler = require("express-async-handler");
-const prisma = require("../db/prisma");
+const { prisma } = require("../db/prisma");
 
 const componentsController = {
   getFileDetails: asyncHandler(async (req, res) => {

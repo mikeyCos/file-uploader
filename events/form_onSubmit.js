@@ -169,9 +169,9 @@ const deleteItem = async (url, { itemId }) => {
   //    Close dialog
 };
 
-const shareFolder = async (url) => {
+const shareFolder = async (url, { body }) => {
   console.log(url);
-  return fetch(url, { method: "POST" })
+  return fetch(url, { method: "PUT", body: new URLSearchParams(body) })
     .then(async (res) => {
       console.log(res);
       const rawHTML = await res.text();

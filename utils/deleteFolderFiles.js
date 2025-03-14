@@ -1,4 +1,4 @@
-const prisma = require("../db/prisma");
+const { prisma } = require("../db/prisma");
 const supabase = require("../db/supabase");
 
 const deleteFolderFiles = async (folderID) => {

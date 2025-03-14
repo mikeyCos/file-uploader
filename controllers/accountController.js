@@ -6,7 +6,7 @@ const {
   validateCreateAccount,
   validateLogin,
 } = require("../validators/validators");
-const prisma = require("../db/prisma");
+const { prisma } = require("../db/prisma");
 
 const accountController = {
   getLogin: asyncHandler(async (req, res) => {
