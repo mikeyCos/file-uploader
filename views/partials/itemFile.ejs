@@ -3,10 +3,12 @@
     <span><%- include('../../public/assets/icons/file.svg') %></span>
     <span><%= file.name %></span>
   </p>
-  <button type="button" onclick="openDialog(event)" data-url="form/file/delete/<%= file.id %>" data-form-action="/drive/file/<%= file.id %>">
-    <%- include('../../public/assets/icons/delete.svg') %>
-  </button>
-  <button type="button" onclick="openDialog(event)" data-url="form/file/edit/<%= file.id %>" data-form-action="/drive/file/<%= locals.fileID ?? file.id %>">Rename</button>
+  <% if(!locals.public) { %>
+    <button type="button" onclick="openDialog(event)" data-url="form/file/delete/<%= file.id %>" data-form-action="/drive/file/<%= file.id %>">
+      <%- include('../../public/assets/icons/delete.svg') %>
+    </button>
+    <button type="button" onclick="openDialog(event)" data-url="form/file/edit/<%= file.id %>" data-form-action="/drive/file/<%= locals.fileID ?? file.id %>">Rename</button>
+  <% } %>
   <button type="button" onClick="openDialog(event)" data-url="/file/details/<%= file.id %>">Details</button>
   <!-- <button type="button" onClick="downloadFile(event)" data-url="drive/download/file/<%= file.id %>">Download</button> -->
   <a href="<%= file.url %>?download" download="<%= file.name %>">Download</a>

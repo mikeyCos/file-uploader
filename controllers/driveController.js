@@ -32,11 +32,13 @@ const driveController = {
 
     // /drive/files/upload
     const formAction = req.originalUrl;
+    const baseURL = req.originalUrl;
 
     res.render("drive", {
       folders,
       files,
       formAction,
+      baseURL,
     });
   }),
   getDriveFolder: asyncHandler(async (req, res) => {
@@ -44,6 +46,7 @@ const driveController = {
     console.log("req.params:", req.params);
     console.log("req.baseUrl:", req.baseUrl);
     console.log("req.originalUrl:", req.originalUrl);
+    console.log("req.path:", req.path);
     // Need to validate req.params.folderID
     const { folderID } = req.params;
     const folder = await prisma.folder.findFirst({
@@ -61,10 +64,12 @@ const driveController = {
     // /drive/folder/:folderID/files/upload
     // Currently used int he controls partial
     const formAction = req.originalUrl;
+    const baseURL = `${req.baseUrl}/folder/`;
 
     res.render("folder", {
       folder,
       formAction,
+      baseURL,
     });
   }),
   postFolderCreate: [

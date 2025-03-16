@@ -26,6 +26,7 @@ app.use(
   session({
     cookie: {
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days * 24 hrs * 60 mins * 60 secs * 1000 ms
+      // maxAge: 60 * 1000, // 60 secs * 1000 ms = 1 minute
     },
     secret: "a santa at nasa",
     resave: true,

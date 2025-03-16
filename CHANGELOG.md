@@ -1,6 +1,13 @@
 # Changelog
 ---
+### 15 MAR 2025
+- Created `isExpired.js` module in `utils` directory.
+- Removed `404.ejs` page.
+- Added a conditional block in `itemFolder.ejs`, `itemFile.ejs`, and `folder.ejs` to check if current page is public; buttons will not be rendered for shared folders.
+- Created `baseURL` variable in `getSharedRoute`, `getDriveFolder`, and `getDrive` endpoints.
+---
 ### 14 MAR 2025
+- Created `updateFolderExpiresAt` and `traverseNestedFolders` functions in `prisma.js` module.
 - Created `validateShareDuration.ejs` module.
 - Added `expiresAt` field to `Folder` Prisma model.
 - Removed `SharedFolders` Prisma model.
