@@ -1,6 +1,7 @@
 # Changelog
 ---
 ### 17 MAR 2025
+- Created `params-validation` branch.
 - Commit before merging `share-folder` branch with `main` branch.
 - Created `paramsValidator.js` module.
 - When a user visits a valid `/share/:folderID` path but the folder's `expiresAt` value is a expired date, an error page with HTTP code `410` is rendered with the message `Link has expired`.
