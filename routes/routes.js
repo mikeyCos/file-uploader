@@ -29,7 +29,7 @@ const routes = (app) => {
   app.use("/share", shareRoutes(isAuth)); // isAuth will only be on the post path
 
   app.use((req, res, next) => {
-    next({ status: 404, error: "Page not found" });
+    next({ error: "Page not found", status: 404 });
   });
 };
 

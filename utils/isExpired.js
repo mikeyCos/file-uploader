@@ -8,19 +8,19 @@ const isValidDate = (date) => {
   );
 };
 
-const isExpired = (expiresAt) => {
+const isExpired = (date) => {
   console.log("isExpired running...");
   // instanceof and multiple realms
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof#instanceof_and_multiple_realms
   // if (!(expiresAt instanceof Date))
   //   throw new Error("ExpiresAt is not instanceof Date object.");
-  const validDate = isValidDate(expiresAt);
-  if (!validDate) throw new Error("ExpiresAt is not a date object.");
+  const validDate = isValidDate(date);
+  if (!validDate) return true;
 
   const today = new Date();
   console.log("today:", today);
-  console.log("expiresAt:", expiresAt);
-  return today >= expiresAt;
+  console.log("date:", date);
+  return today >= date;
 };
 
 module.exports = isExpired;

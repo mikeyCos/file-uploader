@@ -15,7 +15,10 @@
             </article>
           <% break;
           case 403:
-          case 404: %>
+          case 404: 
+          case 410:
+          case 422:
+          %>
             <h2><%= error %></h2>
           <% break;
         } %>

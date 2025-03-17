@@ -9,8 +9,8 @@ const {
 const { isExpired } = require("../utils/utils");
 
 const shareController = {
-  getSharedRoute: asyncHandler(async (req, res) => {
-    console.log("getShare running...");
+  getSharedRoute: asyncHandler(async (req, res, next) => {
+    console.log("getSharedRoute running...");
     console.log("req.params:", req.params);
     const { folderID } = req.params;
 
@@ -25,12 +25,17 @@ const shareController = {
       },
     });
 
-    console.log("folder.expiresAt:", folder.expiresAt);
     console.log("folder:", folder);
-    const expired = isExpired(folder.expiresAt);
+    // console.log("folder.expiresAt:", folder.expiresAt);
+
+    // Need to simplify this so the folder existence is not checked twice
+    const expired = folder ? isExpired(folder.expiresAt) : true;
     console.log("expired:", expired);
+
     if (expired) {
       // Update folder's expiresAt column to null
+      if (folder) await updateFolderExpiresAt(null)(folder.id);
+      return next({ status: 410, error: "Link has expired" });
     }
 
     const baseURL = "/share/";

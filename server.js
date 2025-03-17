@@ -59,9 +59,9 @@ require("./routes/routes")(app);
 // Error middleware function
 app.use((err, req, res, next) => {
   console.log("error middleware running...");
-  const { status, error } = err;
+  const { error, status } = err;
   // res.render("404", { title: "404 - Page Not Found" });
-  res.status(status).render("errors", { status, error });
+  res.status(status).render("errors", { error, status });
 });
 
 app.listen(PORT, () => console.log(`Application running on port: ${PORT}`));

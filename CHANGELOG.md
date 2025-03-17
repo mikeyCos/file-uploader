@@ -1,5 +1,14 @@
 # Changelog
 ---
+### 17 MAR 2025
+- Commit before merging `share-folder` branch with `main` branch.
+- Created `paramsValidator.js` module.
+- When a user visits a valid `/share/:folderID` path but the folder's `expiresAt` value is a expired date, an error page with HTTP code `410` is rendered with the message `Link has expired`.
+- The `isExpired` utility function returns `true` if `date` is invalid instead of throwing an error.
+---
+### 16 MAR 2025
+- If a shared folder has expired, an error page will render with the status code `410`.
+---
 ### 15 MAR 2025
 - Created `isExpired.js` module in `utils` directory.
 - Removed `404.ejs` page.
