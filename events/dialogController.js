@@ -47,6 +47,8 @@ const fetchContent = async (url, formAction) => {
       console.log("--------------------------------------------");
       console.log(doc);
       if (formAction) {
+        // What are the advantages and disadvantages using doc.body.firstChild vs querySelector()
+        // const form = doc.body.firstChild;
         const form = doc.querySelector("form");
         form.setAttribute("action", formAction);
         return form;

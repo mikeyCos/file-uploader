@@ -11,7 +11,6 @@ const { isExpired } = require("../utils/utils");
 const shareController = {
   getSharedRoute: asyncHandler(async (req, res, next) => {
     console.log("getSharedRoute running...");
-    console.log("req.params:", req.params);
     const { folderID } = req.params;
 
     const folder = await prisma.folder.findFirst({
@@ -29,12 +28,13 @@ const shareController = {
     // console.log("folder.expiresAt:", folder.expiresAt);
 
     // Need to simplify this so the folder existence is not checked twice
-    const expired = folder ? isExpired(folder.expiresAt) : true;
+    const expired = isExpired(folder.expiresAt);
     console.log("expired:", expired);
 
     if (expired) {
       // Update folder's expiresAt column to null
-      if (folder) await updateFolderExpiresAt(null)(folder.id);
+      // Maybe only updateFolderExpiresAt if folder.expiresAt exists
+      await updateFolderExpiresAt(null)(folder.id);
       return next({ status: 410, error: "Link has expired" });
     }
 
@@ -57,7 +57,6 @@ const shareController = {
     validateShareDuration("shareFolderForm"),
     asyncHandler(async (req, res) => {
       console.log("createSharedRoute running...");
-      console.log("req.params:", req.params);
 
       const { folderID } = req.params;
 

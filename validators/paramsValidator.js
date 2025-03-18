@@ -1,31 +1,54 @@
 const asyncHandler = require("express-async-handler");
 const { checkSchema, validationResult } = require("express-validator");
+const { getFileById, getFolderById } = require("../db/prisma");
 
-const paramsSchema = {
-  folder_name: {
+const isfileIDValid = async (fileID) => {
+  console.log("isfileIDValid running...");
+  console.log("fileID:", fileID);
+  const fileExists = !!(await getFileById(fileID));
+  if (!fileExists) return Promise.reject("Invalid FileID parameter.");
+  return Promise.resolve();
+};
+
+const isFolderIDValid = async (folderID) => {
+  const folderExists = !!(await getFolderById(folderID));
+  if (!folderExists) return Promise.reject("Invalid folderID parameter.");
+  return Promise.resolve();
+};
+
+const fileSchema = {
+  fileID: {
     trim: true,
-    isEmpty: {
-      negated: true,
-      bail: true,
-      errorMessage: "Folder name cannot be empty.",
-    },
-    isLength: {
-      options: { max: 25 },
-      errorMessage: "Folder name cannot exceed 25 characters in length.",
+    custom: {
+      options: isfileIDValid,
     },
     escape: true,
   },
 };
 
-const validateParams = asyncHandler(async (req, res, next) => {
-  await checkSchema(paramsSchema, ["params"]).run(req);
-  const errors = validationResult(req);
+const folderSchema = {
+  folderID: {
+    trim: true,
+    custom: {
+      options: isFolderIDValid,
+    },
+    escape: true,
+  },
+};
 
-  if (!errors.isEmpty()) {
-    next({ error: "Unprocessable request parameters", status: 422 });
-  }
+// How to get this to work when handling forms with invalid fileID/folderIDs?
+const validateParams = (schema) => {
+  return asyncHandler(async (req, res, next) => {
+    console.log("validateParams running...");
+    await checkSchema(schema, ["params"]).run(req);
+    const errors = validationResult(req);
+    console.log("errors:", errors);
+    if (!errors.isEmpty()) {
+      // next({ error: "Unprocessable request parameter", status: 422 });
+    }
 
-  next();
-});
+    next();
+  });
+};
 
-module.exports = validateParams;
+module.exports = { validateParams, fileSchema, folderSchema };

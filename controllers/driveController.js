@@ -15,9 +15,6 @@ const deleteFolderFiles = require("../utils/deleteFolderFiles");
 const driveController = {
   getDrive: asyncHandler(async (req, res) => {
     console.log("getDrive running...");
-    console.log("req.params:", req.params);
-    console.log("req.baseUrl:", req.baseUrl);
-    console.log("req.originalUrl:", req.originalUrl);
 
     const folders = await prisma.folder.findMany({
       where: {
@@ -32,7 +29,7 @@ const driveController = {
 
     // /drive/files/upload
     const formAction = req.originalUrl;
-    const baseURL = req.originalUrl;
+    const baseURL = `${req.originalUrl}/folder/`;
 
     res.render("drive", {
       folders,
@@ -43,10 +40,7 @@ const driveController = {
   }),
   getDriveFolder: asyncHandler(async (req, res) => {
     console.log("getDriveFolder running...");
-    console.log("req.params:", req.params);
-    console.log("req.baseUrl:", req.baseUrl);
-    console.log("req.originalUrl:", req.originalUrl);
-    console.log("req.path:", req.path);
+
     // Need to validate req.params.folderID
     const { folderID } = req.params;
     const folder = await prisma.folder.findFirst({
@@ -77,10 +71,6 @@ const driveController = {
     asyncHandler(async (req, res) => {
       const { folderID } = req.params;
       console.log("postFolderCreate running...");
-      console.log("req.user:", req.user);
-      console.log("req.body:", req.body);
-      console.log("res.locals", res.locals);
-      console.log("req.params:", req.params);
       const { folder_name } = matchedData(req, { onlyValidData: true });
 
       await prisma.folder.create({
@@ -112,7 +102,6 @@ const driveController = {
       console.log("postFilesUpload running...");
       // console.log("req.body:", req.body);
       console.log("req.files:", req.files);
-      console.log("req.params:", req.params);
       const { user, files } = req;
       const { folderID } = req.params;
 
@@ -166,8 +155,6 @@ const driveController = {
     validateFilename("editFileForm"),
     asyncHandler(async (req, res) => {
       console.log("putFile running...");
-      console.log("req.params:", req.params);
-      console.log("res.locals:", res.locals);
       // Need to validate req.params.folderID
       // Need old path for storage
       const { file_name } = matchedData(req, { onlyValidData: true });
@@ -209,9 +196,6 @@ const driveController = {
     validateFolder("editFolderForm"),
     asyncHandler(async (req, res) => {
       console.log("putFolder running...");
-      console.log("req.params:", req.params);
-      console.log("req.body:", req.body);
-      console.log("res.locals:", res.locals);
       // Need to validate req.params.folderID
       const { folderID } = req.params;
       const { folder_name } = matchedData(req, { onlyValidData: true });

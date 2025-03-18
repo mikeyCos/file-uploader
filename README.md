@@ -307,6 +307,7 @@ const shareRoutes = (isAuth) => {
 
 module.exports = shareRoutes;
 ```
+7. How are invalid `form.action` values handled when a user submits a form?
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

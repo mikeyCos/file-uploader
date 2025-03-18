@@ -1,6 +1,7 @@
 # Changelog
 ---
 ### 17 MAR 2025
+- Currently, request parameters are only validated on `/share/:folderID` and `/drive/folder/:folderID` paths.
 - Created `params-validation` branch.
 - Commit before merging `share-folder` branch with `main` branch.
 - Created `paramsValidator.js` module.

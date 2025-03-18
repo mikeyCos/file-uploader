@@ -42,13 +42,12 @@ app.use(passport.session());
 app.use(express.urlencoded({ extended: true }));
 
 // Application-level
-app.use(logger(""));
+app.use(logger("Application-level"));
 
 app.use((req, res, next) => {
   console.log("application-level middleware running...");
   console.log("req.session:", req.session);
   console.log("req.user:", req.user);
-  console.log("req.originalUrl:", req.originalUrl);
   res.locals.currentUser = req.user;
   next();
 });

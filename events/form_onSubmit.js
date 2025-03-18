@@ -17,23 +17,23 @@
 const onSubmit = async (e, cb) => {
   console.log("onSubmit running...");
   console.log(e);
-  console.log(e.target);
   console.log("e.currentTarget:", e.currentTarget);
   e.preventDefault();
   const form = e.currentTarget;
   const { action } = form;
   const { itemId } = form.dataset;
   const formData = new FormData(form);
-  console.log("window.location:", window.location);
-  const { ok, newForm, content } = await cb(action, { body: formData, itemId });
+  // What if action is an invalid path?
+  // The error middleware will set the status code to 404
+  const { ok, content } = await cb(action, { body: formData, itemId });
 
   console.log("ok:", ok);
-  console.log("newForm:", newForm);
+  console.log("content:", content);
   if (ok) {
-    if (content) return form.replaceWith(content);
     form.submit();
   } else {
-    form.replaceWith(newForm);
+    if (content.tagName !== "FORM") return form.replaceWith(content);
+    form.replaceWith(content);
   }
 
   // "POST" and "PUT" methods
@@ -77,8 +77,8 @@ const uploadFiles = async (url, { body }) => {
     .catch((err) => {
       const parser = new DOMParser();
       const doc = parser.parseFromString(err, "text/html");
-      const newForm = doc.querySelector("form");
-      return { ok: false, newForm };
+      const content = doc.body.firstElementChild;
+      return { ok: false, content };
     });
 };
 
@@ -110,10 +110,13 @@ const createFolder = async (url, { body }) => {
     .catch((err) => {
       const parser = new DOMParser();
       const doc = parser.parseFromString(err, "text/html");
-      const newForm = doc.querySelector("form");
-      // form.replaceWith(doc.querySelector("form"));
-      // return false;
-      return { ok: false, newForm };
+      console.log(doc.body);
+      // If the status is a 404
+      // Select the section
+      const content = doc.querySelector("form");
+
+      console.log(content);
+      return { ok: false, content };
     });
 };
 
@@ -143,8 +146,8 @@ const editItem = async (url, { body, itemId }) => {
       console.log(err);
       const parser = new DOMParser();
       const doc = parser.parseFromString(err, "text/html");
-      const newForm = doc.querySelector("form");
-      return { ok: false, newForm };
+      const content = doc.body.firstElementChild;
+      return { ok: false, content };
     });
 };
 
@@ -154,11 +157,12 @@ const deleteItem = async (url, { itemId }) => {
   console.log("itemId:", itemId);
   return fetch(url, { method: "DELETE" })
     .then(async (res) => {
-      if (res.ok) {
-        const item = document.querySelector(`li[data-item-id="${itemId}"]`);
-        item.remove();
-        return { ok: true };
+      if (!res.ok) {
       }
+
+      const item = document.querySelector(`li[data-item-id="${itemId}"]`);
+      item.remove();
+      return { ok: true };
     })
     .catch((err) => {});
   // Need item from DOM
@@ -180,7 +184,7 @@ const shareFolder = async (url, { body }) => {
     .then(async (html) => {
       const parser = new DOMParser();
       const doc = parser.parseFromString(html, "text/html");
-      const content = doc.body.firstChild;
+      const content = doc.body.firstElementChild;
 
       return { ok: true, content };
     });

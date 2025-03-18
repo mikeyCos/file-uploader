@@ -10,14 +10,20 @@ const {
   deleteFolder,
   deleteFile,
 } = require("../controllers/driveController");
+const { validateParams } = require("../validators/validators");
+const { fileSchema, folderSchema } = require("../validators/paramsValidator");
 
 const driverRoutes = (isAuth) => {
   const driveRouter = new Router();
 
   // GET requests
   driveRouter.get("/", getDrive);
-  driveRouter.get("/folder/:folderID", getDriveFolder);
-  driveRouter.get("/download/file/:fileID", downloadFile);
+  driveRouter.get(
+    "/folder/:folderID",
+    validateParams(folderSchema),
+    getDriveFolder
+  );
+  // driveRouter.get("/download/file/:fileID", downloadFile);
 
   // POST requests
   // Need a way to reference the folder

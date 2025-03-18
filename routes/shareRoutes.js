@@ -3,17 +3,8 @@ const {
   getSharedRoute,
   createSharedRoute,
 } = require("../controllers/shareController");
-
-/* const shareRouter = new Router();
-
-// GET requests
-shareRouter.get("/:id", getSharedRoute);
-
-// POST requests
-// This is protected route
-shareRouter.post("/:id", createSharedRoute);
-
-module.exports = shareRouter; */
+const { validateParams } = require("../validators/validators");
+const { fileSchema, folderSchema } = require("../validators/paramsValidator");
 
 /* Is this appropriate to do?
  * Function creates a router
@@ -23,7 +14,7 @@ const shareRoutes = (isAuth) => {
   const shareRouter = new Router();
 
   // GET requests
-  shareRouter.get("/:folderID", getSharedRoute);
+  shareRouter.get("/:folderID", validateParams(folderSchema), getSharedRoute);
 
   // PUT requests
   shareRouter.put("/:folderID", isAuth, createSharedRoute);

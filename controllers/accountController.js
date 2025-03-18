@@ -19,7 +19,6 @@ const accountController = {
   }),
   getCreateAccount: asyncHandler(async (req, res) => {
     console.log("getCreateAccount running...");
-    console.log("req.user:", req.user);
     res.render("createAccount");
   }),
   postLogin: [
@@ -28,7 +27,6 @@ const accountController = {
       const errors = validationResult(req);
       const inputs = matchedData(req, { onlyValidData: false });
       if (!errors.isEmpty()) {
-        console.log(errors.mapped());
         return res.render("login", {
           errors: errors.mapped(),
           inputs,
@@ -39,12 +37,8 @@ const accountController = {
     }),
     (req, res, next) => {
       console.log("postLogin running...");
-      console.log("req.body:", req.body);
       passport.authenticate("local", (err, account, info) => {
         console.log("authenticating...");
-        console.log("err:", err);
-        console.log("account:", account);
-        console.log("info:", info);
         if (err) return next(err);
         if (!account) {
           res.locals.message = info.message;
@@ -53,12 +47,10 @@ const accountController = {
           return res.status(422).render("login");
         }
 
-        console.log("req.login called...");
         return req.login(account, next);
       })(req, res, next);
     },
     (req, res) => {
-      console.log("postLogin running after authentication....");
       res.redirect("/drive");
     },
   ],

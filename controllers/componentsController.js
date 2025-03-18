@@ -15,18 +15,15 @@ const componentsController = {
   }),
   getUploadFileForm: asyncHandler(async (req, res) => {
     console.log("getUploadFileForm running...");
-    console.log("req.body:", req.body);
     res.render("uploadForm");
   }),
   getAddFolderForm: asyncHandler(async (req, res) => {
     // folderName_onInput
     console.log("getAddFolderForm running...");
-    console.log("req.body:", req.body);
     res.render("createFolderForm");
   }),
   getEditFileForm: asyncHandler(async (req, res) => {
     console.log("getEditFileForm");
-    console.log(req.params);
     const { fileID } = req.params;
     const file = await prisma.file.findFirst({
       where: {
@@ -40,7 +37,6 @@ const componentsController = {
   }),
   getEditFolderForm: asyncHandler(async (req, res) => {
     console.log("getEditFolderForm");
-    console.log(req.params);
     const { folderID } = req.params;
     const folder = await prisma.folder.findFirst({
       where: {
