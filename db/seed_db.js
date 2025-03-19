@@ -93,7 +93,7 @@ const seedDB = async () => {
   });
 
   const folders = await prisma.folder.findMany();
-  console.log("folders:", folders);
+
   // Create files for user bill_dozer
   // userID, folderIDs, bucketID = "drives", filesPath
   // await seedBucket(billDozer.id, folders);
@@ -117,12 +117,6 @@ const seedDB = async () => {
       files: true,
     },
   });
-
-  console.log("billDauteriveAfterSeed:", billDauteriveAfterSeed);
-  console.log(
-    "billDauteriveAfterSeed.folders[3].parentFolder:",
-    billDauteriveAfterSeed.folders[3].parentFolder
-  );
 
   console.log("db has been seeded!");
 };

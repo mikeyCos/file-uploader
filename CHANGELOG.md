@@ -1,6 +1,8 @@
 # Changelog
 ---
 ### 19 MAR 2025
+- Commit before merging `params-validation` branch with `main` branch.
+- Attached `validateParams()` onto routes containing `:fileID` and `:folderID` parameters paired with `fileSchema` and `folderSchema` object arguments.
 - Renamed `events` directory to `scripts`.
 - Created `responseStatusHandler` in `form_onSubmit.js` module; if `res.ok` is falsy `res` is rejected, but throw a `Error` object if `res.status` is a specific code.
 - Created `formRejectHandler` in `form_onSubmit.js` module; resolves object `{ ok: false, htmlContent }`.

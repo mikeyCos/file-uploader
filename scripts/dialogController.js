@@ -46,7 +46,8 @@ const fetchContent = async (url, formAction) => {
       return { htmlContent };
     })
     .catch((err) => {
-      // Is there a proper way to handle errors when fetching components?
-      console.log(err);
+      const htmlContent = document.createElement("p");
+      htmlContent.textContent = err;
+      return { htmlContent };
     });
 };

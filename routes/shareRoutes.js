@@ -4,11 +4,11 @@ const {
   createSharedRoute,
 } = require("../controllers/shareController");
 const { validateParams } = require("../validators/validators");
-const { fileSchema, folderSchema } = require("../validators/paramsValidator");
+const { folderSchema } = require("../validators/paramsValidator");
 
 /* Is this appropriate to do?
  * Function creates a router
- *  An authentication middleware is only on a specific route
+ *  Authentication middleware will invoke on specific route
  */
 const shareRoutes = (isAuth) => {
   const shareRouter = new Router();
@@ -17,7 +17,12 @@ const shareRoutes = (isAuth) => {
   shareRouter.get("/:folderID", validateParams(folderSchema), getSharedRoute);
 
   // PUT requests
-  shareRouter.put("/:folderID", isAuth, createSharedRoute);
+  shareRouter.put(
+    "/:folderID",
+    isAuth,
+    validateParams(folderSchema),
+    createSharedRoute
+  );
 
   return shareRouter;
 };

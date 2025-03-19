@@ -71,6 +71,7 @@ const formRejectHandler = async (rej) => {
 const responseStatusHandler = async (res) => {
   if (!res.ok) {
     if (res.status === 404) throw new Error("Resource not found");
+    if (res.status === 401) throw new Error("Unauthorized access");
     // If !res.ok
     //  If res.status is a specific code, throw Error
     //  If needed, add additional control for other codes

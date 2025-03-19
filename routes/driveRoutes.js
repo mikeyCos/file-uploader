@@ -15,6 +15,7 @@ const { fileSchema, folderSchema } = require("../validators/paramsValidator");
 
 const driverRoutes = (isAuth) => {
   const driveRouter = new Router();
+  // Do I need to make sure the logged in user can only run CRUD methods on their files and folders?
 
   // GET requests
   driveRouter.get("/", getDrive);
@@ -26,11 +27,11 @@ const driverRoutes = (isAuth) => {
   // driveRouter.get("/download/file/:fileID", downloadFile);
 
   // POST requests
-  // Need a way to reference the folder
-  // /drive/folder/4fb7c85a-25ab-46e5-9194-ccb78acab261
-  // /drive
-  // /drive/folder/:folderID/files/upload
-  // /drive/files/upload
+  driveRouter.post(
+    ["/folder/:folderID/files/upload", "/folder/:folderID/folder/create"],
+    validateParams(folderSchema)
+  );
+
   driveRouter.post(
     ["/files/upload", "/folder/:folderID/files/upload"],
     postFilesUpload
@@ -42,12 +43,16 @@ const driverRoutes = (isAuth) => {
   );
 
   // PUT requests
-  driveRouter.put("/file/:fileID", putFile);
-  driveRouter.put("/folder/:folderID", putFolder);
+  driveRouter.put("/file/:fileID", validateParams(fileSchema), putFile);
+  driveRouter.put("/folder/:folderID", validateParams(folderSchema), putFolder);
 
   // DELETE requests
-  driveRouter.delete("/file/:fileID", deleteFile);
-  driveRouter.delete("/folder/:folderID", deleteFolder);
+  driveRouter.delete("/file/:fileID", validateParams(fileSchema), deleteFile);
+  driveRouter.delete(
+    "/folder/:folderID",
+    validateParams(folderSchema),
+    deleteFolder
+  );
 
   return driveRouter;
 };
