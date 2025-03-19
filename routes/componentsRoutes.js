@@ -1,5 +1,4 @@
 const { Router } = require("express");
-const asyncHandler = require("express-async-handler");
 const {
   getFileDetails,
   getUploadFileForm,
@@ -10,6 +9,8 @@ const {
   getDeleteFolderForm,
   getShareFolderForm,
 } = require("../controllers/componentsController");
+const { validateParams } = require("../validators/validators");
+const { fileSchema, folderSchema } = require("../validators/paramsValidator");
 
 const componentsRoutes = (isAuth) => {
   const componentsRouter = new Router();
@@ -17,16 +18,15 @@ const componentsRoutes = (isAuth) => {
   componentsRouter.get("/form/file/upload", getUploadFileForm);
   componentsRouter.get("/form/folder/add", getAddFolderForm);
   componentsRouter.get("/form/file/edit/:fileID", getEditFileForm);
-  componentsRouter.get("/form/folder/edit/:folderID", getEditFolderForm);
+  componentsRouter.get(
+    "/form/folder/edit/:folderID",
+    validateParams(folderSchema),
+    getEditFolderForm
+  );
   componentsRouter.get("/form/file/delete/:fileID", getDeleteFileForm);
   componentsRouter.get("/form/folder/delete/:folderID", getDeleteFolderForm);
   componentsRouter.get("/form/folder/share/:folderID", getShareFolderForm);
   componentsRouter.get("/file/details/:fileID", getFileDetails);
-  // POST requests
-  // componentsRouter.post("/form/folder/create", postAddFolderForm);
-  // componentsRouter.post("/form/files/upload", postFilesUploadForm);
-  // componentsRouter.post("/form/file/edit/:fileID", postEditFileForm);
-  // componentsRouter.post("/form/folder/edit/:folderID", postEditFolderForm);
 
   return componentsRouter;
 };

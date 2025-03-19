@@ -1,7 +1,10 @@
 # Changelog
 ---
 ### 19 MAR 2025
-- 
+- Renamed `events` directory to `scripts`.
+- Created `responseStatusHandler` in `form_onSubmit.js` module; if `res.ok` is falsy `res` is rejected, but throw a `Error` object if `res.status` is a specific code.
+- Created `formRejectHandler` in `form_onSubmit.js` module; resolves object `{ ok: false, htmlContent }`.
+- Rewrote callback functions in `form_onSubmit.js` module to accept an `onRejected` asynchronous function.
 ---
 ### 18 MAR 2025
 - Moved `Promise.prototype.catch()` from named callbacks in `form_onSubmit.js` module onto the `cb()` call in `onSubmit`.

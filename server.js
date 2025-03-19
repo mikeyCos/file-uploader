@@ -58,6 +58,7 @@ require("./routes/routes")(app);
 // Error middleware function
 app.use((err, req, res, next) => {
   console.log("error middleware running...");
+  console.log("req.headers['content-type']:", req.headers["content-type"]);
   const { error, status } = err;
   // res.render("404", { title: "404 - Page Not Found" });
   res.status(status).render("errors", { error, status });

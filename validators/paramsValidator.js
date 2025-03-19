@@ -44,7 +44,7 @@ const validateParams = (schema) => {
     const errors = validationResult(req);
     console.log("errors:", errors);
     if (!errors.isEmpty()) {
-      // next({ error: "Unprocessable request parameter", status: 422 });
+      next({ error: "Resource not found", status: 404 });
     }
 
     next();

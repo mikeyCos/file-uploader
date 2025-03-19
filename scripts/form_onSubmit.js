@@ -22,8 +22,7 @@ const onSubmit = async (e, cb) => {
   const { action } = form;
   const { itemId } = form.dataset;
   const formData = new FormData(form);
-  // What if action is an invalid path?
-  // The error middleware will set the status code to 404
+
   const { ok, htmlContent } = await cb(action, {
     body: formData,
     itemId,
@@ -58,28 +57,45 @@ const onSubmit = async (e, cb) => {
   // Refresh the current page or manipulate the DOM?
 };
 
+const formRejectHandler = async (rej) => {
+  if (rej instanceof Error) throw rej;
+  const rawHTML = await rej.text();
+  const parser = new DOMParser();
+  // Using DOMParser does not seem safe from XSS
+  // https://stackoverflow.com/questions/64772302/is-parsing-html-with-domparser-safe-from-xss
+  const doc = parser.parseFromString(rawHTML, "text/html");
+  const htmlContent = doc.body.firstElementChild;
+  return await Promise.resolve({ ok: false, htmlContent });
+};
+
+const responseStatusHandler = async (res) => {
+  if (!res.ok) {
+    if (res.status === 404) throw new Error("Resource not found");
+    // If !res.ok
+    //  If res.status is a specific code, throw Error
+    //  If needed, add additional control for other codes
+    //  Reject the res
+    //  If onRejected exists, it will handle the rejection
+    await Promise.reject(res);
+  }
+
+  return res;
+};
+
 const uploadFiles = async (url, { body }) => {
-  return fetch(url, { method: "POST", body }).then(async (res) => {
-    if (!res.ok) {
-      if (res.status === 404) throw new Error("Resource not found");
+  return fetch(url, { method: "POST", body })
+    .then(responseStatusHandler)
+    .then((res) => {
+      // Render new list of files?
+      // Replace old list with new list of files
+      // Where is window.location.reload in the call stack?
+      setTimeout(() => {
+        window.location.reload();
+      }, 0);
 
-      const rawHTML = await res.text();
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(rawHTML, "text/html");
-      const htmlContent = doc.body.firstElementChild;
-      return { ok: false, htmlContent };
-      // return Promise.reject(rawHTML); // Another way to throw a error
-    }
-
-    // Render new list of files?
-    // Replace old list with new list of files
-    // Where is window.location.reload in the call stack?
-    setTimeout(() => {
-      window.location.reload();
-    }, 0);
-    // window.location.reload();
-    return { ok: true };
-  });
+      return { ok: true };
+    }, formRejectHandler)
+    .then((res) => res);
 };
 
 const createFolder = async (url, { body }) => {
@@ -89,79 +105,53 @@ const createFolder = async (url, { body }) => {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
     },
-  }).then(async (res) => {
-    if (!res.ok) {
-      if (res.status === 404) throw new Error("Resource not found");
-
-      // If form inputs are invalid
-      const rawHTML = await res.text();
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(rawHTML, "text/html");
-      const htmlContent = doc.body.firstElementChild;
-      return { ok: false, htmlContent };
-    }
-
-    // Render new list of folders?
-    // Replace old list with new list of folders
-    setTimeout(() => {
-      window.location.reload();
-    }, 0);
-
-    return { ok: true };
-  });
+  })
+    .then(responseStatusHandler)
+    .then((res) => {
+      // Render new list of folders?
+      // Replace old list with new list of folders
+      setTimeout(() => {
+        window.location.reload();
+      }, 0);
+      return { ok: true };
+    }, formRejectHandler)
+    .then((res) => res);
 };
 
 const editItem = async (url, { body, itemId }) => {
   return fetch(url, { method: "PUT", body: new URLSearchParams(body) })
+    .then(responseStatusHandler)
     .then(async (res) => {
       const rawHTML = await res.text();
-      if (!res.ok) {
-        if (res.status === 404) throw new Error("Resource not found");
-
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(rawHTML, "text/html");
-        const htmlContent = doc.body.firstElementChild;
-        return { ok: false, htmlContent };
-      }
-
-      return { res, rawHTML };
-    })
-    .then(async (res) => {
-      if (res.ok ?? false) return res;
-
       const parser = new DOMParser();
-      const doc = parser.parseFromString(res.rawHTML, "text/html");
+      const doc = parser.parseFromString(rawHTML, "text/html");
       const newItem = doc.querySelector("li");
       const oldItem = document.querySelector(`li[data-item-id="${itemId}"]`);
 
       oldItem.replaceWith(newItem);
       return { ok: true };
-    });
+    }, formRejectHandler)
+    .then((res) => res);
 };
 
 const deleteItem = async (url, { itemId }) => {
-  return fetch(url, { method: "DELETE" }).then(async (res) => {
-    if (!res.ok) {
-      if (res.status === 404) throw new Error("Resource not found");
-    }
-
-    const item = document.querySelector(`li[data-item-id="${itemId}"]`);
-    item.remove();
-    return { ok: true };
-  });
+  return fetch(url, { method: "DELETE" })
+    .then(responseStatusHandler)
+    .then(() => {
+      const item = document.querySelector(`li[data-item-id="${itemId}"]`);
+      item.remove();
+      return { ok: true };
+    });
 };
 
 const shareFolder = async (url, { body }) => {
   return fetch(url, { method: "PUT", body: new URLSearchParams(body) })
+    .then(responseStatusHandler)
     .then(async (res) => {
-      if (!res.ok) {
-        if (res.status === 404) throw new Error("Resource not found");
-      }
-
       const rawHTML = await res.text();
       return rawHTML;
     })
-    .then(async (html) => {
+    .then((html) => {
       const parser = new DOMParser();
       const doc = parser.parseFromString(html, "text/html");
       const htmlContent = doc.body.firstElementChild;
