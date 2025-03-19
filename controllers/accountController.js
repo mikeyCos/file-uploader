@@ -10,7 +10,6 @@ const { prisma } = require("../db/prisma");
 
 const accountController = {
   getLogin: asyncHandler(async (req, res) => {
-    console.log("getLogin running...");
     res.render("login");
   }),
   getLogout: asyncHandler(async (req, res) => {
@@ -18,7 +17,6 @@ const accountController = {
     res.redirect("/");
   }),
   getCreateAccount: asyncHandler(async (req, res) => {
-    console.log("getCreateAccount running...");
     res.render("createAccount");
   }),
   postLogin: [
@@ -36,9 +34,7 @@ const accountController = {
       next();
     }),
     (req, res, next) => {
-      console.log("postLogin running...");
       passport.authenticate("local", (err, account, info) => {
-        console.log("authenticating...");
         if (err) return next(err);
         if (!account) {
           res.locals.message = info.message;
@@ -55,7 +51,6 @@ const accountController = {
     },
   ],
   postLogout: (req, res, next) => {
-    console.log("postLogout running...");
     req.logout((err) => {
       if (err) return next(err);
       res.redirect("/");
@@ -64,12 +59,10 @@ const accountController = {
   postCreateAccount: [
     validateCreateAccount,
     asyncHandler(async (req, res, next) => {
-      console.log("postCreateAccount running after validateCreateAccount...");
       const errors = validationResult(req);
       const inputs = matchedData(req, { onlyValidData: false });
 
       if (!errors.isEmpty()) {
-        console.log(errors.mapped());
         return res.render("createAccount", {
           errors: errors.mapped(),
           inputs,
@@ -91,11 +84,9 @@ const accountController = {
               password: true,
             },
           });
-          console.log("account:", account);
 
           // Automatically login after creating account
           req.login(account, (err) => {
-            console.log("login running after creating account...");
             res.redirect("/drive");
           });
         });

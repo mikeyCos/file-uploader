@@ -10,5 +10,5 @@
     </li>
   </ul>
   <button type="button" onclick="closeDialog(event)">Cancel</button>
-  <button type="submit" <%= locals.inputs?.folder_name || "disabled" %>>Create</button>
+  <button type="submit" <%= locals.inputs?.folder_name ? "" : "disabled" %>>Create</button>
 </form>

@@ -21,9 +21,8 @@ const fullnameValidator = async (fullname) => {
 };
 
 const usernameValidator = async (username) => {
-  console.log("usernameValidator running...");
   // Test against regex
-  // Need to make sure user name is not taken
+  // Make sure user name is not taken
   const regex = new RegExp("^[a-zA-Z\\-\\_]{3,10}$");
   // const account = await getAccount({ username });
   const account = await prisma.account.findUnique({
@@ -32,11 +31,8 @@ const usernameValidator = async (username) => {
     },
   });
 
-  console.log("account:", account);
   const regexResult = regex.test(username);
-  // console.log("regex.test(username):", regex.test(username));
-  // console.log("!account:", !account);
-  // console.log("regexResult && !account:", regexResult && !account);
+
   // If regexResult and account are falsy values
   // Throw error or reject Promise
   if (!regexResult) throw new Error();
@@ -110,10 +106,8 @@ const validateCreateAccount = checkSchema(accountSchema, ["body"]);
 /* const validateAccount = [
   checkSchema(schema, ["body"]),
   (req, res, next) => {
-    console.log("validateAccount running...");
     const errors = validationResult(req);
-    console.log("errors:", errors);
-    console.log("errors.mapped():", errors.mapped());
+
     if (!errors.isEmpty()) {
       return res.render("createAccount", {
         title: "Create Account",

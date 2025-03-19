@@ -37,10 +37,6 @@ const getFilesFromPath = async (path = uploadsPath) => {
       const mimetype = allowedMimeTypes[ext];
 
       if (isFile && mimetype) {
-        console.log("currentFile:", currentFile);
-        console.log("isFile:", isFile);
-        console.log("ext:", ext);
-        console.log("mimetype:", mimetype);
         const filePath = `${path}/${currentFile}`;
         const file = await createFile(currentFile, filePath, mimetype);
         return [...asyncAccumulator, file];
@@ -103,7 +99,6 @@ const getFilesFromPath = async (path = uploadsPath) => {
     Promise.resolve([])
   ); */
 
-  console.log("files:", files);
   return files;
 };
 

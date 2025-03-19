@@ -1,28 +1,40 @@
 const { PrismaClient } = require("@prisma/client");
 
+// I could assign the prisma object with the queries object properties
 const prisma = new PrismaClient();
 
-const getFileById = async (fileId) => {
+const getFileById = async (fileID) => {
   const file = await prisma.file.findUnique({
     where: {
-      id: fileId,
+      id: fileID,
     },
   });
 
   return file;
 };
 
-const getFolderById = async (folderId) => {
+const getFolderById = async (folderID) => {
   const folder = await prisma.folder.findUnique({
     where: {
-      id: folderId,
+      id: folderID,
     },
   });
 
   return folder;
 };
 
-// I could assign the prisma object with the queries object properties
+const deleteFolder = async (folderID) => {
+  return await prisma.folder.delete({
+    where: {
+      id: folderID,
+    },
+    include: {
+      files: true,
+      subFolders: true,
+    },
+  });
+};
+
 const updateFolderExpiresAt = (expiresAt) => {
   return async (folderID) => {
     await prisma.folder.update({
@@ -65,6 +77,7 @@ module.exports = {
   prisma,
   getFileById,
   getFolderById,
+  deleteFolder,
   updateFolderExpiresAt,
   traverseNestedFolders,
 };

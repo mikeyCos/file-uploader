@@ -1,23 +1,12 @@
-const { prisma } = require("../db/prisma");
+const { prisma, deleteFolder } = require("../db/prisma");
 const supabase = require("../db/supabase");
 
 const deleteFolderFiles = async (folderID) => {
-  console.log("------------------------");
-  console.log("deleteFolderFiles running...");
   if (folderID === null) return;
 
   // Get folder
-  const folder = await prisma.folder.delete({
-    where: {
-      id: folderID,
-    },
-    include: {
-      files: true,
-      subFolders: true,
-    },
-  });
+  const folder = await deleteFolder(folderID);
 
-  console.log("folder:", folder);
   // If current folder has files
   // Delete files
   if (folder.files.length > 0) {

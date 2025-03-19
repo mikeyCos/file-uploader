@@ -10,7 +10,6 @@ const { isExpired } = require("../utils/utils");
 
 const shareController = {
   getSharedRoute: asyncHandler(async (req, res, next) => {
-    console.log("getSharedRoute running...");
     const { folderID } = req.params;
 
     const folder = await prisma.folder.findFirst({
@@ -25,8 +24,6 @@ const shareController = {
     });
 
     console.log("folder:", folder);
-    // console.log("folder.expiresAt:", folder.expiresAt);
-
     // Need to simplify this so the folder existence is not checked twice
     const expired = isExpired(folder.expiresAt);
     console.log("expired:", expired);
@@ -56,8 +53,6 @@ const shareController = {
   createSharedRoute: [
     validateShareDuration("shareFolderForm"),
     asyncHandler(async (req, res) => {
-      console.log("createSharedRoute running...");
-
       const { folderID } = req.params;
 
       const { share_duration } = matchedData(req, { onlyValidData: true });
@@ -66,17 +61,13 @@ const shareController = {
         Date.now() + 3600 * 1000 * 24 * share_duration
       );
 
-      // console.log("today:", today);
       console.log("expiresAt:", expiresAt);
-      // console.log(
-      //   Math.floor((expiresAt.getTime() - today.getTime()) / (1000 * 3600 * 24))
-      // );
+
       traverseNestedFolders(folderID, updateFolderExpiresAt(expiresAt));
       res.render("shareFolderOutput", {
         shareURL: `/share/${folderID}`,
         expiresAt,
       });
-      // res.status(200);
     }),
   ],
 };

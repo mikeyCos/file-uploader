@@ -1,5 +1,14 @@
 # Changelog
 ---
+### 19 MAR 2025
+- 
+---
+### 18 MAR 2025
+- Moved `Promise.prototype.catch()` from named callbacks in `form_onSubmit.js` module onto the `cb()` call in `onSubmit`.
+- Replaced `doc.querySelector()` from `fetchContent` in `dialogController.js` module with `doc.body.firstElementChild`.
+- Removed `console.log()` throughout modules.
+- Removed `deleteItem.js` module.
+---
 ### 17 MAR 2025
 - Currently, request parameters are only validated on `/share/:folderID` and `/drive/folder/:folderID` paths.
 - Created `params-validation` branch.

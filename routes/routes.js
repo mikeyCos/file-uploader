@@ -7,7 +7,6 @@ const componentsRoutes = require("./componentsRoutes");
 const shareRoutes = require("./shareRoutes");
 
 const isAuth = (req, res, next) => {
-  console.log("req.path:", req.path);
   if (req.isAuthenticated()) {
     return next();
   }

@@ -14,10 +14,9 @@
  * Why does setting a content-type cause a range error?
  *  RangeError [ERR_HTTP_INVALID_STATUS_CODE]: Invalid status code: undefined
  */
+
 const onSubmit = async (e, cb) => {
   console.log("onSubmit running...");
-  console.log(e);
-  console.log("e.currentTarget:", e.currentTarget);
   e.preventDefault();
   const form = e.currentTarget;
   const { action } = form;
@@ -25,15 +24,20 @@ const onSubmit = async (e, cb) => {
   const formData = new FormData(form);
   // What if action is an invalid path?
   // The error middleware will set the status code to 404
-  const { ok, content } = await cb(action, { body: formData, itemId });
+  const { ok, htmlContent } = await cb(action, {
+    body: formData,
+    itemId,
+  }).catch((err) => {
+    const htmlContent = document.createElement("p");
+    htmlContent.textContent = err;
+    return { ok: false, htmlContent };
+  });
 
-  console.log("ok:", ok);
-  console.log("content:", content);
   if (ok) {
+    if (htmlContent) return form.replaceWith(htmlContent);
     form.submit();
   } else {
-    if (content.tagName !== "FORM") return form.replaceWith(content);
-    form.replaceWith(content);
+    form.replaceWith(htmlContent);
   }
 
   // "POST" and "PUT" methods
@@ -55,137 +59,113 @@ const onSubmit = async (e, cb) => {
 };
 
 const uploadFiles = async (url, { body }) => {
-  console.log("fetchFiles running...");
-  console.log("url:", url);
-  return fetch(url, { method: "POST", body })
-    .then(async (res) => {
-      if (!res.ok) {
-        const rawHTML = await res.text();
-        // return Promise.reject(rawHTML);
-        throw new Error(rawHTML);
-      }
+  return fetch(url, { method: "POST", body }).then(async (res) => {
+    if (!res.ok) {
+      if (res.status === 404) throw new Error("Resource not found");
 
-      // Render new list of files?
-      // Replace old list with new list of files
-      // Where is window.location.reload in the call stack?
-      setTimeout(() => {
-        window.location.reload();
-      }, 0);
-      // window.location.reload();
-      return { ok: true };
-    })
-    .catch((err) => {
+      const rawHTML = await res.text();
       const parser = new DOMParser();
-      const doc = parser.parseFromString(err, "text/html");
-      const content = doc.body.firstElementChild;
-      return { ok: false, content };
-    });
+      const doc = parser.parseFromString(rawHTML, "text/html");
+      const htmlContent = doc.body.firstElementChild;
+      return { ok: false, htmlContent };
+      // return Promise.reject(rawHTML); // Another way to throw a error
+    }
+
+    // Render new list of files?
+    // Replace old list with new list of files
+    // Where is window.location.reload in the call stack?
+    setTimeout(() => {
+      window.location.reload();
+    }, 0);
+    // window.location.reload();
+    return { ok: true };
+  });
 };
 
 const createFolder = async (url, { body }) => {
-  console.log("fetchFolder running...");
-  console.log("url:", url);
   return fetch(url, {
     method: "POST",
     body: new URLSearchParams(body),
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
     },
-  })
-    .then(async (res) => {
-      if (!res.ok) {
-        const rawHTML = await res.text();
-        // return Promise.reject(rawHTML);
-        throw new Error(rawHTML);
-      }
+  }).then(async (res) => {
+    if (!res.ok) {
+      if (res.status === 404) throw new Error("Resource not found");
 
-      // Render new list of folders?
-      // Replace old list with new list of folders
-      setTimeout(() => {
-        window.location.reload();
-      }, 0);
-      // window.location.reload();
-      return { ok: true };
-    })
-    .catch((err) => {
+      // If form inputs are invalid
+      const rawHTML = await res.text();
       const parser = new DOMParser();
-      const doc = parser.parseFromString(err, "text/html");
-      console.log(doc.body);
-      // If the status is a 404
-      // Select the section
-      const content = doc.querySelector("form");
+      const doc = parser.parseFromString(rawHTML, "text/html");
+      const htmlContent = doc.body.firstElementChild;
+      return { ok: false, htmlContent };
+    }
 
-      console.log(content);
-      return { ok: false, content };
-    });
+    // Render new list of folders?
+    // Replace old list with new list of folders
+    setTimeout(() => {
+      window.location.reload();
+    }, 0);
+
+    return { ok: true };
+  });
 };
 
 const editItem = async (url, { body, itemId }) => {
-  console.log("fetchPut running...");
-  console.log("url:", url);
   return fetch(url, { method: "PUT", body: new URLSearchParams(body) })
     .then(async (res) => {
-      console.log(res);
       const rawHTML = await res.text();
       if (!res.ok) {
-        throw new Error(rawHTML);
+        if (res.status === 404) throw new Error("Resource not found");
+
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(rawHTML, "text/html");
+        const htmlContent = doc.body.firstElementChild;
+        return { ok: false, htmlContent };
       }
 
-      return rawHTML;
+      return { res, rawHTML };
     })
-    .then(async (html) => {
+    .then(async (res) => {
+      if (res.ok ?? false) return res;
+
       const parser = new DOMParser();
-      const doc = parser.parseFromString(html, "text/html");
+      const doc = parser.parseFromString(res.rawHTML, "text/html");
       const newItem = doc.querySelector("li");
       const oldItem = document.querySelector(`li[data-item-id="${itemId}"]`);
 
       oldItem.replaceWith(newItem);
       return { ok: true };
-    })
-    .catch((err) => {
-      console.log(err);
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(err, "text/html");
-      const content = doc.body.firstElementChild;
-      return { ok: false, content };
     });
 };
 
 const deleteItem = async (url, { itemId }) => {
-  console.log("fetchDelete running...");
-  console.log("url:", url);
-  console.log("itemId:", itemId);
-  return fetch(url, { method: "DELETE" })
-    .then(async (res) => {
-      if (!res.ok) {
-      }
+  return fetch(url, { method: "DELETE" }).then(async (res) => {
+    if (!res.ok) {
+      if (res.status === 404) throw new Error("Resource not found");
+    }
 
-      const item = document.querySelector(`li[data-item-id="${itemId}"]`);
-      item.remove();
-      return { ok: true };
-    })
-    .catch((err) => {});
-  // Need item from DOM
-  // If response.ok is true
-  //    Refresh page
-  //    OR
-  //    Remove item from DOM
-  //    Close dialog
+    const item = document.querySelector(`li[data-item-id="${itemId}"]`);
+    item.remove();
+    return { ok: true };
+  });
 };
 
 const shareFolder = async (url, { body }) => {
-  console.log(url);
   return fetch(url, { method: "PUT", body: new URLSearchParams(body) })
     .then(async (res) => {
-      console.log(res);
+      if (!res.ok) {
+        if (res.status === 404) throw new Error("Resource not found");
+      }
+
       const rawHTML = await res.text();
       return rawHTML;
     })
     .then(async (html) => {
       const parser = new DOMParser();
       const doc = parser.parseFromString(html, "text/html");
-      const content = doc.body.firstElementChild;
+      const htmlContent = doc.body.firstElementChild;
 
-      return { ok: true, content };
+      return { ok: true, htmlContent };
     });
 };

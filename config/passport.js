@@ -4,7 +4,6 @@ const { prisma } = require("../db/prisma");
 const bcrypt = require("bcryptjs");
 
 const verifyCallback = async (username, password, done) => {
-  console.log("verifyCallback running...");
   try {
     const account = await prisma.account.findUnique({
       where: {
@@ -28,12 +27,10 @@ const strategy = new LocalStrategy(verifyCallback);
 passport.use(strategy);
 
 passport.serializeUser((account, done) => {
-  console.log("serializeUser running...");
   done(null, account.id);
 });
 
 passport.deserializeUser(async (id, done) => {
-  console.log("deserializeUser running...");
   // What attributes should be included and excluded on the current user?
   try {
     const account = await prisma.account.findFirst({

@@ -7,9 +7,6 @@ const seedBucket = async (userID, folders, bucketID = "drives", filesPath) => {
   const { data: bucketExists, error: bucketExistsError } =
     await supabase.storage.getBucket(bucketID);
 
-  console.log("bucketExists:", bucketExists);
-  console.log("bucketExistsError:", bucketExistsError);
-
   if (bucketExists) {
     // If bucket exists
     //  Empty bucket

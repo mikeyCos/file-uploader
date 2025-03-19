@@ -14,8 +14,6 @@ const deleteFolderFiles = require("../utils/deleteFolderFiles");
 
 const driveController = {
   getDrive: asyncHandler(async (req, res) => {
-    console.log("getDrive running...");
-
     const folders = await prisma.folder.findMany({
       where: {
         parentFolderId: null,
@@ -39,9 +37,6 @@ const driveController = {
     });
   }),
   getDriveFolder: asyncHandler(async (req, res) => {
-    console.log("getDriveFolder running...");
-
-    // Need to validate req.params.folderID
     const { folderID } = req.params;
     const folder = await prisma.folder.findFirst({
       where: {
@@ -53,10 +48,7 @@ const driveController = {
       },
     });
 
-    console.log("folder:", { folder });
-
     // /drive/folder/:folderID/files/upload
-    // Currently used int he controls partial
     const formAction = req.originalUrl;
     const baseURL = `${req.baseUrl}/folder/`;
 
@@ -70,7 +62,6 @@ const driveController = {
     validateFolder("createFolderForm"),
     asyncHandler(async (req, res) => {
       const { folderID } = req.params;
-      console.log("postFolderCreate running...");
       const { folder_name } = matchedData(req, { onlyValidData: true });
 
       await prisma.folder.create({
@@ -99,9 +90,6 @@ const driveController = {
     upload,
     validateUpload("uploadForm"),
     asyncHandler(async (req, res) => {
-      console.log("postFilesUpload running...");
-      // console.log("req.body:", req.body);
-      console.log("req.files:", req.files);
       const { user, files } = req;
       const { folderID } = req.params;
 
@@ -121,7 +109,6 @@ const driveController = {
       //    /req.user.id/folder.id/file.name
       for (const file of files) {
         const fileBase64 = decode(await file.buffer.toString("base64"));
-        console.log("fileBase64:", fileBase64);
         const storagePath = generateStoragePath(
           user.id,
           file.originalname,
@@ -154,7 +141,6 @@ const driveController = {
   putFile: [
     validateFilename("editFileForm"),
     asyncHandler(async (req, res) => {
-      console.log("putFile running...");
       // Need to validate req.params.folderID
       // Need old path for storage
       const { file_name } = matchedData(req, { onlyValidData: true });
@@ -195,7 +181,6 @@ const driveController = {
   putFolder: [
     validateFolder("editFolderForm"),
     asyncHandler(async (req, res) => {
-      console.log("putFolder running...");
       // Need to validate req.params.folderID
       const { folderID } = req.params;
       const { folder_name } = matchedData(req, { onlyValidData: true });
@@ -208,8 +193,8 @@ const driveController = {
         },
       });
 
-      console.log("folder:", folder);
-      res.render("itemFolder", { folder });
+      const baseURL = "/drive/folder/";
+      res.render("itemFolder", { folder, baseURL });
     }),
   ],
   deleteFolder: asyncHandler(async (req, res) => {
@@ -219,7 +204,6 @@ const driveController = {
     //  Delete files
     // Option 2
     //  Remove folder relation
-    console.log("deleteFolder running...");
     const { folderID } = req.params;
     /* const folder = await prisma.folder.delete({
       where: {
@@ -245,8 +229,6 @@ const driveController = {
     res.sendStatus(200);
   }),
   deleteFile: asyncHandler(async (req, res) => {
-    console.log("deleteFile running...");
-
     // Need to validate req.params.fileID
     // Need to delete from supabase.storage
     const { fileID } = req.params;
@@ -256,7 +238,6 @@ const driveController = {
       },
     });
 
-    console.log("storagePath:", storagePath);
     await supabase.storage.from("drives").remove([storagePath]);
 
     res.sendStatus(200);
