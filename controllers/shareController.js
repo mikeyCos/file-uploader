@@ -3,6 +3,7 @@ const { matchedData } = require("express-validator");
 const { validateShareDuration } = require("../validators/validators");
 const {
   prisma,
+  getFolderById,
   traverseNestedFolders,
   updateFolderExpiresAt,
 } = require("../db/prisma");
@@ -12,22 +13,13 @@ const shareController = {
   getSharedRoute: asyncHandler(async (req, res, next) => {
     const { folderID } = req.params;
 
-    const folder = await prisma.folder.findFirst({
-      where: {
-        id: folderID,
-        expiresAt: { not: null },
-      },
-      include: {
-        files: true,
-        subFolders: true,
-      },
-    });
+    const folder = await getFolderById(folderID);
 
     console.log("folder:", folder);
-    // Need to simplify this so the folder existence is not checked twice
+    // What if folder.expiresAt is null/undefined?
+    // What happens if files or folders are added to a folder with a valid expiresAt value?
     const expired = isExpired(folder.expiresAt);
     console.log("expired:", expired);
-
     if (expired) {
       // Update folder's expiresAt column to null
       // Maybe only updateFolderExpiresAt if folder.expiresAt exists

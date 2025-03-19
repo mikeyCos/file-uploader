@@ -2,7 +2,19 @@ const asyncHandler = require("express-async-handler");
 const { decode } = require("base64-arraybuffer");
 const { matchedData } = require("express-validator");
 const upload = require("../config/upload");
-const { prisma } = require("../db/prisma");
+const {
+  prisma,
+  createFile,
+  createFolder,
+  getFileById,
+  getFolderById,
+  getFiles,
+  getFolders,
+  updateFileName,
+  updateFolderName,
+  deleteFile,
+  deleteFolder,
+} = require("../db/prisma");
 const supabase = require("../db/supabase");
 const {
   validateFilename,
@@ -10,20 +22,12 @@ const {
   validateUpload,
 } = require("../validators/validators");
 const { generateStoragePath } = require("../utils/utils");
-const deleteFolderFiles = require("../utils/deleteFolderFiles");
+// const deleteFolderFiles = require("../utils/deleteFolderFiles");
 
 const driveController = {
   getDrive: asyncHandler(async (req, res) => {
-    const folders = await prisma.folder.findMany({
-      where: {
-        parentFolderId: null,
-      },
-    });
-    const files = await prisma.file.findMany({
-      where: {
-        folderId: null,
-      },
-    });
+    const folders = await getFolders();
+    const files = await getFiles();
 
     // /drive/files/upload
     const formAction = req.originalUrl;
@@ -38,15 +42,7 @@ const driveController = {
   }),
   getDriveFolder: asyncHandler(async (req, res) => {
     const { folderID } = req.params;
-    const folder = await prisma.folder.findFirst({
-      where: {
-        id: folderID,
-      },
-      include: {
-        files: true,
-        subFolders: true,
-      },
-    });
+    const folder = await getFolderById(folderID);
 
     // /drive/folder/:folderID/files/upload
     const formAction = req.originalUrl;
@@ -64,21 +60,7 @@ const driveController = {
       const { folderID } = req.params;
       const { folder_name } = matchedData(req, { onlyValidData: true });
 
-      await prisma.folder.create({
-        data: {
-          name: folder_name,
-          account: {
-            connect: { id: req.user.id },
-          },
-          ...(folderID && {
-            parentFolder: {
-              connect: {
-                id: folderID,
-              },
-            },
-          }),
-        },
-      });
+      await createFolder(req.user.id, folderID, folder_name);
 
       // res.redirect("/drive");
       // Re-render folders?
@@ -123,16 +105,16 @@ const driveController = {
           .from("drives")
           .getPublicUrl(storagePath);
 
-        await prisma.file.create({
-          data: {
-            name: file.originalname,
-            size: file.size,
-            url: data.publicUrl,
-            storagePath: storagePath,
-            accountId: user.id,
-            folderId: folderID,
-          },
-        });
+        /* await createFile({
+          name: file.originalname,
+          size: file.size,
+          url: data.publicUrl,
+          storagePath: storagePath,
+          accountId: user.id,
+          folderId: folderID,
+        }); */
+
+        await createFile(user.id, folderID, file, data.publicUrl, storagePath);
       }
 
       res.sendStatus(200);
@@ -147,12 +129,9 @@ const driveController = {
       const { user } = req;
       const { fileID } = req.params;
 
-      const { storagePath: oldStoragePath, folderId } =
-        await prisma.file.findUnique({
-          where: {
-            id: fileID,
-          },
-        });
+      const { storagePath: oldStoragePath, folderId } = await getFileById(
+        fileID
+      );
 
       const newStoragePath = generateStoragePath(user.id, file_name, folderId);
 
@@ -164,16 +143,12 @@ const driveController = {
         .from("drives")
         .getPublicUrl(newStoragePath);
 
-      const file = await prisma.file.update({
-        where: {
-          id: fileID,
-        },
-        data: {
-          name: file_name,
-          storagePath: newStoragePath,
-          url: data.publicUrl,
-        },
-      });
+      const file = await updateFileName(
+        fileID,
+        file_name,
+        data.publicUrl,
+        newStoragePath
+      );
 
       res.status(200).render("itemFile", { file });
     }),
@@ -184,75 +159,36 @@ const driveController = {
       // Need to validate req.params.folderID
       const { folderID } = req.params;
       const { folder_name } = matchedData(req, { onlyValidData: true });
-      const folder = await prisma.folder.update({
-        where: {
-          id: folderID,
-        },
-        data: {
-          name: folder_name,
-        },
-      });
+      const folder = await updateFolderName(folderID, folder_name);
 
       const baseURL = "/drive/folder/";
       res.render("itemFolder", { folder, baseURL });
     }),
   ],
   deleteFolder: asyncHandler(async (req, res) => {
-    // Need to validate req.params.folderID
-    // What to do if there are files in folder?
-    // Option 1
-    //  Delete files
-    // Option 2
-    //  Remove folder relation
     const { folderID } = req.params;
-    /* const folder = await prisma.folder.delete({
-      where: {
-        id: folderID,
-      },
-      include: {
-        files: true,
-      },
-    }); */
+    await deleteFolder(folderID);
 
-    // Need to delete files from supabase.storage that are nested in a parent folder
-    /* if (folder.files.length > 0) {
-      for (const file of folder.files) {
-        await supabase.storage.from("drives").remove([file.storagePath]);
-      }
-    } */
-
-    deleteFolderFiles(folderID);
-
-    // This is fetched from the client and causes 2 GET requests
-    // res.redirect("/drive");
-    // res.render("drive")
     res.sendStatus(200);
   }),
   deleteFile: asyncHandler(async (req, res) => {
     // Need to validate req.params.fileID
     // Need to delete from supabase.storage
     const { fileID } = req.params;
-    const { storagePath } = await prisma.file.delete({
-      where: {
-        id: fileID,
-      },
-    });
+    const { storagePath } = await deleteFile(fileID);
 
     await supabase.storage.from("drives").remove([storagePath]);
 
     res.sendStatus(200);
   }),
   downloadFile: asyncHandler(async (req, res) => {
+    // Optional endpoint
     // Need to validate the file exists
     // Use this endpoint if a download button exists
     // As for downloading directly from supabase
     // https://supabase.com/docs/guides/storage/serving/downloads
     const { fileID } = req.params;
-    const { storagePath, name } = await prisma.file.findFirst({
-      where: {
-        id: fileID,
-      },
-    });
+    const { storagePath, name } = await getFileById(fileID);
 
     const { data, error } = await supabase.storage
       .from("drives")

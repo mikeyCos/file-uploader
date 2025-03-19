@@ -1,6 +1,6 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-const { prisma } = require("../db/prisma");
+const { prisma, getAccount } = require("../db/prisma");
 const bcrypt = require("bcryptjs");
 
 const verifyCallback = async (username, password, done) => {
@@ -33,14 +33,10 @@ passport.serializeUser((account, done) => {
 passport.deserializeUser(async (id, done) => {
   // What attributes should be included and excluded on the current user?
   try {
-    const account = await prisma.account.findFirst({
+    const account = await prisma.account.findUnique({
       where: {
         id: id,
       },
-      // include: {
-      //   folders: true,
-      //   files: true,
-      // },
       omit: {
         password: true,
       },
