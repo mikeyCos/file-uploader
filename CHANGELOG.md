@@ -1,6 +1,7 @@
 # Changelog
 ---
 ### 19 MAR 2025
+- Created `prisma-queries` branch.
 - Commit before merging `params-validation` branch with `main` branch.
 - Attached `validateParams()` onto routes containing `:fileID` and `:folderID` parameters paired with `fileSchema` and `folderSchema` object arguments.
 - Renamed `events` directory to `scripts`.
