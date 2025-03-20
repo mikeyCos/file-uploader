@@ -1,6 +1,7 @@
 # Changelog
 ---
 ### 20 MAR 2025
+- Merged `prisma-queries` branch to `main` branch.
 - Added `accountID` parameter to Prisma query functions; prevents users from performing CRUD actions on files or folders created by other users.
 - Upon creating a folder, the parent folder is queried if `req.params.folderID` exists and passes the parent folder's `expiresAt` value.
 ---
