@@ -23,17 +23,23 @@ const createFile = async (accountID, folderID, file, url, storagePath) => {
   });
 };
 
-const createFolder = async (accountID, folderID, folderName) => {
+const createFolder = async (
+  accountID,
+  folderName,
+  parentFolderID,
+  expiresAt
+) => {
   await prisma.folder.create({
     data: {
       name: folderName,
       account: {
         connect: { id: accountID },
       },
-      ...(folderID && {
+      ...(parentFolderID && {
+        expiresAt,
         parentFolder: {
           connect: {
-            id: folderID,
+            id: parentFolderID,
           },
         },
       }),
@@ -58,9 +64,10 @@ const getAccount = async (username, id) => {
   return account;
 };
 
-const getFileById = async (fileID) => {
+const getFileById = async (accountID, fileID) => {
   const file = await prisma.file.findUnique({
     where: {
+      accountId: accountID,
       id: fileID,
     },
   });
@@ -68,9 +75,10 @@ const getFileById = async (fileID) => {
   return file;
 };
 
-const getFolderById = async (folderID) => {
+const getFolderById = async (accountID, folderID) => {
   const folder = await prisma.folder.findUnique({
     where: {
+      ...(accountID && { accountId: accountID }),
       id: folderID,
     },
     include: {
@@ -82,9 +90,10 @@ const getFolderById = async (folderID) => {
   return folder;
 };
 
-const getFiles = async () => {
+const getFiles = async (accountID) => {
   const files = await prisma.file.findMany({
     where: {
+      accountId: accountID,
       folderId: null,
     },
   });
@@ -92,20 +101,30 @@ const getFiles = async () => {
   return files;
 };
 
-const getFolders = async () => {
+const getFolders = async (accountID) => {
   const folders = await prisma.folder.findMany({
     where: {
+      accountId: accountID,
       parentFolderId: null,
       // folderId: null, // How to handle database errors in a response?
     },
   });
 
+  console.log(folders);
+
   return folders;
 };
 
-const updateFileName = async (fileID, newFileName, url, newStoragePath) => {
+const updateFileName = async (
+  accountID,
+  fileID,
+  newFileName,
+  url,
+  newStoragePath
+) => {
   const file = await prisma.file.update({
     where: {
+      accountId: accountID,
       id: fileID,
     },
     data: {
@@ -118,9 +137,10 @@ const updateFileName = async (fileID, newFileName, url, newStoragePath) => {
   return file;
 };
 
-const updateFolderName = async (folderID, newFolderName) => {
+const updateFolderName = async (accountID, folderID, newFolderName) => {
   const folder = await prisma.folder.update({
     where: {
+      accountId: accountID,
       id: folderID,
     },
     data: {
@@ -132,9 +152,10 @@ const updateFolderName = async (folderID, newFolderName) => {
 };
 
 const updateFolderExpiresAt = (expiresAt) => {
-  return async (folderID) => {
+  return async (accountID, folderID) => {
     await prisma.folder.update({
       where: {
+        ...(accountID && { accountId: accountID }),
         id: folderID,
       },
       data: {
@@ -144,9 +165,10 @@ const updateFolderExpiresAt = (expiresAt) => {
   };
 };
 
-const deleteFile = async (fileID) => {
+const deleteFile = async (accountID, fileID) => {
   const file = await prisma.file.delete({
     where: {
+      accountId: accountID,
       id: fileID,
     },
   });
@@ -154,12 +176,13 @@ const deleteFile = async (fileID) => {
   return file;
 };
 
-const deleteFolder = async (folderID) => {
+const deleteFolder = async (accountID, folderID) => {
   if (folderID === null) return;
 
   //  Delete current folder and store the folder
   const folder = await prisma.folder.delete({
     where: {
+      accountId: accountID,
       id: folderID,
     },
     include: {
@@ -178,15 +201,16 @@ const deleteFolder = async (folderID) => {
   }
 
   for (const subfolder of folder.subFolders) {
-    await deleteFolder(subfolder.id);
+    await deleteFolder(subfolder.accountId, subfolder.id);
   }
 };
 
-const traverseNestedFolders = async (folderID, cb) => {
+const traverseNestedFolders = async (accountID, folderID, cb) => {
   console.log("--------------------");
   console.log("traverseNestedFolders running...");
   const currentFolder = await prisma.folder.findUnique({
     where: {
+      accountId: accountID,
       id: folderID,
     },
     include: {
@@ -195,12 +219,12 @@ const traverseNestedFolders = async (folderID, cb) => {
   });
 
   // Do something with cb and currentFolder
-  cb(currentFolder.id);
+  cb(currentFolder.accountId, currentFolder.id);
 
   const subFolders = currentFolder.subFolders;
   if (subFolders.length > 0) {
     for (const subFolder of subFolders) {
-      await traverseNestedFolders(subFolder.id, cb);
+      await traverseNestedFolders(subFolder.accountId, subFolder.id, cb);
     }
   }
 

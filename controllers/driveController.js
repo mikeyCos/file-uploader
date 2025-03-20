@@ -3,7 +3,6 @@ const { decode } = require("base64-arraybuffer");
 const { matchedData } = require("express-validator");
 const upload = require("../config/upload");
 const {
-  prisma,
   createFile,
   createFolder,
   getFileById,
@@ -26,8 +25,9 @@ const { generateStoragePath } = require("../utils/utils");
 
 const driveController = {
   getDrive: asyncHandler(async (req, res) => {
-    const folders = await getFolders();
-    const files = await getFiles();
+    const { user } = req;
+    const folders = await getFolders(user.id);
+    const files = await getFiles(user.id);
 
     // /drive/files/upload
     const formAction = req.originalUrl;
@@ -41,10 +41,14 @@ const driveController = {
     });
   }),
   getDriveFolder: asyncHandler(async (req, res) => {
+    console.log(req.user);
+    const { user } = req;
     const { folderID } = req.params;
-    const folder = await getFolderById(folderID);
+    const folder = await getFolderById(user.id, folderID);
 
     // /drive/folder/:folderID/files/upload
+    // How to display a path where the user is?
+    // For example Drive > Folder0 > Nested Folder > Nested Nested Folder
     const formAction = req.originalUrl;
     const baseURL = `${req.baseUrl}/folder/`;
 
@@ -57,10 +61,18 @@ const driveController = {
   postFolderCreate: [
     validateFolder("createFolderForm"),
     asyncHandler(async (req, res) => {
+      const { user } = req;
       const { folderID } = req.params;
       const { folder_name } = matchedData(req, { onlyValidData: true });
 
-      await createFolder(req.user.id, folderID, folder_name);
+      // What happens if folders are added to a folder with a valid expiresAt value?
+      const parentFolder = folderID && (await getFolderById(user.id, folderID));
+      await createFolder(
+        user.id,
+        folder_name,
+        folderID,
+        parentFolder?.expiresAt
+      );
 
       // res.redirect("/drive");
       // Re-render folders?
@@ -157,25 +169,28 @@ const driveController = {
     validateFolder("editFolderForm"),
     asyncHandler(async (req, res) => {
       // Need to validate req.params.folderID
+      const { user } = req;
       const { folderID } = req.params;
       const { folder_name } = matchedData(req, { onlyValidData: true });
-      const folder = await updateFolderName(folderID, folder_name);
+      const folder = await updateFolderName(user.id, folderID, folder_name);
 
       const baseURL = "/drive/folder/";
       res.render("itemFolder", { folder, baseURL });
     }),
   ],
   deleteFolder: asyncHandler(async (req, res) => {
+    const { user } = req;
     const { folderID } = req.params;
-    await deleteFolder(folderID);
+    await deleteFolder(user.id, folderID);
 
     res.sendStatus(200);
   }),
   deleteFile: asyncHandler(async (req, res) => {
     // Need to validate req.params.fileID
     // Need to delete from supabase.storage
+    const { user } = req;
     const { fileID } = req.params;
-    const { storagePath } = await deleteFile(fileID);
+    const { storagePath } = await deleteFile(user.id, fileID);
 
     await supabase.storage.from("drives").remove([storagePath]);
 
@@ -187,8 +202,9 @@ const driveController = {
     // Use this endpoint if a download button exists
     // As for downloading directly from supabase
     // https://supabase.com/docs/guides/storage/serving/downloads
+    const { user } = req;
     const { fileID } = req.params;
-    const { storagePath, name } = await getFileById(fileID);
+    const { storagePath, name } = await getFileById(user.id, fileID);
 
     const { data, error } = await supabase.storage
       .from("drives")

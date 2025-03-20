@@ -2,7 +2,6 @@ const asyncHandler = require("express-async-handler");
 const { matchedData } = require("express-validator");
 const { validateShareDuration } = require("../validators/validators");
 const {
-  prisma,
   getFolderById,
   traverseNestedFolders,
   updateFolderExpiresAt,
@@ -12,18 +11,13 @@ const { isExpired } = require("../utils/utils");
 const shareController = {
   getSharedRoute: asyncHandler(async (req, res, next) => {
     const { folderID } = req.params;
-
-    const folder = await getFolderById(folderID);
-
-    console.log("folder:", folder);
-    // What if folder.expiresAt is null/undefined?
-    // What happens if files or folders are added to a folder with a valid expiresAt value?
-    const expired = isExpired(folder.expiresAt);
+    const folder = await getFolderById(null, folderID);
+    const expired = isExpired(folder.expiresAt); // What if folder.expiresAt is null/undefined?
     console.log("expired:", expired);
     if (expired) {
       // Update folder's expiresAt column to null
       // Maybe only updateFolderExpiresAt if folder.expiresAt exists
-      await updateFolderExpiresAt(null)(folder.id);
+      await updateFolderExpiresAt(null)(null, folder.id);
       return next({ status: 410, error: "Link has expired" });
     }
 
@@ -45,6 +39,7 @@ const shareController = {
   createSharedRoute: [
     validateShareDuration("shareFolderForm"),
     asyncHandler(async (req, res) => {
+      const { user } = req;
       const { folderID } = req.params;
 
       const { share_duration } = matchedData(req, { onlyValidData: true });
@@ -55,7 +50,11 @@ const shareController = {
 
       console.log("expiresAt:", expiresAt);
 
-      traverseNestedFolders(folderID, updateFolderExpiresAt(expiresAt));
+      traverseNestedFolders(
+        user.id,
+        folderID,
+        updateFolderExpiresAt(expiresAt)
+      );
       res.render("shareFolderOutput", {
         shareURL: `/share/${folderID}`,
         expiresAt,

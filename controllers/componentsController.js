@@ -4,7 +4,8 @@ const { getFileById, getFolderById } = require("../db/prisma");
 const componentsController = {
   getFileDetails: asyncHandler(async (req, res) => {
     const { fileID } = req.params;
-    const file = await getFileById(fileID);
+    const { user } = req;
+    const file = await getFileById(user.id, fileID);
 
     res.render("fileDetails", { file });
   }),
@@ -15,24 +16,27 @@ const componentsController = {
     res.render("createFolderForm");
   }),
   getEditFileForm: asyncHandler(async (req, res) => {
+    const { user } = req;
     const { fileID } = req.params;
-    const file = await getFileById(fileID);
+    const file = await getFileById(user.id, fileID);
 
     res.render("editFileForm", {
       file,
     });
   }),
   getEditFolderForm: asyncHandler(async (req, res) => {
+    const { user } = req;
     const { folderID } = req.params;
-    const folder = await getFolderById(folderID);
+    const folder = await getFolderById(user.id, folderID);
 
     res.render("editFolderForm", {
       folder,
     });
   }),
   getDeleteFileForm: asyncHandler(async (req, res) => {
+    const { user } = req;
     const { fileID } = req.params;
-    const file = await getFileById(fileID);
+    const file = await getFileById(user.id, fileID);
 
     res.render("deleteFileForm", {
       fileID,
@@ -40,8 +44,9 @@ const componentsController = {
     });
   }),
   getDeleteFolderForm: asyncHandler(async (req, res) => {
+    const { user } = req;
     const { folderID } = req.params;
-    const folder = await getFolderById(folderID);
+    const folder = await getFolderById(user.id, folderID);
 
     res.render("deleteFolderForm", {
       folderID,

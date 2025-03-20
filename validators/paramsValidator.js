@@ -5,13 +5,14 @@ const { getFileById, getFolderById } = require("../db/prisma");
 const isfileIDValid = async (fileID) => {
   console.log("isfileIDValid running...");
   console.log("fileID:", fileID);
-  const fileExists = !!(await getFileById(fileID));
+  const fileExists = !!(await getFileById(null, fileID));
   if (!fileExists) return Promise.reject("Invalid FileID parameter.");
   return Promise.resolve();
 };
 
 const isFolderIDValid = async (folderID) => {
-  const folderExists = !!(await getFolderById(folderID));
+  console.log("isFolderIDValid running...");
+  const folderExists = !!(await getFolderById(null, folderID));
   if (!folderExists) return Promise.reject("Invalid folderID parameter.");
   return Promise.resolve();
 };
