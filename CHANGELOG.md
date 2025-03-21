@@ -1,5 +1,8 @@
 # Changelog
 ---
+### 21 MAR 2025
+- Merged `folder-navigation` branch to `main` branch.
+---
 ### 20 MAR 2025
 - Created `nav` element in `folder.ejs` page.
 - Created `traverseUpNestedFolders` Prisma query function; traverses up based on the `folderID` parameter and if the `currentFolder` has a `parentFolderId` property.
