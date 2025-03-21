@@ -1,6 +1,8 @@
 # Changelog
 ---
 ### 21 MAR 2025
+- Created `styles` branch.
+- Renamed `traverseUpNestedFolders` to `traverseParentFolders` and `traverseDownNestedFolders` to `traverseSubfolders`.
 - Merged `folder-navigation` branch to `main` branch.
 ---
 ### 20 MAR 2025
