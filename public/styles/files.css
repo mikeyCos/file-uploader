@@ -1,0 +1,20 @@
+/* .files {
+}
+
+.files .list-item {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  text-overflow: ellipsis;
+}
+
+.files .list-item a {
+  display: flex;
+}
+
+.files .filename {
+  display: block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+ */

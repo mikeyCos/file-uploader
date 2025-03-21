@@ -1,0 +1,14 @@
+<nav class="drive-path">
+  <ul>
+    <li>
+      <a href="/drive">Drive</a>
+    </li>
+    <% if (locals.drivePathFolders) { %>
+      <% drivePathFolders.forEach((folder) => { %>
+        <li>
+          <a href="/drive/folder/<%= folder.id %>"><%= folder.name %></a>
+        </li>
+      <% }) %>
+    <% } %>
+  </ul>
+</nav>

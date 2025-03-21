@@ -5,38 +5,15 @@
     <%- include('./header') %>
     <main>
       <section id="drive">
-        <nav>
-          <ul>
-            <li>
-              <a href="/drive">Drive</a>
-            </li>
-            <% folders.forEach((folder) => { %>
-              <li>
-                <a href="/drive/folder/<%= folder.id %>"><%= folder.name %></a>
-              </li>
-            <% }) %>
-          </ul>
-        </nav>
+        <%- include('./drivePathNavbar') %>
 
         <% if(!locals.public) { %>
           <%- include('./controls') %>
         <% } %>
 
-        <% if (folder.files.length > 0) { %>
-          <ul class="files">
-            <% folder.files.forEach((file) => { %>
-              <%- include('./itemFile', { file }) %>
-            <% }) %>
-          </ul>
-        <% } %>
+        <%- include('./folders') %>
+        <%- include('./files') %>
 
-        <% if (folder.subFolders.length > 0) { %>
-          <ul class="folders">
-            <% folder.subFolders.forEach((folder) => { %>
-              <%- include('./itemFolder', { folder }) %>
-            <% }) %>
-          </ul>
-        <% } %>
       </section>
 
       <dialog onclose="onCloseHandler()" onclick="closeDialog(event)"></dialog>

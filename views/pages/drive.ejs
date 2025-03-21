@@ -5,24 +5,10 @@
     <%- include('./header') %>
     <main>
       <section id="drive">
-        <h2>Drive</h2>
+        <%- include('./drivePathNavbar') %>
         <%- include('./controls') %>
-      
-        <% if (folders.length > 0) { %>
-          <ul class="folders">
-            <% folders.forEach((folder) => { %>
-              <%- include('./itemFolder', { folder }) %>
-            <% }) %>
-          </ul>
-        <% } %>
-
-        <% if (files.length > 0) { %>
-          <ul class="files">
-            <% files.forEach((file) => { %>
-              <%- include('./itemFile', { file }) %>
-            <% }) %>
-          </ul>
-        <% } %>
+        <%- include('./folders') %>
+        <%- include('./files') %>
       </section>
 
       <dialog onclose="onCloseHandler()" onclick="closeDialog(event)"></dialog>

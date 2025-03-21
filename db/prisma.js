@@ -207,10 +207,9 @@ const deleteFolder = async (accountID, folderID) => {
 };
 
 // This only traverses in one direction
-// getAllSubfolders
-const getAllSubfolders = async (accountID, folderID, cb) => {
+const traverseSubfolders = async (accountID, folderID, cb) => {
   console.log("--------------------");
-  console.log("traverseDownNestedFolders running...");
+  console.log("traverseSubfolders running...");
   const currentFolder = await prisma.folder.findUnique({
     where: {
       accountId: accountID,
@@ -227,7 +226,7 @@ const getAllSubfolders = async (accountID, folderID, cb) => {
   const subFolders = currentFolder.subFolders;
   if (subFolders.length > 0) {
     for (const subFolder of subFolders) {
-      await getAllSubfolders(subFolder.accountId, subFolder.id, cb);
+      await traverseSubfolders(subFolder.accountId, subFolder.id, cb);
     }
   }
 
@@ -235,7 +234,7 @@ const getAllSubfolders = async (accountID, folderID, cb) => {
 };
 
 // getAllParentFolders
-const getAllParentFolders = async (accountID, folderID, arr = [], cb) => {
+const traverseParentFolders = async (accountID, folderID, arr = [], cb) => {
   if (!accountID || !folderID) return arr;
   const currentFolder = await prisma.folder.findUnique({
     where: {
@@ -261,7 +260,7 @@ const getAllParentFolders = async (accountID, folderID, arr = [], cb) => {
       },
     }));
 
-  await getAllParentFolders(accountID, parentFolder?.id, arr, cb);
+  await traverseParentFolders(accountID, parentFolder?.id, arr, cb);
   arr.push(currentFolder);
   // Do something with cb and currentFolder
   return arr;
@@ -276,11 +275,11 @@ module.exports = {
   getFolderById,
   getFiles,
   getFolders,
-  getAllParentFolders,
   updateFileName,
   updateFolderName,
   updateFolderExpiresAt,
   deleteFile,
   deleteFolder,
-  traverseDownNestedFolders,
+  traverseSubfolders,
+  traverseParentFolders,
 };

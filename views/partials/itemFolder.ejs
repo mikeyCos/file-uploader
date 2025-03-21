@@ -1,13 +1,16 @@
-<li data-item-id="<%= folder.id %>"">
+<li class="list-item" data-item-id="<%= folder.id %>"">
   <a href="<%= baseURL %><%= folder.id %>">
     <span><%- include('../../public/assets/icons/folder.svg') %></span>
-    <span><%= folder.name %></span>
+    <span class="foldername"><%= folder.name %></span>
   </a>
-  <% if(!locals.public) { %>
-    <button type="button" onclick="openDialog(event)" data-url="form/folder/delete/<%= folder.id %>"  data-form-action="/drive/folder/<%= folder.id %>">
-      <%- include('../../public/assets/icons/delete.svg') %>
-    </button>
-    <button type="button" onclick="openDialog(event)" data-url="form/folder/edit/<%= folder.id %>" data-form-action="/drive/folder/<%= folder.id %>">Rename</button>
-    <button type="button" onclick="openDialog(event)" data-url="form/folder/share/<%= folder.id %>" data-form-action="/share/<%= folder.id %>">Share</button>
-  <% } %>
+
+  <div class="list-item-controls">
+    <% if(!locals.public) { %>
+      <button type="button" onclick="openDialog(event)" data-url="form/folder/delete/<%= folder.id %>"  data-form-action="/drive/folder/<%= folder.id %>">
+        <%- include('../../public/assets/icons/delete.svg') %>
+      </button>
+      <button type="button" onclick="openDialog(event)" data-url="form/folder/edit/<%= folder.id %>" data-form-action="/drive/folder/<%= folder.id %>">Rename</button>
+      <button type="button" onclick="openDialog(event)" data-url="form/folder/share/<%= folder.id %>" data-form-action="/share/<%= folder.id %>">Share</button>
+    <% } %>
+  </div>
 </li>

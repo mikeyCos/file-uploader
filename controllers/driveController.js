@@ -22,7 +22,6 @@ const {
   validateUpload,
 } = require("../validators/validators");
 const { generateStoragePath } = require("../utils/utils");
-// const deleteFolderFiles = require("../utils/deleteFolderFiles");
 
 const driveController = {
   getDrive: asyncHandler(async (req, res) => {
@@ -52,11 +51,12 @@ const driveController = {
     const formAction = req.originalUrl;
     const baseURL = `${req.baseUrl}/folder/`;
 
-    const folders = await traverseParentFolders(user.id, folderID);
+    const drivePathFolders = await traverseParentFolders(user.id, folderID);
 
     res.render("folder", {
-      folder,
-      folders,
+      folders: folder.subFolders,
+      files: folder.files,
+      drivePathFolders,
       formAction,
       baseURL,
     });
@@ -120,15 +120,6 @@ const driveController = {
           .from("drives")
           .getPublicUrl(storagePath);
 
-        /* await createFile({
-          name: file.originalname,
-          size: file.size,
-          url: data.publicUrl,
-          storagePath: storagePath,
-          accountId: user.id,
-          folderId: folderID,
-        }); */
-
         await createFile(user.id, folderID, file, data.publicUrl, storagePath);
       }
 
@@ -171,7 +162,6 @@ const driveController = {
   putFolder: [
     validateFolder("editFolderForm"),
     asyncHandler(async (req, res) => {
-      // Need to validate req.params.folderID
       const { user } = req;
       const { folderID } = req.params;
       const { folder_name } = matchedData(req, { onlyValidData: true });
@@ -189,8 +179,6 @@ const driveController = {
     res.sendStatus(200);
   }),
   deleteFile: asyncHandler(async (req, res) => {
-    // Need to validate req.params.fileID
-    // Need to delete from supabase.storage
     const { user } = req;
     const { fileID } = req.params;
     const { storagePath } = await deleteFile(user.id, fileID);
@@ -201,8 +189,7 @@ const driveController = {
   }),
   downloadFile: asyncHandler(async (req, res) => {
     // Optional endpoint
-    // Need to validate the file exists
-    // Use this endpoint if a download button exists
+    // Use this endpoint if to download file to the server and send it to the client
     // As for downloading directly from supabase
     // https://supabase.com/docs/guides/storage/serving/downloads
     const { user } = req;
@@ -214,15 +201,13 @@ const driveController = {
       .download(storagePath);
 
     // res.attachment sets the headers
-    // Content-Disposition: attachment; filename="[filename]"
-    // Content-Type: [file_mimetype]
+    //  Content-Disposition: attachment; filename="[filename]"
+    //  Content-Type: [file_mimetype]
     res.attachment(name);
     const buffer = Buffer.from(await data.arrayBuffer());
     res.send(buffer);
     res.end();
   }),
 };
-
-// upload.single("upload_file"),
 
 module.exports = driveController;

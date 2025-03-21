@@ -1,0 +1,7 @@
+<% if (folders.length > 0) { %>
+  <ul class="folders">
+    <% folders.forEach((folder) => { %>
+      <%- include('./itemFolder', { folder }) %>
+    <% }) %>
+  </ul>
+<% } %>

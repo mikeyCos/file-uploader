@@ -1,47 +1,53 @@
-<header>
-  <nav>
+<header class="header-main">
+  <nav class="nav-main">
     <ul class="nav-left">
       <li>
-        <a href="#">Nav left placeholder</a>
+        <a href="#">
+          <%- include('../../public/assets/icons/undraw_upload.svg') %>
+          <h1>File Uploader</h1>
+        </a>
       </li>
     </ul>
 
-    <ul class="nav-right">
-      <li>
-        <a href="/">Home</a>
-      </li>
-
-      <li>
-        <a href="/placeholderA">Placeholder A</a>
-      </li>
-
-      <% if (locals.currentUser) { %>
+    <div class="nav-right-wrapper">
+      <ul class="nav-right">
         <li>
-          <a href="/drive">Drive</a>
+          <a href="/">Home</a>
         </li>
+  
         <li>
-          <a href="#">Account</a>
-          <ul>
-            <li>Logged in as <%= currentUser.username %></li>
-            <li>
-              <form action="/account/logout" method="POST">
-                <button type="submit">Log out</button>
-              </form>
-            </li>
-          </ul>
+          <a href="/placeholderA">Placeholder A</a>
         </li>
-        
-      <% } else { %>
+  
+        <% if (locals.currentUser) { %>
+          <li>
+            <a href="/drive">Drive</a>
+          </li>
+          <li>
+            <a href="#">Account</a>
+            <ul>
+              <li>Logged in as <%= currentUser.username %></li>
+              <li>
+                <form action="/account/logout" method="POST">
+                  <button type="submit">Log out</button>
+                </form>
+              </li>
+            </ul>
+          </li>
+          
+        <% } else { %>
+          <li>
+            <a href="/account/login">Log in</a>
+          </li>
+          <li>
+            <a href="/account/create">Create account</a>
+          </li>
+        <% } %>
         <li>
-          <a href="/account/login">Log in</a>
+          <a href="/support">Contact support</a>
         </li>
-        <li>
-          <a href="/account/create">Create account</a>
-        </li>
-      <% } %>
-      <li>
-        <a href="/support">Contact support</a>
-      </li>
-    </ul>
+      </ul>
+    </div>
+    <%- include('menuButton') %>
   </nav>
 </header>

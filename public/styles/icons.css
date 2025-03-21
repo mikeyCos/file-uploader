@@ -1,0 +1,7 @@
+.icon {
+  height: auto;
+}
+
+.icon.logo {
+  width: 10rem;
+}

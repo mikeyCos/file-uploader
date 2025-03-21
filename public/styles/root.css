@@ -3,8 +3,14 @@
  * Define custom variables here
  * Define general styling here
  */
+@font-face {
+  font-family: Raleway;
+  src: url("../assets/fonts/Raleway/Raleway-VariableFont_wght.ttf")
+    format("truetype");
+}
 
 :root {
+  --font-family-primary: Raleway, sans-serif;
   --font-color-primary: #2e282a;
   --bkg-color-primary: #17bebb;
   --bkg-color-secondary: #edb88b;
@@ -16,4 +22,5 @@ body {
   display: grid;
   grid-auto-rows: min-content 1fr min-content;
   background-color: var(--bkg-color-primary);
+  font-family: var(--font-family-primary);
 }
