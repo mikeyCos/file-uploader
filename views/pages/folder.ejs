@@ -5,7 +5,19 @@
     <%- include('./header') %>
     <main>
       <section id="drive">
-        <h2><%= folder.name %></h2>
+        <nav>
+          <ul>
+            <li>
+              <a href="/drive">Drive</a>
+            </li>
+            <% folders.forEach((folder) => { %>
+              <li>
+                <a href="/drive/folder/<%= folder.id %>"><%= folder.name %></a>
+              </li>
+            <% }) %>
+          </ul>
+        </nav>
+
         <% if(!locals.public) { %>
           <%- include('./controls') %>
         <% } %>

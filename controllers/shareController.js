@@ -3,7 +3,7 @@ const { matchedData } = require("express-validator");
 const { validateShareDuration } = require("../validators/validators");
 const {
   getFolderById,
-  traverseNestedFolders,
+  traverseDownNestedFolders,
   updateFolderExpiresAt,
 } = require("../db/prisma");
 const { isExpired } = require("../utils/utils");
@@ -17,7 +17,7 @@ const shareController = {
     if (expired) {
       // Update folder's expiresAt column to null
       // Maybe only updateFolderExpiresAt if folder.expiresAt exists
-      await updateFolderExpiresAt(null)(null, folder.id);
+      await updateFolderExpiresAt(null)(folder);
       return next({ status: 410, error: "Link has expired" });
     }
 
@@ -50,7 +50,7 @@ const shareController = {
 
       console.log("expiresAt:", expiresAt);
 
-      traverseNestedFolders(
+      traverseDownNestedFolders(
         user.id,
         folderID,
         updateFolderExpiresAt(expiresAt)

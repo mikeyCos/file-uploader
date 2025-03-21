@@ -13,6 +13,7 @@ const {
   updateFolderName,
   deleteFile,
   deleteFolder,
+  traverseUpNestedFolders,
 } = require("../db/prisma");
 const supabase = require("../db/supabase");
 const {
@@ -45,15 +46,17 @@ const driveController = {
     const { user } = req;
     const { folderID } = req.params;
     const folder = await getFolderById(user.id, folderID);
-
     // /drive/folder/:folderID/files/upload
     // How to display a path where the user is?
     // For example Drive > Folder0 > Nested Folder > Nested Nested Folder
     const formAction = req.originalUrl;
     const baseURL = `${req.baseUrl}/folder/`;
 
+    const folders = await traverseUpNestedFolders(user.id, folderID);
+
     res.render("folder", {
       folder,
+      folders,
       formAction,
       baseURL,
     });
