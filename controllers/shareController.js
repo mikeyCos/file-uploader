@@ -3,8 +3,8 @@ const { matchedData } = require("express-validator");
 const { validateShareDuration } = require("../validators/validators");
 const {
   getFolderById,
-  traverseDownNestedFolders,
   updateFolderExpiresAt,
+  traverseSubfolders,
 } = require("../db/prisma");
 const { isExpired } = require("../utils/utils");
 
@@ -50,11 +50,7 @@ const shareController = {
 
       console.log("expiresAt:", expiresAt);
 
-      traverseDownNestedFolders(
-        user.id,
-        folderID,
-        updateFolderExpiresAt(expiresAt)
-      );
+      traverseSubfolders(user.id, folderID, updateFolderExpiresAt(expiresAt));
       res.render("shareFolderOutput", {
         shareURL: `/share/${folderID}`,
         expiresAt,

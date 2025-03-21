@@ -13,7 +13,7 @@ const {
   updateFolderName,
   deleteFile,
   deleteFolder,
-  traverseUpNestedFolders,
+  traverseParentFolders,
 } = require("../db/prisma");
 const supabase = require("../db/supabase");
 const {
@@ -52,7 +52,7 @@ const driveController = {
     const formAction = req.originalUrl;
     const baseURL = `${req.baseUrl}/folder/`;
 
-    const folders = await traverseUpNestedFolders(user.id, folderID);
+    const folders = await traverseParentFolders(user.id, folderID);
 
     res.render("folder", {
       folder,
