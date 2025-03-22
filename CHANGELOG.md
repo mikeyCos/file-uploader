@@ -1,12 +1,15 @@
 # Changelog
 ---
 ### 21 MAR 2025
+- Created `postcss:watch` and `start-server` scripts.
+- Created `src` directory and `postcss.config.js` module.
+- Installed `postcss`, `postcss-cli`, `postcss-import`, `postcss-preset-env`, `postcss-url`, `cssnano`, and `concurrently` packages.
 - Created `fonts` directory and added `Raleway` variable font.
 - Added `class="icon"` to `*.svg` files in `icons` directory.
 - Created `menuButton_onClick.js` module in `scripts` directory.
 - Created `buttons.css`, `header.css`, `files.css`, `folders.css` stylesheets.
 - Created `drivePathNavbar.ejs`, `menuButton.ejs`, `files.ejs`, and `folders.ejs` partials.
-- Added `chevron_right.svg` and `undraw_upload.svg` files to `icons` directory.
+- Added `chevron_right.svg` and `undraw_upload.svg`, `edit.svg` files to `icons` directory.
 - Created `styles` branch.
 - Renamed `traverseUpNestedFolders` to `traverseParentFolders` and `traverseDownNestedFolders` to `traverseSubfolders`.
 - Merged `folder-navigation` branch to `main` branch.

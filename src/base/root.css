@@ -5,7 +5,7 @@
  */
 @font-face {
   font-family: Raleway;
-  src: url("../assets/fonts/Raleway/Raleway-VariableFont_wght.ttf")
+  src: url("../../public/assets/fonts/Raleway/Raleway-VariableFont_wght.ttf")
     format("truetype");
 }
 
@@ -23,4 +23,8 @@ body {
   grid-auto-rows: min-content 1fr min-content;
   background-color: var(--bkg-color-primary);
   font-family: var(--font-family-primary);
+}
+
+.list-item-controls {
+  display: flex;
 }

@@ -1,7 +1,7 @@
 <li class="list-item" data-item-id="<%= file.id %>">
   <p>
-    <span><%- include('../../public/assets/icons/file.svg') %></span>
-    <span class="filename"><%= file.name %></span>
+    <span class="otherClassName"><%- include('../../public/assets/icons/file.svg') %></span>
+    <span class="filename className"><%= file.name %></span>
   </p>
 
   <div class="list-item-controls">
@@ -9,7 +9,9 @@
       <button type="button" onclick="openDialog(event)" data-url="form/file/delete/<%= file.id %>" data-form-action="/drive/file/<%= file.id %>">
         <%- include('../../public/assets/icons/delete.svg') %>
       </button>
-      <button type="button" onclick="openDialog(event)" data-url="form/file/edit/<%= file.id %>" data-form-action="/drive/file/<%= locals.fileID ?? file.id %>">Rename</button>
+      <button type="button" onclick="openDialog(event)" data-url="form/file/edit/<%= file.id %>" data-form-action="/drive/file/<%= locals.fileID ?? file.id %>">
+        <%- include('../../public/assets/icons/edit.svg') %>
+      </button>
     <% } %>
     <button type="button" onClick="openDialog(event)" data-url="/file/details/<%= file.id %>">Details</button>
     <!-- <button type="button" onClick="downloadFile(event)" data-url="drive/download/file/<%= file.id %>">Download</button> -->

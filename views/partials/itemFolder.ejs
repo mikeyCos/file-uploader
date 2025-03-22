@@ -6,10 +6,10 @@
 
   <div class="list-item-controls">
     <% if(!locals.public) { %>
-      <button type="button" onclick="openDialog(event)" data-url="form/folder/delete/<%= folder.id %>"  data-form-action="/drive/folder/<%= folder.id %>">
+      <button type="button" onclick="openDialog(event)" data-url="form/folder/delete/<%= folder.id %>"  data-form-action="/drive/folder/<%= folder.id %>" aria-label="Delete the folder, <%= folder.name %>">
         <%- include('../../public/assets/icons/delete.svg') %>
       </button>
-      <button type="button" onclick="openDialog(event)" data-url="form/folder/edit/<%= folder.id %>" data-form-action="/drive/folder/<%= folder.id %>">Rename</button>
+      <button type="button" onclick="openDialog(event)" data-url="form/folder/edit/<%= folder.id %>" data-form-action="/drive/folder/<%= folder.id %>" aria-label="Rename the folder, <%= folder.name %>">Rename</button>
       <button type="button" onclick="openDialog(event)" data-url="form/folder/share/<%= folder.id %>" data-form-action="/share/<%= folder.id %>">Share</button>
     <% } %>
   </div>
