@@ -5,8 +5,7 @@
  */
 @font-face {
   font-family: Raleway;
-  src: url("../../public/assets/fonts/Raleway/Raleway-VariableFont_wght.ttf")
-    format("truetype");
+  src: url("Raleway/Raleway-VariableFont_wght.ttf") format("truetype");
 }
 
 :root {

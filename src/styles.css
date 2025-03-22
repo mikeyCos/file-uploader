@@ -1,2 +1,9 @@
+@import "base/buttons.css";
+@import "base/files.css";
+@import "base/folders.css";
+@import "base/footer.css";
+@import "base/forms.css";
+@import "base/header.css";
+@import "base/icons.css";
 @import "base/reset.css";
 @import "base/root.css";

@@ -9,13 +9,12 @@
     "start-server": "nodemon server.js",
     "seed-db": "node -e 'require(\"./db/seed_db\").seedDB()'",
     "empty-db": "node -e 'require(\"./db/seed_db\").emptyDB()'",
-    "postcss:watch": "postcss --config config/postcss.config.js src/styles.css --dir public/styles --watch",
-    "dev": "concurrently \"npm run start-server\" \"npm run postcss:watch\""
+    "postcss:watch": "postcss --config config/postcss.config.js src/styles.css --dir public/dist --watch",
+    "dev": "npm run postcss:watch & npm run start-server"
   },
   "author": "MikeyCos",
   "license": "ISC",
   "devDependencies": {
-    "concurrently": "^9.1.2",
     "cssnano": "^7.0.6",
     "nodemon": "^3.1.4",
     "postcss": "^8.5.3",

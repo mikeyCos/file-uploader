@@ -2,9 +2,9 @@
 }
 
 .files .list-item {
-  display: grid;
+  /*  display: grid;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  text-overflow: ellipsis;
+  text-overflow: ellipsis; */
 }
 
 .files .list-item a {

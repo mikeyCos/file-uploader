@@ -1,5 +1,10 @@
 # Changelog
 ---
+### 22 MAR 2025
+- Deleted `styles` directory from `public` directory and moved all stylesheets to `/src/base/` directory. 
+- Configured `postcss-url` for `assets/fonts`; copies used font assets from `/src/assets/fonts/` to `/public/assets/fonts` as a hash.
+- Uninstalled `concurrently` package.
+---
 ### 21 MAR 2025
 - Created `postcss:watch` and `start-server` scripts.
 - Created `src` directory and `postcss.config.js` module.
