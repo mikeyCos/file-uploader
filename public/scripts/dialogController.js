@@ -1,7 +1,8 @@
 const dialog = document.querySelector("dialog");
 
 const openDialog = async (e) => {
-  const { url, formAction } = e.currentTarget.dataset;
+  const btn = e.currentTarget;
+  const { url, formAction } = btn.dataset;
   const { htmlContent } = await fetchContent(url, formAction);
 
   // Need to set the form's action attribute

@@ -8,6 +8,7 @@ const {
   getDeleteFileForm,
   getDeleteFolderForm,
   getShareFolderForm,
+  getItemControls,
 } = require("../controllers/componentsController");
 const { validateParams } = require("../validators/validators");
 const { fileSchema, folderSchema } = require("../validators/paramsValidator");
@@ -47,6 +48,16 @@ const componentsRoutes = (isAuth) => {
     "/file/details/:fileID",
     validateParams(fileSchema),
     getFileDetails
+  );
+  componentsRouter.get(
+    "/file/:fileID/controls",
+    validateParams(fileSchema),
+    getItemControls
+  );
+  componentsRouter.get(
+    "/folder/:folderID/controls",
+    validateParams(folderSchema),
+    getItemControls
   );
 
   return componentsRouter;

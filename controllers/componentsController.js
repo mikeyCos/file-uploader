@@ -1,4 +1,5 @@
 const asyncHandler = require("express-async-handler");
+const { matchedData } = require("express-validator");
 const { getFileById, getFolderById } = require("../db/prisma");
 
 const componentsController = {
@@ -57,6 +58,16 @@ const componentsController = {
     const { folderID } = req.params;
 
     res.render("shareFolderForm", { folderID });
+  }),
+  getItemControls: asyncHandler(async (req, res) => {
+    console.group("getItemControls running...");
+    const { fileID, folderID } = matchedData(req, { onlyValidData: true });
+    const item = await (fileID
+      ? getFileById(null, fileID)
+      : getFolderById(null, folderID));
+    const type = fileID ? "file" : "folder";
+
+    res.render("itemControls", { item, type });
   }),
 };
 

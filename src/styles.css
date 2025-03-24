@@ -8,3 +8,32 @@
 @import "base/icons.css";
 @import "base/reset.css";
 @import "base/root.css";
+
+.list-item {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+  text-overflow: ellipsis;
+  padding: 0.5rem;
+}
+
+.list-item > :first-child {
+  display: flex;
+  align-items: center;
+}
+
+.list-item-controls {
+  display: flex;
+  justify-content: end;
+  position: relative;
+}
+
+.list-item .controls-more {
+  display: flex;
+  flex-direction: column;
+  visibility: hidden;
+  position: absolute;
+}
+
+.list-item .controls-more.active {
+  visibility: visible;
+}

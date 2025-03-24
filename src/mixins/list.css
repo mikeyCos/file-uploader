@@ -1,27 +1,10 @@
 @define-mixin list $type, $descendant {
-  .list-item {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    text-overflow: ellipsis;
-    padding: 0.5rem;
-    @mixin-content;
-  }
-  .list-item > :first-child {
-    align-items: center;
-  }
   .$(type) .$(descendant) {
     display: block;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
     font-size: 1.25rem;
-  }
-  .list-item-controls {
-    visibility: hidden;
-    position: absolute;
-  }
-  .list-item-controls.active {
-    visibility: visible;
   }
 }
 

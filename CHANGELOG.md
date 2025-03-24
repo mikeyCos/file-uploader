@@ -1,5 +1,10 @@
 # Changelog
 ---
+### 24 MAR 2025
+- Clicking buttons in `div.controls more` will fetch and render a component then replace the child node of the `dialog` element.
+- Clicking the button in `div.list-item-controls` will fetch a component and render `itemControls` based on the button's `data-url` value.
+- Created `itemControls.ejs` partial.
+---
 ### 23 MAR 2025
 - Created `toggleItemControls.js` module.
 - Added `info.svg` and `more_vert.svg` files to `icons` directory.

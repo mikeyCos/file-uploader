@@ -1,7 +1,4 @@
 @import "../mixins/list";
 
 @mixin list folders, foldername {
-  & a {
-    display: flex;
-  }
 }

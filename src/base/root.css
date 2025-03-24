@@ -17,6 +17,8 @@
   --bkg-color-tertiary: #ef3e36;
 }
 
+/* General styling */
+
 body {
   min-height: 100svh;
   display: grid;
