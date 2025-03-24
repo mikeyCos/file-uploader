@@ -2,14 +2,16 @@ const express = require("express");
 const session = require("express-session");
 const passport = require("passport");
 const { PrismaSessionStore } = require("@quixo3/prisma-session-store");
+const asyncHandler = require("express-async-handler");
+const fsPromises = require("node:fs/promises");
 const { prisma } = require("./db/prisma");
 const { PORT } = require("./config/environment");
-const { staticPaths, viewsPaths } = require("./paths/paths");
+const { staticPath, viewsPaths } = require("./paths/paths");
 const { logger } = require("./utils/utils");
 const app = express();
 
-// Specify static paths
-app.use(staticPaths.map((path) => express.static(path)));
+// Specify static path
+app.use(express.static(staticPath));
 
 // Setting views
 app.set("views", viewsPaths);

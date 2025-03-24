@@ -1,5 +1,6 @@
 .icon {
   height: auto;
+  min-width: 38px;
 }
 
 .icon.logo {

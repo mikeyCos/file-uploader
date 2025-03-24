@@ -1,5 +1,12 @@
 # Changelog
 ---
+### 23 MAR 2025
+- Created `toggleItemControls.js` module.
+- Added `info.svg` and `more_vert.svg` files to `icons` directory.
+- Created `mixins` directory.
+- Installed `postcss-mixins` package.
+- Uninstalled `postcss-modules` package. 
+---
 ### 22 MAR 2025
 - Deleted `styles` directory from `public` directory and moved all stylesheets to `/src/base/` directory. 
 - Configured `postcss-url` for `assets/fonts`; copies used font assets from `/src/assets/fonts/` to `/public/assets/fonts` as a hash.

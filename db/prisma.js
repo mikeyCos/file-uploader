@@ -67,7 +67,7 @@ const getAccount = async (username, id) => {
 const getFileById = async (accountID, fileID) => {
   const file = await prisma.file.findUnique({
     where: {
-      accountId: accountID,
+      ...(accountID && { accountId: accountID }),
       id: fileID,
     },
   });

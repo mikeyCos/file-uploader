@@ -1,19 +1,7 @@
-.folders {
-}
+@import "../mixins/list";
 
-.folders .list-item {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  text-overflow: ellipsis;
-}
-
-.folders .list-item a {
-  display: flex;
-}
-
-.folders .foldername {
-  display: block;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
+@mixin list folders, foldername {
+  & a {
+    display: flex;
+  }
 }

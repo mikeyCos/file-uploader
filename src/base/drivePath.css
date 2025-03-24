@@ -1,0 +1,10 @@
+.drive-path {
+}
+
+.drive-path ul {
+  display: flex;
+}
+
+.drive-path li a {
+  font-size: 1.75rem;
+}

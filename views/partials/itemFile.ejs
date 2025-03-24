@@ -1,8 +1,12 @@
 <li class="list-item" data-item-id="<%= file.id %>">
   <p>
-    <span class="otherClassName"><%- include('../../public/assets/icons/file.svg') %></span>
-    <span class="filename className"><%= file.name %></span>
+    <span><%- include('../../public/assets/icons/file.svg') %></span>
+    <span class="filename"><%= file.name %></span>
   </p>
+
+  <button type="button" onclick="toggleItemControls(event)">
+    <%- include('../../public/assets/icons/more_vert.svg') %>
+  </button>
 
   <div class="list-item-controls">
     <% if(!locals.public) { %>
@@ -13,8 +17,12 @@
         <%- include('../../public/assets/icons/edit.svg') %>
       </button>
     <% } %>
-    <button type="button" onClick="openDialog(event)" data-url="/file/details/<%= file.id %>">Details</button>
+    <button type="button" onClick="openDialog(event)" data-url="/file/details/<%= file.id %>">
+      <%- include('../../public/assets/icons/info.svg') %>
+    </button>
     <!-- <button type="button" onClick="downloadFile(event)" data-url="drive/download/file/<%= file.id %>">Download</button> -->
-    <a href="<%= file.url %>?download" download="<%= file.name %>">Download</a>
+    <a href="<%= file.url %>?download" download="<%= file.name %>">
+      <%- include('../../public/assets/icons/download.svg') %>
+    </a>
   </div>
 </li>

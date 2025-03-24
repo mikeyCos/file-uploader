@@ -4,13 +4,21 @@
     <span class="foldername"><%= folder.name %></span>
   </a>
 
+  <button type="button" onclick="toggleItemControls(event)">
+    <%- include('../../public/assets/icons/more_vert.svg') %>
+  </button>
+
   <div class="list-item-controls">
     <% if(!locals.public) { %>
       <button type="button" onclick="openDialog(event)" data-url="form/folder/delete/<%= folder.id %>"  data-form-action="/drive/folder/<%= folder.id %>" aria-label="Delete the folder, <%= folder.name %>">
         <%- include('../../public/assets/icons/delete.svg') %>
       </button>
-      <button type="button" onclick="openDialog(event)" data-url="form/folder/edit/<%= folder.id %>" data-form-action="/drive/folder/<%= folder.id %>" aria-label="Rename the folder, <%= folder.name %>">Rename</button>
-      <button type="button" onclick="openDialog(event)" data-url="form/folder/share/<%= folder.id %>" data-form-action="/share/<%= folder.id %>">Share</button>
+      <button type="button" onclick="openDialog(event)" data-url="form/folder/edit/<%= folder.id %>" data-form-action="/drive/folder/<%= folder.id %>" aria-label="Rename the folder, <%= folder.name %>">
+        <%- include('../../public/assets/icons/edit.svg') %>
+      </button>
+      <button type="button" onclick="openDialog(event)" data-url="form/folder/share/<%= folder.id %>" data-form-action="/share/<%= folder.id %>">
+        <%- include('../../public/assets/icons/share.svg') %>
+      </button>
     <% } %>
   </div>
 </li>

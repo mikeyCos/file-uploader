@@ -3,6 +3,7 @@
  * Define custom variables here
  * Define general styling here
  */
+
 @font-face {
   font-family: Raleway;
   src: url("Raleway/Raleway-VariableFont_wght.ttf") format("truetype");
@@ -24,6 +25,14 @@ body {
   font-family: var(--font-family-primary);
 }
 
-.list-item-controls {
-  display: flex;
+/* Small devices */
+@media screen and (min-width: 481px) {
+}
+
+/* Tablets */
+@media screen and (min-width: 768px) {
+}
+
+/* Desktops */
+@media screen and (min-width: 1024px) {
 }

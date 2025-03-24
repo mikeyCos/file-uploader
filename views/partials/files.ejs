@@ -1,7 +1,9 @@
+<section class="files">
 <% if (files.length > 0) { %>
-  <ul class="files">
-    <% files.forEach((file) => { %>
-      <%- include('./itemFile', { file }) %>
-    <% }) %>
-  </ul>
-<% } %>
+    <ul>
+      <% files.forEach((file) => { %>
+        <%- include('./itemFile', { file }) %>
+      <% }) %>
+    </ul>
+  <% } %>
+</section>
