@@ -1,6 +1,9 @@
 # Changelog
 ---
+### 
+---
 ### 24 MAR 2025
+- If the dialog is open and the window changes in size, the dialog will close; the event will only fire once when the dialog is open.
 - Clicking buttons in `div.controls more` will fetch and render a component then replace the child node of the `dialog` element.
 - Clicking the button in `div.list-item-controls` will fetch a component and render `itemControls` based on the button's `data-url` value.
 - Created `itemControls.ejs` partial.

@@ -6,7 +6,7 @@
 
   <% if(!locals.public) { %>
     <div class="list-item-controls">
-      <button type="button" onclick="openDialog(event)" data-url="folder/<%= folder.id %>/controls">
+      <button type="button" onclick="openDialog(event)" data-url="folder/<%= folder.id %>/controls" data-open-controls="true">
         <%- include('../../public/assets/icons/more_vert.svg') %>
       </button>
       

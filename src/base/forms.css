@@ -20,3 +20,34 @@
   position: unset;
   width: unset;
 }
+
+/* Create account */
+
+/* Create folder */
+
+/* Upload */
+.upload-files {
+}
+
+.upload-files label[for="upload_files"] {
+}
+
+#upload_files {
+  opacity: 0;
+  width: 0.1px;
+  height: 0.1px;
+  position: absolute;
+}
+
+#upload_files:focus + label[for="upload_files"] {
+  outline: 1px dotted #000;
+  outline: -webkit-focus-ring-color auto 5px;
+}
+
+/* Edit file */
+
+/* Edit folder */
+
+/* Delete file */
+
+/* Delete folder */

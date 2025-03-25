@@ -1,9 +1,9 @@
-<form action="<%= locals.formAction ?? '' %>" method="dialog" onsubmit="onSubmit(event, uploadFiles)" onclick="stopPropagation(event)" enctype="multipart/form-data" class="form-upload-files">
+<form action="<%= locals.formAction ?? '' %>" method="dialog" onsubmit="onSubmit(event, uploadFiles)" onclick="stopPropagation(event)" enctype="multipart/form-data" class="upload-files">
   <h2>Upload File(s)</h2>
   <ul>
     <li class="form-item">
-      <label for="upload_files">Upload file(s)</label>
       <input type="file" name="upload_files" onchange="uploadFiles_onChange(event)" id="upload_files" multiple>
+      <label for="upload_files">Upload file(s)</label>
       <% if (locals.errors?.upload_files) { %>
         <p class="input-error active-error"><%= errors?.upload_files.msg %></p>
       <% } %>

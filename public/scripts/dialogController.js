@@ -2,16 +2,28 @@ const dialog = document.querySelector("dialog");
 
 const openDialog = async (e) => {
   const btn = e.currentTarget;
-  const { url, formAction } = btn.dataset;
+  const { url, formAction, driveControls, openControls } = btn.dataset;
   const { htmlContent } = await fetchContent(url, formAction);
 
-  // Need to set the form's action attribute
-  // /drive/folder/:folderID/files/upload
-  // /drive/files/upload
-  // Issue
-  //  Invalid form will render a new form on POST
   dialog.append(htmlContent);
   dialog.showModal();
+
+  if (openControls === "true") {
+    // left, top, right, bottom, x, y, width
+    const btnRect = btn.getBoundingClientRect();
+    const dialogRect = dialog.getBoundingClientRect();
+
+    dialog.style.left = `${btnRect.left - dialogRect.width}px`;
+    dialog.style.top = `${btnRect.bottom}px`;
+  }
+
+  if (driveControls) {
+    dialog.style.left = "0px";
+    dialog.style.top = "0px";
+  }
+
+  // Temporary solution
+  window.addEventListener("resize", (e) => dialog.close(), { once: true });
 };
 
 const closeDialog = (e) => {

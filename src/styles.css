@@ -27,13 +27,40 @@
   position: relative;
 }
 
-.list-item .controls-more {
+.controls-more {
   display: flex;
   flex-direction: column;
-  visibility: hidden;
-  position: absolute;
 }
 
-.list-item .controls-more.active {
-  visibility: visible;
+.controls-more > * {
+  display: flex;
+  align-items: center;
+}
+
+dialog {
+  width: 90%;
+  max-width: 200px;
+  border: none;
+  border-radius: 0.25rem;
+  box-shadow: 0px 1px 4px black;
+}
+
+dialog::backdrop {
+  backdrop-filter: blur(0.05rem);
+}
+
+dialog:has(.create-folder, .upload-files) {
+  margin: 15vh auto;
+}
+
+/* Small devices */
+@media screen and (min-width: 481px) {
+}
+
+/* Tablets */
+@media screen and (min-width: 768px) {
+}
+
+/* Desktops */
+@media screen and (min-width: 1024px) {
 }
