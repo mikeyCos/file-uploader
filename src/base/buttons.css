@@ -1,7 +1,7 @@
 button {
   min-width: 44px;
   min-height: 44px;
-  border-radius: var(--button-border-radius);
+  border-radius: var(--border-radius-sm);
 }
 
 button:hover {
@@ -74,19 +74,13 @@ button:has(svg) {
 
 /* Small devices */
 @media screen and (min-width: 481px) {
+  .btn-menu {
+    display: none;
+  }
 }
 
 /* Tablets */
 @media screen and (min-width: 768px) {
-  .btn-menu {
-    visibility: hidden;
-    pointer-events: none;
-    transition: none;
-  }
-
-  .btn-menu > .menu > .menu-line {
-    transition: none;
-  }
 }
 
 /* Desktops */

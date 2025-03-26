@@ -15,7 +15,7 @@
 }
 
 .nav-left a:hover h1 {
-  rotate: -10deg;
+  rotate: -5deg;
   transition: rotate 150ms ease-in;
 }
 
@@ -23,7 +23,7 @@
   position: absolute;
   bottom: 0%;
   background: white;
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius-md);
   padding: 0rem 0.5rem;
   transition: rotate 150ms ease-out;
   font-size: 1.75rem;
@@ -65,7 +65,11 @@
   /* padding: 0.5rem 0; */
 }
 
-.nav-right .account-access ul {
+.nav-right .account-access {
+  position: relative;
+}
+
+.nav-right .account-access > ul {
   visibility: hidden;
   position: fixed;
   top: 0;
@@ -74,9 +78,16 @@
   width: 0%;
 }
 
-.nav-right .account-access:has(a:hover) ul {
+.nav-right .account-access:has(a:hover) > ul {
   visibility: visible;
   position: relative;
+  padding-top: 0.5rem;
+  position: relative;
+  width: auto;
+}
+
+.nav-right .account-access:has(a:hover) > ul > li {
+  padding: 0.5rem 0;
 }
 
 .btn-menu {
@@ -94,7 +105,13 @@
   }
 
   .nav-main {
+    flex-direction: column;
     justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav-left li {
+    /* margin-left: 1rem; */
   }
 
   .nav-right-wrapper {
@@ -102,18 +119,52 @@
     position: relative;
     z-index: unset;
     width: auto;
+    background: transparent;
   }
 
   .nav-right {
     margin-top: 0;
     display: flex;
   }
+
+  .nav-right .account-access:has(a:hover) > ul {
+    padding: 0.5rem 2rem;
+    visibility: visible;
+    position: absolute;
+    width: auto;
+    height: auto;
+    top: unset;
+    left: unset;
+    right: 0;
+    border-radius: var(--border-radius-md);
+    box-shadow: 0 0 2px 0 black;
+  }
 }
 
 /* Tablets */
 @media screen and (min-width: 768px) {
+  .header-main {
+    padding: 1rem;
+  }
+
+  .nav-main {
+    align-items: end;
+    flex-direction: row;
+  }
+
+  .nav-left li {
+    margin-left: 0;
+  }
+
+  .nav-left a {
+    display: block;
+  }
 }
 
 /* Desktops */
 @media screen and (min-width: 1024px) {
+  .nav-main {
+    max-width: 1000px;
+    margin: auto;
+  }
 }

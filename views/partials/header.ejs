@@ -26,12 +26,20 @@
           <li class="account-access">
             <a href="#">Account</a>
             <ul>
-              <li>Logged in as <%= currentUser.username %></li>
               <li>
-                <form action="/account/logout" method="POST" class="logout">
-                  <button type="submit">Log out</button>
-                </form>
+                <span>Logged in as</span>
+                <span><%= currentUser.username %></span>
               </li>
+              <ul>
+                <li>
+                  <form action="/account/logout" method="POST" class="logout">
+                    <button type="submit">
+                      <%- include('../../public/assets/icons/logout.svg') %>
+                      <span>Log out</span>
+                    </button>
+                  </form>
+                </li>
+              </ul>
             </ul>
           </li>
           

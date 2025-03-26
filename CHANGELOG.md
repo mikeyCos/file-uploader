@@ -1,5 +1,11 @@
 # Changelog
 ---
+### 26 MAR 2025
+- Hovering over account `anchor` will reveal a nested unordered list; one list item shows who is currently logged in and another list item shows a logout `button`.
+- Added `logout.svg` file to `icons` directory.
+- At breakpoint `min-width: 768px` the `div.nav-main` children elements will be side-by-side.
+- At breakpoint `min-width: 481px` the hero image is placed above the `div.nav-right-wrapper` container.
+---
 ### 25 MAR 2025
 - Added `cancel.svg` file to `icons` directory.
 - Created `dialog.css` and `controls.css` stylesheets.

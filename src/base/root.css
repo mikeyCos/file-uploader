@@ -18,7 +18,8 @@
   --form-buttons-gap: 1rem;
   --input-padding: 0.25rem;
   --controls-gap: 0.5rem;
-  --button-border-radius: 0.25rem;
+  --border-radius-sm: 0.25rem;
+  --border-radius-md: 0.5rem;
 }
 
 /* General styling */
@@ -31,11 +32,15 @@ body {
   font-family: var(--font-family-primary);
 }
 
+main {
+  padding: 1rem;
+}
+
 input {
   width: 100%;
   padding: var(--input-padding);
   border: 1px solid black;
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius-sm);
 }
 
 /* Small devices */
@@ -48,4 +53,8 @@ input {
 
 /* Desktops */
 @media screen and (min-width: 1024px) {
+  main > :first-child {
+    margin: auto;
+    max-width: 1000px;
+  }
 }
