@@ -12,8 +12,14 @@ const openDialog = async (e) => {
     // left, top, right, bottom, x, y, width
     const btnRect = btn.getBoundingClientRect();
     const dialogRect = dialog.getBoundingClientRect();
+    const newLeft = btnRect.left - dialogRect.width;
 
-    dialog.style.left = `${btnRect.left - dialogRect.width}px`;
+    if (window.innerWidth >= 320) {
+      dialog.style.left = `${
+        newLeft > 0 ? newLeft : btnRect.right - dialogRect.width
+      }px`;
+    }
+
     dialog.style.top = `${btnRect.bottom}px`;
   }
 

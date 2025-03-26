@@ -30,15 +30,15 @@
 }
 
 .nav-right-wrapper {
-  background-color: white;
+  visibility: hidden;
   position: fixed;
   top: 0;
   right: 0;
   height: 100%;
   width: 0%;
-  visibility: hidden;
-  transition: all 500ms ease-out;
   z-index: 99;
+  background-color: white;
+  transition: all 500ms ease-out;
   /*  Why does text-wrap: nowrap; work in this selector
   *   But not in selector .nav-main a {}?
   */
@@ -52,12 +52,31 @@
 }
 
 .nav-right {
-  margin-top: 2rem;
+  margin-top: 2.5rem;
 }
 
-.nav-right li {
+.nav-right > li {
   position: relative;
   padding: 0.5rem;
+}
+
+.nav-right li > ul,
+.nav-right li > ul > li {
+  /* padding: 0.5rem 0; */
+}
+
+.nav-right .account-access ul {
+  visibility: hidden;
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 0%;
+}
+
+.nav-right .account-access:has(a:hover) ul {
+  visibility: visible;
+  position: relative;
 }
 
 .btn-menu {
@@ -70,6 +89,25 @@
 
 /* Small devices */
 @media screen and (min-width: 481px) {
+  .header-main {
+    padding: 1rem 0;
+  }
+
+  .nav-main {
+    justify-content: space-between;
+  }
+
+  .nav-right-wrapper {
+    visibility: visible;
+    position: relative;
+    z-index: unset;
+    width: auto;
+  }
+
+  .nav-right {
+    margin-top: 0;
+    display: flex;
+  }
 }
 
 /* Tablets */

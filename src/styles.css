@@ -1,3 +1,5 @@
+@import "base/reset.css";
+@import "base/root.css";
 @import "base/buttons.css";
 @import "base/drivePath.css";
 @import "base/files.css";
@@ -6,8 +8,8 @@
 @import "base/forms.css";
 @import "base/header.css";
 @import "base/icons.css";
-@import "base/reset.css";
-@import "base/root.css";
+@import "base/controls.css";
+@import "base/dialog.css";
 
 .list-item {
   display: grid;
@@ -19,38 +21,6 @@
 .list-item > :first-child {
   display: flex;
   align-items: center;
-}
-
-.list-item-controls {
-  display: flex;
-  justify-content: end;
-  position: relative;
-}
-
-.controls-more {
-  display: flex;
-  flex-direction: column;
-}
-
-.controls-more > * {
-  display: flex;
-  align-items: center;
-}
-
-dialog {
-  width: 90%;
-  max-width: 200px;
-  border: none;
-  border-radius: 0.25rem;
-  box-shadow: 0px 1px 4px black;
-}
-
-dialog::backdrop {
-  backdrop-filter: blur(0.05rem);
-}
-
-dialog:has(.create-folder, .upload-files) {
-  margin: 15vh auto;
 }
 
 /* Small devices */

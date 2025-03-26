@@ -23,12 +23,12 @@
           <li>
             <a href="/drive">Drive</a>
           </li>
-          <li>
+          <li class="account-access">
             <a href="#">Account</a>
             <ul>
               <li>Logged in as <%= currentUser.username %></li>
               <li>
-                <form action="/account/logout" method="POST">
+                <form action="/account/logout" method="POST" class="logout">
                   <button type="submit">Log out</button>
                 </form>
               </li>

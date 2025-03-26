@@ -1,6 +1,11 @@
 # Changelog
 ---
-### 
+### 25 MAR 2025
+- Added `cancel.svg` file to `icons` directory.
+- Created `dialog.css` and `controls.css` stylesheets.
+- Moved `require("postcss-preset-env")` to the top of `plugins` array in `postcss.config.js` module; resolved CSS custom properties from repeating.
+- Selecting files to upload will show the filenames and the number of files attached to the files input.
+- If dialog has `.controls-more` and the `left` value is less than `0`, then the dialog is placed from the button's `right` value; `newLeft > 0 ? newLeft : btnRect.right - dialogRect.width`;
 ---
 ### 24 MAR 2025
 - If the dialog is open and the window changes in size, the dialog will close; the event will only fire once when the dialog is open.

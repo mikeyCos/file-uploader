@@ -1,3 +1,23 @@
+button {
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: var(--button-border-radius);
+}
+
+button:hover {
+  background-color: lightcoral;
+}
+
+button:active {
+  transform: translateY(2px);
+}
+
+button:has(svg) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .btn-menu {
   position: fixed;
   top: 0;

@@ -1,0 +1,25 @@
+#controls {
+  display: flex;
+}
+
+.list-item-controls {
+  display: flex;
+  justify-content: end;
+  position: relative;
+}
+
+.controls-more {
+  display: flex;
+  flex-direction: column;
+}
+
+.controls-more > * {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.controls-more > button span {
+  flex: 1;
+  text-align: start;
+}

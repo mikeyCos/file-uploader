@@ -15,6 +15,10 @@
   --bkg-color-primary: #17bebb;
   --bkg-color-secondary: #edb88b;
   --bkg-color-tertiary: #ef3e36;
+  --form-buttons-gap: 1rem;
+  --input-padding: 0.25rem;
+  --controls-gap: 0.5rem;
+  --button-border-radius: 0.25rem;
 }
 
 /* General styling */
@@ -25,6 +29,13 @@ body {
   grid-auto-rows: min-content 1fr min-content;
   background-color: var(--bkg-color-primary);
   font-family: var(--font-family-primary);
+}
+
+input {
+  width: 100%;
+  padding: var(--input-padding);
+  border: 1px solid black;
+  border-radius: 0.25rem;
 }
 
 /* Small devices */

@@ -3,12 +3,15 @@
   <ul>
     <li class="form-item">
       <label for="folder_name"></label>
-      <input type="text" name="folder_name" id="folder_name" oninput="name_onInput(event)" value="<%= locals.inputs?.folder_name %>">
+      <input type="text" name="folder_name" id="folder_name" oninput="name_onInput(event)" value="<%= locals.inputs?.folder_name %>" placeholder="Folder name">
       <% if (locals.errors?.folder_name) { %>
         <p class="input-error active-error"><%= errors?.folder_name.msg %></p>
       <% } %>
     </li>
   </ul>
-  <button type="button" onclick="closeDialog(event)">Cancel</button>
-  <button type="submit" <%= locals.inputs?.folder_name ? "" : "disabled" %>>Create</button>
+  <div class="form-controls">
+    <button type="button" onclick="closeDialog(event)">Cancel</button>
+    <button type="submit" <%= locals.inputs?.folder_name ? "" : "disabled" %>>Create</button>
+  </div>
+
 </form>

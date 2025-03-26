@@ -1,14 +1,18 @@
 <form action="<%= locals.formAction ?? '' %>" method="dialog" onsubmit="onSubmit(event, uploadFiles)" onclick="stopPropagation(event)" enctype="multipart/form-data" class="upload-files">
-  <h2>Upload File(s)</h2>
+  <h2>Upload file(s)</h2>
   <ul>
     <li class="form-item">
       <input type="file" name="upload_files" onchange="uploadFiles_onChange(event)" id="upload_files" multiple>
-      <label for="upload_files">Upload file(s)</label>
+      <label for="upload_files">Choose file(s)</label>
       <% if (locals.errors?.upload_files) { %>
         <p class="input-error active-error"><%= errors?.upload_files.msg %></p>
       <% } %>
+      <p class="upload-count">No files selected</p>
     </li>
   </ul>
-  <button type="button" onclick="closeDialog()">Cancel</button>
-  <button type="submit" disabled>Upload</button>
+  <ul class="upload-preview"></ul>
+  <div class="form-controls">
+    <button type="button" onclick="closeDialog()">Cancel</button>
+    <button type="submit" disabled>Upload</button>
+  </div>
 </form>

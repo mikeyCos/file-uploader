@@ -1,3 +1,21 @@
+form:not(.logout) {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+form button {
+  min-width: 75px;
+}
+
+form button[type="submit"] {
+  background-color: lightgreen;
+}
+
+form button[type="submit"]:disabled {
+  background-color: lightgrey;
+}
+
 .form-item > .input-error {
   color: red;
   border: 0;
@@ -21,17 +39,18 @@
   width: unset;
 }
 
+.form-controls {
+  display: flex;
+  justify-content: end;
+  gap: var(--form-buttons-gap);
+  margin-top: 1rem;
+}
+
 /* Create account */
 
 /* Create folder */
 
 /* Upload */
-.upload-files {
-}
-
-.upload-files label[for="upload_files"] {
-}
-
 #upload_files {
   opacity: 0;
   width: 0.1px;
@@ -40,8 +59,40 @@
 }
 
 #upload_files:focus + label[for="upload_files"] {
-  outline: 1px dotted #000;
-  outline: -webkit-focus-ring-color auto 5px;
+  outline: 1px solid #000;
+  outline: 1px solid -webkit-focus-ring-color;
+}
+
+.upload-files {
+  /* padding: 0.5rem; */
+}
+
+.upload-files label[for="upload_files"] {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem;
+  min-width: 44px;
+  min-height: 44px;
+  background-color: lightgrey;
+  border-radius: var(--button-border-radius);
+}
+
+.upload-files label[for="upload_files"]:hover {
+  cursor: pointer;
+}
+
+.upload-files label[for="upload_files"]:active {
+  transform: translateY(2px);
+}
+
+.upload-count {
+  margin-top: 0.5rem;
+}
+
+.upload-preview li {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* Edit file */
