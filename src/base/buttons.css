@@ -4,8 +4,10 @@ button {
   border-radius: var(--border-radius-l-sm);
 }
 
+button:focus,
 button:hover {
-  background-color: lightcoral;
+  background-color: var(--bkg-color-tertiary);
+  color: var(--font-color-secondary);
 }
 
 button:active {

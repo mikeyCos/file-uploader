@@ -3,17 +3,26 @@
 
 .drive-path ul {
   display: flex;
+  flex-wrap: wrap;
 }
 
-.drive-path li:not(.chevron-right) {
+.drive-path li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.drive-path li > a {
   border-radius: var(--border-radius-l-lg);
+  display: inline-block;
+  font-weight: 500;
 }
 
-.drive-path li:not(.chevron-right):hover {
-  background-color: rgb(231, 231, 231);
+.drive-path li > a:not(.chevron):hover {
+  background-color: var(--bkg-color-secondary);
 }
 
-.drive-path li.chevron-right {
+.drive-path span.chevron {
   display: flex;
   justify-content: center;
   align-items: center;

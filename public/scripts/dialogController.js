@@ -2,7 +2,8 @@ const dialog = document.querySelector("dialog");
 
 const openDialog = async (e) => {
   const btn = e.currentTarget;
-  const { url, formAction, itemControls, openControls } = btn.dataset;
+  const { url, formAction, itemControls, openControls, driveControls } =
+    btn.dataset;
   const { htmlContent } = await fetchContent(url, formAction);
 
   dialog.append(htmlContent);

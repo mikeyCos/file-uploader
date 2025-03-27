@@ -1,26 +1,28 @@
 <nav class="drive-path">
   <ul>
-    <li >
-      <a href="/drive">Drive</a>
-    </li>
-    <% if (locals.drivePathFolders) { %>
-      <% drivePathFolders.forEach((folder, i) => { %>
-        <% if (i === 0) { %>
-          <li class="chevron-right">
+    <% if (!locals.drivePathFolders || locals.drivePathFolders?.length === 0) { %>
+      <li >
+        <a href="/drive">Drive</a>
+      </li>
+    <% } else { %>
+      <li >
+        <a href="/drive">Drive</a>
+          <span class="chevron">
             <%- include('../../public/assets/icons/chevron_right.svg') %>
+          </span>
+      </li>
+        <% drivePathFolders.forEach((folder, i) => { %>
+          <li>
+            <a href="/drive/folder/<%= folder.id %>"><%= folder.name %></a>
+            <% if (i !== (drivePathFolders.length - 1)) { %>
+              <span class="chevron">
+                <%- include('../../public/assets/icons/chevron_right.svg') %>
+              </span>
+            <% } %>
           </li>
-        <% } %>
-        <li>
-          <a href="/drive/folder/<%= folder.id %>"><%= folder.name %></a>
-        </li>
-        <% if (i !== (drivePathFolders.length - 1)) { %>
-          <li class="chevron-right">
-            <%- include('../../public/assets/icons/chevron_right.svg') %>
-          </li>
-        <% } %>
-      <% }) %>
+        <% }) %>
     <% } %>
   </ul>
 </nav>
 
-<%# Is there another way to include chevron_right.svg? %>
+<%# Is there another way to include and exclude chevron_right.svg? %>

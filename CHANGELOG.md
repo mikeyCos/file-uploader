@@ -1,5 +1,11 @@
 # Changelog
 ---
+### 27 MAR 2025
+- Restructured `footer` by nesting an unordered list inside a unordered list.
+- Set `pointer-events: none` for submit buttons with `:disabled` attribute.
+- Applied hover effects for various elements including but not limited to unordered list items and buttons. 
+- The unordered list in `nav.drive-path` container will wrap when the list is bigger than the available screen space.
+---
 ### 26 MAR 2025
 - Fixed render issue when invalid `shareFolderForm` is submitted by defining a `onRejected` asynchronous function.
 - Moved `@import "base/reset.css` and `@import "base/root.css"` from the top to bottom in `styles.css`.

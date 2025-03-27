@@ -6,3 +6,13 @@
 .icon.logo {
   width: 10rem;
 }
+
+.icon.github {
+  color: var(--font-color-primary);
+  min-width: auto;
+  max-width: 24px;
+}
+
+.icon.chevron-right {
+  min-width: 1.75rem;
+}

@@ -60,11 +60,16 @@
   padding: 0.5rem;
   display: inline-block;
   font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: 0.02rem;
+}
+
+.nav-right a:hover {
+  color: #fff;
 }
 
 .nav-right .account-info {
   position: relative;
-  cursor: pointer;
 }
 
 .nav-right > li::before {
@@ -75,11 +80,24 @@
   content: "";
   width: 100%;
   height: 100%;
-  background-color: var(--bkg-color-secondary);
+  background-color: var(--bkg-color-tertiary);
   transform: translateX(150%) skew(45deg);
   z-index: -1;
   visibility: hidden;
   transition: all 150ms ease-in;
+}
+
+.nav-right > li:has(a:hover) *,
+.nav-right > li:has(button:hover) * {
+  color: #fff;
+}
+
+.nav-right > li:has(a:hover) button[type="submit"] {
+  background-color: black;
+}
+
+.nav-right > li:has(button:hover) button {
+  background-color: black;
 }
 
 .nav-right > li:has(a:hover)::before,
@@ -92,6 +110,7 @@
 .nav-right .account-info > ul {
   visibility: visible;
   padding-top: 0.5rem;
+  padding-left: 0.5rem;
 }
 
 .nav-right .account-info li {
@@ -135,31 +154,31 @@
 
   .nav-right .account-info > ul {
     visibility: hidden;
-    position: fixed;
-    top: 0;
+    position: absolute;
     right: 0;
-    height: 100%;
-    width: 0%;
+    width: auto;
+    height: auto;
     margin-top: 0.05rem;
+    border-radius: var(--border-radius-l-md);
+    background-color: var(--bkg-color-secondary);
+    z-index: 99;
+    padding: 0.5rem 2rem;
+    box-shadow: 0px 1px 4px var(--box-shadow-color-primary);
   }
 
   .nav-right .account-info:has(a:hover):hover > ul,
   .nav-right .account-info > ul:hover {
-    padding: 0.5rem 2rem;
     visibility: visible;
-    position: absolute;
-    width: auto;
-    height: auto;
-    top: unset;
-    left: unset;
-    right: 0;
-    border-radius: var(--border-radius-l-md);
-    box-shadow: 0 0 2px 0 black;
   }
 
   .nav-right > li::before {
     transform-origin: 0 100%;
     transform: scaleY(0);
+  }
+
+  .nav-right > li:has(a:hover) button,
+  .nav-right > li:has(button:hover) * {
+    color: #fff;
   }
 
   .nav-right > li:has(a:hover)::before,

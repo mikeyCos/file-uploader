@@ -1,11 +1,41 @@
 footer {
-  background-color: var(--font-color-primary);
+  display: flex;
+  background-color: var(--bkg-color-secondary);
   padding: 0.5rem 0;
-  box-shadow: 0 0 4px black;
-  color: var(--bkg-color-secondary);
+  box-shadow: 0 0 4px var(--box-shadow-color-primary);
+  color: var(--font-color-primary);
 }
 
 footer > div {
   display: flex;
   justify-content: center;
+}
+
+footer > ul {
+  font-family: var(--font-family-secondary);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.footer-main > ul {
+  position: absolute;
+  right: 10px;
+}
+
+/* Small devices */
+@media screen and (min-width: 481px) {
+}
+
+/* Tablets */
+@media screen and (min-width: 768px) {
+}
+
+/* Desktops */
+@media screen and (min-width: 1024px) {
+  footer > ul {
+    max-width: 1000px;
+    margin: auto;
+  }
 }

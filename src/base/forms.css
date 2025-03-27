@@ -5,15 +5,27 @@ form:not(.logout) {
 }
 
 form button {
-  min-width: 75px;
+  padding: 0.25rem 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 form button[type="submit"] {
-  background-color: lightgreen;
+  background-color: #06ff04;
 }
 
 form button[type="submit"]:disabled {
   background-color: lightgrey;
+  pointer-events: none;
+}
+
+form button[type="submit"]:hover {
+  background-color: var(--bkg-color-tertiary);
+}
+
+.btn-cancel {
+  background-color: #ff7070;
 }
 
 .form-item > .input-error {
@@ -77,8 +89,11 @@ form button[type="submit"]:disabled {
   border-radius: var(--border-radius-l-sm);
 }
 
+#upload_files:focus + label[for="upload_files"],
 .upload-files label[for="upload_files"]:hover {
   cursor: pointer;
+  background-color: var(--bkg-color-tertiary);
+  color: #fff;
 }
 
 .upload-files label[for="upload_files"]:active {
@@ -102,3 +117,9 @@ form button[type="submit"]:disabled {
 /* Delete file */
 
 /* Delete folder */
+
+@media screen and (min-width: 481px) {
+  form button {
+    min-width: 100px;
+  }
+}

@@ -1,5 +1,7 @@
 #controls {
   display: flex;
+  margin-bottom: 1rem;
+  margin-left: 0.5rem;
 }
 
 .list-item-controls {
@@ -19,9 +21,30 @@
   display: flex;
   align-items: center;
   gap: 1rem;
+  padding: 0.5rem;
 }
 
 .controls-more > button span {
   flex: 1;
   text-align: start;
+}
+
+/* Small devices */
+@media screen and (min-width: 481px) {
+  .account-controls {
+    display: flex;
+  }
+
+  .account-controls > li {
+    flex: 1;
+  }
+
+  .account-controls button {
+    width: 100%;
+    display: flex;
+  }
+
+  .account-controls button > span {
+    flex: 1;
+  }
 }
