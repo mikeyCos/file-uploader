@@ -5,7 +5,9 @@
 .list-item-controls {
   display: flex;
   justify-content: end;
-  position: relative;
+  position: absolute;
+  right: 0;
+  margin-right: 0.5rem;
 }
 
 .controls-more {

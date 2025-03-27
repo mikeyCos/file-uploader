@@ -5,6 +5,7 @@
     overflow: hidden;
     white-space: nowrap;
     font-size: 1.25rem;
+    margin-right: 2rem; /* Triggers text-overflow at a smaller threshold */
   }
 }
 

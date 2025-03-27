@@ -4,11 +4,23 @@
       <a href="/drive">Drive</a>
     </li>
     <% if (locals.drivePathFolders) { %>
-      <% drivePathFolders.forEach((folder) => { %>
+      <% drivePathFolders.forEach((folder, i) => { %>
+        <% if (i === 0) { %>
+          <li class="chevron-right">
+            <%- include('../../public/assets/icons/chevron_right.svg') %>
+          </li>
+        <% } %>
         <li>
           <a href="/drive/folder/<%= folder.id %>"><%= folder.name %></a>
         </li>
+        <% if (i !== (drivePathFolders.length - 1)) { %>
+          <li class="chevron-right">
+            <%- include('../../public/assets/icons/chevron_right.svg') %>
+          </li>
+        <% } %>
       <% }) %>
     <% } %>
   </ul>
 </nav>
+
+<%# Is there another way to include chevron_right.svg? %>

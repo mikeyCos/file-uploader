@@ -23,7 +23,7 @@
   position: absolute;
   bottom: 0%;
   background: white;
-  border-radius: var(--border-radius-md);
+  border-radius: var(--border-radius-l-md);
   padding: 0rem 0.5rem;
   transition: rotate 150ms ease-out;
   font-size: 1.75rem;
@@ -39,9 +39,6 @@
   z-index: 99;
   background-color: white;
   transition: all 500ms ease-out;
-  /*  Why does text-wrap: nowrap; work in this selector
-  *   But not in selector .nav-main a {}?
-  */
   text-wrap: nowrap;
 }
 
@@ -57,36 +54,47 @@
 
 .nav-right > li {
   position: relative;
+}
+
+.nav-right > li > a {
   padding: 0.5rem;
+  display: inline-block;
+  font-size: 1.15rem;
 }
 
-.nav-right li > ul,
-.nav-right li > ul > li {
-  /* padding: 0.5rem 0; */
-}
-
-.nav-right .account-access {
+.nav-right .account-info {
   position: relative;
+  cursor: pointer;
 }
 
-.nav-right .account-access > ul {
-  visibility: hidden;
-  position: fixed;
+.nav-right > li::before {
+  position: absolute;
+  left: 0;
   top: 0;
-  right: 0;
+  display: block;
+  content: "";
+  width: 100%;
   height: 100%;
-  width: 0%;
+  background-color: var(--bkg-color-secondary);
+  transform: translateX(150%) skew(45deg);
+  z-index: -1;
+  visibility: hidden;
+  transition: all 150ms ease-in;
 }
 
-.nav-right .account-access:has(a:hover) > ul {
+.nav-right > li:has(a:hover)::before,
+.nav-right > li:has(button:hover)::before {
   visibility: visible;
-  position: relative;
-  padding-top: 0.5rem;
-  position: relative;
-  width: auto;
+  transform: translateX(0%);
+  transition: transform 250ms ease-in;
 }
 
-.nav-right .account-access:has(a:hover) > ul > li {
+.nav-right .account-info > ul {
+  visibility: visible;
+  padding-top: 0.5rem;
+}
+
+.nav-right .account-info li {
   padding: 0.5rem 0;
 }
 
@@ -110,10 +118,6 @@
     align-items: center;
   }
 
-  .nav-left li {
-    /* margin-left: 1rem; */
-  }
-
   .nav-right-wrapper {
     visibility: visible;
     position: relative;
@@ -123,11 +127,24 @@
   }
 
   .nav-right {
-    margin-top: 0;
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 0;
   }
 
-  .nav-right .account-access:has(a:hover) > ul {
+  .nav-right .account-info > ul {
+    visibility: hidden;
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 0%;
+    margin-top: 0.05rem;
+  }
+
+  .nav-right .account-info:has(a:hover):hover > ul,
+  .nav-right .account-info > ul:hover {
     padding: 0.5rem 2rem;
     visibility: visible;
     position: absolute;
@@ -136,8 +153,24 @@
     top: unset;
     left: unset;
     right: 0;
-    border-radius: var(--border-radius-md);
+    border-radius: var(--border-radius-l-md);
     box-shadow: 0 0 2px 0 black;
+  }
+
+  .nav-right > li::before {
+    transform-origin: 0 100%;
+    transform: scaleY(0);
+  }
+
+  .nav-right > li:has(a:hover)::before,
+  .nav-right .account-info:has(*:hover)::before {
+    transform: scaleY(1) skew(5deg);
+    height: 100%;
+    transition: transform 250ms ease-in;
+  }
+
+  .nav-right .account-info:has(*:hover)::before {
+    visibility: visible;
   }
 }
 

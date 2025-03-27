@@ -1,6 +1,11 @@
 # Changelog
 ---
 ### 26 MAR 2025
+- Fixed render issue when invalid `shareFolderForm` is submitted by defining a `onRejected` asynchronous function.
+- Moved `@import "base/reset.css` and `@import "base/root.css"` from the top to bottom in `styles.css`.
+- The `dialog` will have `margin: 0 auto` property when the screen is below `320px` wide.
+- Navigating to nested folders will add `chevron_right.svg` between the parent folder and it's subfolder.
+- Added `position: absolute` property to `.list-item-controls` container.
 - Hovering over account `anchor` will reveal a nested unordered list; one list item shows who is currently logged in and another list item shows a logout `button`.
 - Added `logout.svg` file to `icons` directory.
 - At breakpoint `min-width: 768px` the `div.nav-main` children elements will be side-by-side.

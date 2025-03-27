@@ -1,4 +1,6 @@
 @import "../mixins/list";
 
-@mixin list folders, foldername {
+@mixin list folders, foldername;
+
+.folders > ul li {
 }

@@ -7,11 +7,14 @@ module.exports = {
     require("postcss-import"),
     require("postcss-mixins"),
     require("cssnano"),
-    require("postcss-url")({
-      url: "copy",
-      basePath: `${rootPath}/src/assets/fonts/`,
-      assetsPath: `${rootPath}/public/assets/fonts`,
-      useHash: true,
-    }),
+    require("postcss-url")([
+      {
+        filter: "**/*.ttf",
+        url: "copy",
+        assetsPath: `${rootPath}/public/assets/fonts`,
+        basePath: `${rootPath}/src/assets/fonts/`,
+        useHash: true,
+      },
+    ]),
   ],
 };

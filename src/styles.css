@@ -1,5 +1,3 @@
-@import "base/reset.css";
-@import "base/root.css";
 @import "base/buttons.css";
 @import "base/drivePath.css";
 @import "base/files.css";
@@ -11,17 +9,8 @@
 @import "base/controls.css";
 @import "base/dialog.css";
 
-.list-item {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
-  text-overflow: ellipsis;
-  padding: 0.5rem;
-}
-
-.list-item > :first-child {
-  display: flex;
-  align-items: center;
-}
+@import "base/root.css";
+@import "base/reset.css";
 
 /* Small devices */
 @media screen and (min-width: 481px) {

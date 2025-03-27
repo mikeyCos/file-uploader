@@ -1,7 +1,7 @@
 button {
   min-width: 44px;
   min-height: 44px;
-  border-radius: var(--border-radius-sm);
+  border-radius: var(--border-radius-l-sm);
 }
 
 button:hover {

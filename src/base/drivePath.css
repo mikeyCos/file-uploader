@@ -5,6 +5,21 @@
   display: flex;
 }
 
+.drive-path li:not(.chevron-right) {
+  border-radius: var(--border-radius-l-lg);
+}
+
+.drive-path li:not(.chevron-right):hover {
+  background-color: rgb(231, 231, 231);
+}
+
+.drive-path li.chevron-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .drive-path li a {
   font-size: 1.75rem;
+  padding: 0.25rem 1.25rem;
 }

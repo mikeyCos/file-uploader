@@ -2,7 +2,7 @@ const dialog = document.querySelector("dialog");
 
 const openDialog = async (e) => {
   const btn = e.currentTarget;
-  const { url, formAction, driveControls, openControls } = btn.dataset;
+  const { url, formAction, itemControls, openControls } = btn.dataset;
   const { htmlContent } = await fetchContent(url, formAction);
 
   dialog.append(htmlContent);
@@ -13,19 +13,21 @@ const openDialog = async (e) => {
     const btnRect = btn.getBoundingClientRect();
     const dialogRect = dialog.getBoundingClientRect();
     const newLeft = btnRect.left - dialogRect.width;
-
+    console.log("dialogRect:", dialogRect);
+    console.log("btnRect:", btnRect);
+    console.log(window.innerWidth);
     if (window.innerWidth >= 320) {
       dialog.style.left = `${
         newLeft > 0 ? newLeft : btnRect.right - dialogRect.width
       }px`;
     }
 
-    dialog.style.top = `${btnRect.bottom}px`;
-  }
+    if (itemControls === "true") {
+      dialog.style.left = "0px";
+      dialog.style.top = "0px";
+    }
 
-  if (driveControls) {
-    dialog.style.left = "0px";
-    dialog.style.top = "0px";
+    dialog.style.top = `${btnRect.bottom}px`;
   }
 
   // Temporary solution

@@ -74,7 +74,7 @@ form button[type="submit"]:disabled {
   min-width: 44px;
   min-height: 44px;
   background-color: lightgrey;
-  border-radius: var(--border-radius-sm);
+  border-radius: var(--border-radius-l-sm);
 }
 
 .upload-files label[for="upload_files"]:hover {

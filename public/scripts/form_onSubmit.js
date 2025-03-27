@@ -150,13 +150,13 @@ const shareFolder = async (url, { body }) => {
     .then(responseStatusHandler)
     .then(async (res) => {
       const rawHTML = await res.text();
-      return rawHTML;
-    })
-    .then((html) => {
       const parser = new DOMParser();
-      const doc = parser.parseFromString(html, "text/html");
+      const doc = parser.parseFromString(rawHTML, "text/html");
       const htmlContent = doc.body.firstElementChild;
 
       return { ok: true, htmlContent };
+    }, formRejectHandler)
+    .then((res) => {
+      return res;
     });
 };

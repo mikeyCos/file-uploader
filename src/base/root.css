@@ -18,8 +18,12 @@
   --form-buttons-gap: 1rem;
   --input-padding: 0.25rem;
   --controls-gap: 0.5rem;
-  --border-radius-sm: 0.25rem;
-  --border-radius-md: 0.5rem;
+  --border-radius-l-sm: 0.25rem;
+  --border-radius-l-md: 0.5rem;
+  --border-radius-l-lg: 1.25rem;
+  --border-radius-p-sm: 0.25%;
+  --border-radius-p-md: 5%;
+  --border-radius-p-lg: 10%;
 }
 
 /* General styling */
@@ -41,6 +45,25 @@ input {
   padding: var(--input-padding);
   border: 1px solid black;
   border-radius: var(--border-radius-sm);
+}
+
+.list-item {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+  align-items: center;
+  position: relative;
+  border: 1px solid transparent;
+  border-bottom-color: black;
+}
+
+.list-item:hover {
+  background-color: lightgray;
+}
+
+.list-item > :first-child {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
 }
 
 /* Small devices */

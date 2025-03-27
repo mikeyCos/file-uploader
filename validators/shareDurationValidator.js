@@ -28,7 +28,6 @@ const validateShareDuration = (view) => {
     const errors = validationResult(req);
 
     console.log("errors:", errors);
-    console.log("req.params:", req.params);
     const { folderID } = req.params;
     if (!errors.isEmpty()) {
       const inputs = matchedData(req, { onlyValidData: false });
