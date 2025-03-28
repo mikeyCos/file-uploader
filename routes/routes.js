@@ -10,6 +10,7 @@ const isAuth = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next();
   }
+
   next({ status: 401 });
 };
 

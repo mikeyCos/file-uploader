@@ -12,7 +12,7 @@ form button {
 }
 
 form button[type="submit"] {
-  background-color: #06ff04;
+  background-color: var(--bkg-color-quinary);
 }
 
 form button[type="submit"]:disabled {
@@ -111,6 +111,9 @@ form button[type="submit"]:hover {
 }
 
 /* Edit file */
+.form-edit-folder label,
+.form-edit-file label {
+}
 
 /* Edit folder */
 

@@ -4,6 +4,7 @@ footer {
   padding: 0.5rem 0;
   box-shadow: 0 0 4px var(--box-shadow-color-primary);
   color: var(--font-color-primary);
+  margin-top: 1rem;
 }
 
 footer > div {

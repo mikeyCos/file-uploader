@@ -117,6 +117,14 @@
   padding: 0.5rem 0;
 }
 
+.nav-right .account-info li:first-child > :last-child {
+  font-weight: 600;
+}
+
+.logout > button[type="submit"] {
+  background-color: var(--bkg-color-primary);
+}
+
 .btn-menu {
   position: fixed;
   top: 0;
@@ -162,7 +170,7 @@
     border-radius: var(--border-radius-l-md);
     background-color: var(--bkg-color-secondary);
     z-index: 99;
-    padding: 0.5rem 2rem;
+    padding: 0.5rem 0.5rem;
     box-shadow: 0px 1px 4px var(--box-shadow-color-primary);
   }
 

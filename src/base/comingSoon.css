@@ -1,0 +1,13 @@
+.coming-soon {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  position: relative;
+}
+
+.coming-soon > span {
+  font-size: 1.5rem;
+  font-weight: 600;
+  position: absolute;
+  bottom: 65%;
+}

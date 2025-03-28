@@ -2,7 +2,7 @@
   <h2>Rename</h2>
   <ul>
     <li class="form-item">
-      <label for="file_name">Rename</label>
+      <label for="file_name"></label>
       <input type="text" name="file_name" id="file_name" oninput="name_onInput(event)" value="<%= locals.file?.name || locals.errors?.file_name.value %>">
       <% if (locals.errors?.file_name) { %>
         <p class="input-error active-error"><%= errors?.file_name.msg %></p>

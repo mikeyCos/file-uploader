@@ -1,6 +1,11 @@
 # Changelog
 ---
 ### 27 MAR 2025
+- Attempted to rewrite `dialogController.js` module by defining a `dialogController` object; the `dialog` element needs to be reselected to resolve initial CSS properties from painting a `dialog` element with a different width or height.
+- Created `comingSoon.ejs` partial and `comingSoon.css` stylesheet.
+- The `dialog` CSS properties `left` and `top` are set to `0px` when the window's `resize` event is triggered.
+- Created conditional block for `driveControls` in `dialogController.js` module.
+- Removed conditional block for `itemControls` in `dialogController.js` module.
 - Restructured `footer` by nesting an unordered list inside a unordered list.
 - Set `pointer-events: none` for submit buttons with `:disabled` attribute.
 - Applied hover effects for various elements including but not limited to unordered list items and buttons. 

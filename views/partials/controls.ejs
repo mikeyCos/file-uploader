@@ -1,9 +1,9 @@
 <section id="controls">
-  <button onclick="openDialog(event)" data-url="form/file/upload" data-form-action="<%= formAction %>/files/upload" data-drive-controls="true">
-    <%- include('../../public/assets/icons/upload.svg') %>
+  <button onclick="openDialog(event)" data-url="form/file/upload" data-form-action="<%= formAction %>/files/upload" data-drive-controls="true" aria-label="Upload file(s)">
+    <%- include('../../public/assets/icons/upload_file.svg') %>
   </button>
 
-  <button onclick="openDialog(event)" data-url="form/folder/add" data-form-action="<%= formAction %>/folder/create" data-drive-controls="true">
+  <button onclick="openDialog(event)" data-url="form/folder/add" data-form-action="<%= formAction %>/folder/create" data-drive-controls="true" aria-label="Create a new folder">
     <%- include('../../public/assets/icons/newFolder.svg') %>
   </button>
 </section>

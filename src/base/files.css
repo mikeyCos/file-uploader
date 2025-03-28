@@ -5,3 +5,32 @@
     display: flex;
   }
 }
+
+.file-details > ul li {
+}
+
+.file-details > ul li > span {
+  display: block;
+}
+
+.file-details > ul li > span:first-child {
+  font-weight: 600;
+}
+
+.file-details > ul li > span:last-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Small devices */
+@media screen and (min-width: 481px) {
+}
+
+/* Tablets */
+@media screen and (min-width: 768px) {
+}
+
+/* Desktops */
+@media screen and (min-width: 1024px) {
+}

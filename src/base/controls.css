@@ -39,9 +39,10 @@
     flex: 1;
   }
 
-  .account-controls button {
+  .account-controls button[type="submit"] {
     width: 100%;
     display: flex;
+    background-color: var(--bkg-color-primary);
   }
 
   .account-controls button > span {

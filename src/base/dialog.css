@@ -36,3 +36,14 @@ dialog > :first-child {
     max-width: 300px;
   }
 }
+
+/* Tablets */
+@media screen and (min-width: 768px) {
+  dialog:has(.file-details) {
+    max-width: 500px;
+  }
+}
+
+/* Desktops */
+@media screen and (min-width: 1024px) {
+}
