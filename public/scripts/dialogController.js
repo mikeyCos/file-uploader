@@ -7,7 +7,12 @@ const openDialog = async (e) => {
     btn.dataset;
   const { htmlContent } = await fetchContent(url, formAction);
 
-  dialog.append(htmlContent);
+  if (itemControls === "true") {
+    dialog.firstChild.replaceWith(htmlContent);
+  } else {
+    dialog.append(htmlContent);
+  }
+
   dialog.showModal();
 
   // Control flow is gross
@@ -46,16 +51,20 @@ const openDialog = async (e) => {
 };
 
 const closeDialog = (e) => {
-  dialog.close();
+  // elementSource element is the element to which the event handler has been attached.
+  // clickElement is the element the user clicked on the DOM
+  const elementSource = e?.currentTarget;
+  const clickedElement = e.target;
+  if (
+    clickedElement?.tagName === "DIALOG" ||
+    elementSource?.tagName === "BUTTON"
+  )
+    dialog.close();
 };
 
 const onCloseHandler = () => {
+  console.log("onCloseHandler running...");
   dialog.firstChild.remove();
-};
-
-// stopPropagation on the dialog element's child/children element(s)
-const stopPropagation = (e) => {
-  e.stopPropagation();
 };
 
 const fetchContent = async (url, formAction) => {

@@ -1,4 +1,4 @@
-<form action="<%= locals.formAction ?? '' %>" method="dialog" onsubmit="onSubmit(event, uploadFiles)" onclick="stopPropagation(event)" enctype="multipart/form-data" class="form-upload-files">
+<form action="<%= locals.formAction ?? '' %>" method="dialog" onsubmit="onSubmit(event, uploadFiles)" enctype="multipart/form-data" class="form-upload-files">
   <h2>Upload file(s)</h2>
   <ul>
     <li class="form-item">
@@ -12,7 +12,7 @@
   </ul>
   <ul class="upload-preview"></ul>
   <div class="form-controls">
-    <button type="button" onclick="closeDialog()" class="btn-cancel">Cancel</button>
+    <button type="button" onclick="closeDialog(event)" class="btn-cancel">Cancel</button>
     <button type="submit" disabled>Upload</button>
   </div>
 </form>

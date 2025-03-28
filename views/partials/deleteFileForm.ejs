@@ -1,7 +1,7 @@
-<form action="" onsubmit="onSubmit(event, deleteItem)" method="dialog" onclick="stopPropagation(event)" class="form-edit-folder" data-form-type="deleteFile" data-item-id="<%= fileID %>">
+<form action="" onsubmit="onSubmit(event, deleteItem)" method="dialog" class="form-edit-folder" data-form-type="deleteFile" data-item-id="<%= fileID %>">
   <p><%= msg %></p>
   <div class="form-controls">
-    <button type="button" onclick="closeDialog()" class="btn-cancel">Cancel</button>
+    <button type="button" onclick="closeDialog(event)" class="btn-cancel">Cancel</button>
     <button type="submit">Delete</button>
   </div>
 </form>
