@@ -1,6 +1,7 @@
 # Changelog
 ---
 ### 28 MAR 2025
+- Created `dialog-controller` branch from `styles` branch.
 - Added `onclick` attribute to `fileDetails.ejs` partial to stop event propagation.
 - Inputs only have a `bottom-border` property.
 - Added prefix `form` to `login`, `create-account`, and `create-folder` classnames.
