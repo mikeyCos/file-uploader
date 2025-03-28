@@ -28,6 +28,23 @@ form button[type="submit"]:hover {
   background-color: #ff7070;
 }
 
+.form-item > label {
+  font-weight: 600;
+}
+
+.form-item
+  > label:not(
+    [for="folder_name"],
+    [for="upload_files"],
+    [for="file_name"]
+  )::after {
+  content: "*";
+  color: red;
+  font-family: arial;
+  font-size: larger;
+  margin-left: 0.15rem;
+}
+
 .form-item > .input-error {
   color: red;
   border: 0;
@@ -38,6 +55,7 @@ form button[type="submit"]:hover {
   padding: 0;
   position: absolute;
   width: 1px;
+  font-weight: 500;
 }
 
 .form-item > .input-error.active-error {
@@ -58,7 +76,34 @@ form button[type="submit"]:hover {
   margin-top: 1rem;
 }
 
+/* Login Account */
+.form-login > p {
+  text-align: end;
+}
+
+.form-login > p > :last-child {
+  color: var(--bkg-color-tertiary);
+}
+
+.form-login > p > :last-child:hover {
+  text-decoration: underline;
+}
+
+/* Login Account */
 /* Create account */
+.form-create-account,
+.form-login {
+  margin-top: 1rem;
+}
+
+.form-login,
+.form-create-account {
+  & ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
 
 /* Create folder */
 
@@ -75,11 +120,11 @@ form button[type="submit"]:hover {
   outline: 1px solid -webkit-focus-ring-color;
 }
 
-.upload-files {
+.form-upload-files {
   /* padding: 0.5rem; */
 }
 
-.upload-files label[for="upload_files"] {
+.form-upload-files label[for="upload_files"] {
   display: inline-flex;
   align-items: center;
   padding: 0.5rem;
@@ -90,13 +135,13 @@ form button[type="submit"]:hover {
 }
 
 #upload_files:focus + label[for="upload_files"],
-.upload-files label[for="upload_files"]:hover {
+.form-upload-files label[for="upload_files"]:hover {
   cursor: pointer;
   background-color: var(--bkg-color-tertiary);
   color: #fff;
 }
 
-.upload-files label[for="upload_files"]:active {
+.form-upload-files label[for="upload_files"]:active {
   transform: translateY(2px);
 }
 
@@ -124,5 +169,25 @@ form button[type="submit"]:hover {
 @media screen and (min-width: 481px) {
   form button {
     min-width: 100px;
+  }
+
+  /* Login Account */
+  /* Create account */
+  .form-login,
+  .form-create-account {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 400px;
+  }
+}
+
+/* Tablets */
+@media screen and (min-width: 768px) {
+}
+
+/* Desktops */
+@media screen and (min-width: 1024px) {
+  #signup,
+  #login {
   }
 }

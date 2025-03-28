@@ -1,5 +1,10 @@
 # Changelog
 ---
+### 28 MAR 2025
+- Added `onclick` attribute to `fileDetails.ejs` partial to stop event propagation.
+- Inputs only have a `bottom-border` property.
+- Added prefix `form` to `login`, `create-account`, and `create-folder` classnames.
+---
 ### 27 MAR 2025
 - Attempted to rewrite `dialogController.js` module by defining a `dialogController` object; the `dialog` element needs to be reselected to resolve initial CSS properties from painting a `dialog` element with a different width or height.
 - Created `comingSoon.ejs` partial and `comingSoon.css` stylesheet.

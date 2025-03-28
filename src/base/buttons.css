@@ -20,6 +20,10 @@ button:has(svg) {
   align-items: center;
 }
 
+.form-controls button {
+  font-weight: 700;
+}
+
 .btn-menu {
   position: fixed;
   top: 0;

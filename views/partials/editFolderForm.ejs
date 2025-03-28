@@ -2,7 +2,7 @@
   <h2>Rename</h2>
   <ul>
     <li class="form-item">
-      <label for="folder_name">Rename</label>
+      <label for="folder_name"></label>
       <input type="text" name="folder_name" id="folder_name" oninput="name_onInput(event)"  value="<%= locals.folder?.name || locals.errors?.folder_name.value %>">
       <% if (locals.errors?.folder_name) { %>
         <p class="input-error active-error"><%= errors.folder_name.msg %></p>

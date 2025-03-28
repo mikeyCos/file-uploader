@@ -24,6 +24,15 @@
   padding: 0.5rem;
 }
 
+.controls-more > a {
+  border-radius: var(--border-radius-l-sm);
+}
+
+.controls-more > a:hover {
+  background-color: var(--bkg-color-tertiary);
+  color: var(--font-color-secondary);
+}
+
 .controls-more > button span {
   flex: 1;
   text-align: start;

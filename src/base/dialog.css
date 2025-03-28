@@ -16,7 +16,7 @@ dialog::backdrop {
   backdrop-filter: blur(0.05rem);
 }
 
-dialog:has(.create-folder, .upload-files) {
+dialog:has(.form-create-folder, .form-upload-files) {
   margin: 15vh auto;
 }
 
@@ -39,8 +39,13 @@ dialog > :first-child {
 
 /* Tablets */
 @media screen and (min-width: 768px) {
-  dialog:has(.file-details) {
-    max-width: 500px;
+  dialog {
+    /* max-width: 400px; */
+  }
+
+  dialog:has(> article) {
+    background-color: red;
+    max-width: 400px;
   }
 }
 
