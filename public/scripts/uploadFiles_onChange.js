@@ -3,7 +3,7 @@ const uploadFiles_onChange = (e) => {
   const input = e.target;
   const { files } = input;
   const submitButton = document.querySelector(
-    '.upload-files button[type="submit"]'
+    '.form-upload-files button[type="submit"]'
   );
   const list = document.querySelector(".upload-preview");
   const uploadCount = document.querySelector(".upload-count");

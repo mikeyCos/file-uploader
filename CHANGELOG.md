@@ -1,8 +1,9 @@
 # Changelog
 ---
 ### 28 MAR 2025
+- Created `dispatchedBtn` array, `recordDispatchedBtn` and `getDispatchedBtn` functions in `dialogController.js` module.
 - Updated all `onclick="closeDialog()"` to `onclick="closeDialog(event)"` to accommodate `closeDialog` function scope changes.
-- The `closeDialog` function `dialogController.js` module now checks the `tagName` property for clicked element.
+- The `closeDialog` function `dialogController.js` module now checks the `tagName` property for clicked element; if the condition is truthy, then the `dialog` style's `left` and `right` are set to `0px` and the `dialog` closes.
 - Removed `stopPropagation` function in `dialogController.js` module.
 - Created `dialog-controller` branch from `styles` branch.
 - Added `onclick` attribute to `fileDetails.ejs` partial to stop event propagation.

@@ -43,8 +43,7 @@ dialog > :first-child {
     /* max-width: 400px; */
   }
 
-  dialog:has(> article) {
-    background-color: red;
+  dialog:has(.file-details) {
     max-width: 400px;
   }
 }

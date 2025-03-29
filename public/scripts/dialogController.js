@@ -1,7 +1,20 @@
-// Need to save initial button.list-item-controls
 const dialog = document.querySelector("dialog");
 
+// Saves button if button does not have driveControls dataset
+// The previous saved button is popped from array and used for positioning the dialog element
+const btnDispatcher = {
+  dispatchedBtn: [],
+  recordDispatchedBtn(btn) {
+    this.dispatchedBtn.push(btn);
+  },
+  getDispatchedBtn() {
+    return this.dispatchedBtn.pop();
+  },
+};
+
+// To encapsulate or to not encapsulate?
 const openDialog = async (e) => {
+  const prevBtn = btnDispatcher.getDispatchedBtn();
   const btn = e.currentTarget;
   const { url, formAction, itemControls, openControls, driveControls } =
     btn.dataset;
@@ -16,14 +29,13 @@ const openDialog = async (e) => {
   dialog.showModal();
 
   // Control flow is gross
-  if (openControls === "true") {
+  if (!driveControls) {
     // left, top, right, bottom, x, y, width
-    const btnRect = btn.getBoundingClientRect();
+    btnDispatcher.recordDispatchedBtn(btn);
+    const btnRect = (itemControls ? prevBtn : btn).getBoundingClientRect();
     const dialogRect = dialog.getBoundingClientRect();
     const newLeft = btnRect.left - dialogRect.width;
-    console.log("dialogRect:", dialogRect);
-    console.log("btnRect:", btnRect);
-    console.log(window.innerWidth);
+
     if (window.innerWidth >= 320) {
       dialog.style.left = `${
         newLeft > 0 ? newLeft : btnRect.right - dialogRect.width
@@ -31,11 +43,6 @@ const openDialog = async (e) => {
     }
 
     dialog.style.top = `${btnRect.bottom}px`;
-  }
-
-  if (driveControls === "true") {
-    dialog.style.left = "0px";
-    dialog.style.top = "0px";
   }
 
   // Temporary solution
@@ -53,17 +60,16 @@ const openDialog = async (e) => {
 const closeDialog = (e) => {
   // elementSource element is the element to which the event handler has been attached.
   // clickElement is the element the user clicked on the DOM
-  const elementSource = e?.currentTarget;
-  const clickedElement = e.target;
-  if (
-    clickedElement?.tagName === "DIALOG" ||
-    elementSource?.tagName === "BUTTON"
-  )
+  const clickedElementTagName = e?.target?.tagName === "DIALOG";
+  const elementSourceTagName = e?.currentTarget?.tagName === "BUTTON";
+  if (clickedElementTagName || elementSourceTagName) {
+    dialog.style.left = "0px";
+    dialog.style.top = "0px";
     dialog.close();
+  }
 };
 
 const onCloseHandler = () => {
-  console.log("onCloseHandler running...");
   dialog.firstChild.remove();
 };
 
@@ -92,88 +98,3 @@ const fetchContent = async (url, formAction) => {
       return { htmlContent };
     });
 };
-
-/* const dialogController = {
-  getDialog: function () {
-    return this.dialog;
-  },
-  setDialog: function () {
-    this.dialog = document.querySelector("dialog");
-  },
-  openDialog: async function (e) {
-    const btn = e.currentTarget;
-    const { url, formAction, itemControls, openControls, driveControls } =
-      btn.dataset;
-    const { htmlContent } = await this.fetchContent(url, formAction);
-
-    this.dialog.append(htmlContent);
-    this.dialog.showModal();
-
-    // Control flow is gross
-    if (openControls === "true") {
-      // left, top, right, bottom, x, y, width
-      const btnRect = btn.getBoundingClientRect();
-      const dialogRect = dialog.getBoundingClientRect();
-      const newLeft = btnRect.left - dialogRect.width;
-      console.log("dialogRect:", dialogRect);
-      console.log("btnRect:", btnRect);
-      console.log(window.innerWidth);
-      if (window.innerWidth >= 320) {
-        this.dialog.style.left = `${
-          newLeft > 0 ? newLeft : btnRect.right - dialogRect.width
-        }px`;
-      }
-
-      this.dialog.style.top = `${btnRect.bottom}px`;
-    }
-
-    if (driveControls === "true") {
-      this.dialog.style.left = "0px";
-      this.dialog.style.top = "0px";
-    }
-
-    // Temporary solution
-    window.addEventListener(
-      "resize",
-      (e) => {
-        this.dialog.style.left = "0px";
-        this.dialog.style.top = "0px";
-        this.dialog.close();
-      },
-      { once: true }
-    );
-  },
-  closeDialog: function (e) {
-    this.dialog.close();
-  },
-  onCloseHandler: function () {
-    this.dialog.firstChild.remove();
-  },
-  fetchContent: async function (url, formAction) {
-    const fetchURL = `/components/${url}`;
-    return await fetch(fetchURL, {
-      method: "GET",
-    })
-      .then(responseStatusHandler)
-      .then(async (res) => {
-        const rawHTML = await res.text();
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(rawHTML, "text/html");
-
-        // What are the advantages and disadvantages using doc.body.firstChild vs querySelector()
-        const htmlContent = doc.body.firstElementChild;
-        if (formAction) {
-          htmlContent.setAttribute("action", formAction);
-        }
-
-        return { htmlContent };
-      })
-      .catch((err) => {
-        const htmlContent = document.createElement("p");
-        htmlContent.textContent = err;
-        return { htmlContent };
-      });
-  },
-};
-
-dialogController.setDialog(); */

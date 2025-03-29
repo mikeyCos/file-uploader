@@ -45,10 +45,33 @@ app.use(express.urlencoded({ extended: true }));
 // Application-level
 app.use(logger("Application-level"));
 
+// Testing
+/* const person = {
+  setName: function (name) {
+    this.name = name;
+  },
+  hello: function () {
+    console.log(`hello, my name is ${this.name}`);
+  },
+};
+
+const { setName, hello } = person; */
+
 app.use((req, res, next) => {
   console.log("application-level middleware running...");
   console.log("req.session:", req.session);
   console.log("req.user:", req.user);
+
+  // Testing
+  /*   hello(); // returns "hello, my name is undefined"
+  person.hello(); // returns "hello, my name is undefined"
+  setName("Bob");
+  hello(); // returns "hello, my name is Bob"
+  person.hello(); // returns "hello, my name is undefined"
+  person.setName("Chucky");
+  person.hello(); // returns "hello, my name is Chucky"
+  hello(); // returns "hello, my name is Bob" */
+
   res.locals.currentUser = req.user;
   next();
 });
