@@ -1,6 +1,7 @@
 # Changelog
 ---
 ### 28 MAR 2025
+- Merged `dialog-controller` branch to `styles` branch.
 - Created `dispatchedBtn` array, `recordDispatchedBtn` and `getDispatchedBtn` functions in `dialogController.js` module.
 - Updated all `onclick="closeDialog()"` to `onclick="closeDialog(event)"` to accommodate `closeDialog` function scope changes.
 - The `closeDialog` function `dialogController.js` module now checks the `tagName` property for clicked element; if the condition is truthy, then the `dialog` style's `left` and `right` are set to `0px` and the `dialog` closes.
