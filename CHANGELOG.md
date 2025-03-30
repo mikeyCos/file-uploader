@@ -1,6 +1,7 @@
 # Changelog
 ---
 ### 30 MAR 2025
+- Merged `drive-path-navbar` branch to `main`.
 - Renamed `error` object property in `next()` to `message`; `next({ error: "Page not found", status: 404 });` to `next({ message: "Page not found", status: 404 });`
 - The dialog retains it's position if `fetch` rejects a promise, then an error message will replace the dialog's content; for example, altering a button's `data-url` attribute to an invalid path will return the message `Error: Resource not found`.
 - If the `button` opening the `dialog` has `data-drive-controls` attribute, then the dialog's `className` is set to `drive-controls`; the `class` attribute is removed when the `dialog` is closed.
@@ -99,7 +100,7 @@
 ### 19 MAR 2025
 - Created `createFile`, `createFolder`, `getFiles`, `getFolders`, `updateFileName`, `updateFolderName`, and `deleteFile` Prisma query functions.
 - Created `prisma-queries` branch.
-- Commit before merging `params-validation` branch with `main` branch.
+- Commit before merging `params-validation` branch to `main` branch.
 - Attached `validateParams()` onto routes containing `:fileID` and `:folderID` parameters paired with `fileSchema` and `folderSchema` object arguments.
 - Renamed `events` directory to `scripts`.
 - Created `responseStatusHandler` in `form_onSubmit.js` module; if `res.ok` is falsy `res` is rejected, but throw a `Error` object if `res.status` is a specific code.
@@ -115,7 +116,7 @@
 ### 17 MAR 2025
 - Currently, request parameters are only validated on `/share/:folderID` and `/drive/folder/:folderID` paths.
 - Created `params-validation` branch.
-- Commit before merging `share-folder` branch with `main` branch.
+- Commit before merging `share-folder` branch to `main` branch.
 - Created `paramsValidator.js` module.
 - When a user visits a valid `/share/:folderID` path but the folder's `expiresAt` value is a expired date, an error page with HTTP code `410` is rendered with the message `Link has expired`.
 - The `isExpired` utility function returns `true` if `date` is invalid instead of throwing an error.
@@ -272,7 +273,7 @@
 ---
 ### 14 FEB 2025
 - Created `files_validation` branch.
-- Merged `folder_validation` branch with `main` branch.
+- Merged `folder_validation` branch to `main` branch.
 - Created `form_onSubmit.js`, and `uploadFilesValidator.js` modules.
 - If there are no validation errors from submitting `form .form-create-folder`, `HTMLFormElement.submit()` method is called.
 - If there are validation errors from submitting `form .form-create-folder`, the form re-renders and replaces the old form with a new form with a error message and previous input value.
