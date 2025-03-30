@@ -54,9 +54,9 @@ const driveController = {
     const drivePathFolders = await traverseParentFolders(user.id, folderID);
 
     res.render("folder", {
+      drivePathFolders,
       folders: folder.subFolders,
       files: folder.files,
-      drivePathFolders,
       formAction,
       baseURL,
     });

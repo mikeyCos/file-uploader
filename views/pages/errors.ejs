@@ -9,9 +9,15 @@
           case 401: %>
             <article class="unauthorized">
               <h2>Login Required</h2>
-              <p>You must log in to visit this resource.</p>
-              <a href="/account/login">Login</a>
-              <p>Don't have an account? <a href="/account/create">Sign up now!</a></p>
+              <div class="article-content">
+                <div class="text-container">
+                  <p>You must <a href="/account/login">log in</a> to view this resource.</p>
+                  <p>Don't have an account? <a href="/account/create">Sign up now!</a></p>
+                </div>
+                <div class="img-container">
+                  <%- include('../../public/assets/icons/secure_login.svg') %>
+                </div>
+              </div>
             </article>
           <% break;
           case 403:
@@ -19,7 +25,9 @@
           case 410:
           case 422:
           %>
-            <h2><%= error %></h2>
+            <article class="error-other">
+              <h2><%= error %></h2>
+            </article>
           <% break;
         } %>
       </section>

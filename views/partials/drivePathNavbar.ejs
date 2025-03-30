@@ -1,16 +1,18 @@
 <nav class="drive-path">
   <ul>
-    <% if (!locals.drivePathFolders || locals.drivePathFolders?.length === 0) { %>
+    <% if (!locals.public || !locals.drivePathFolders || locals.drivePathFolders?.length === 0) { %>
       <li >
         <a href="/drive">Drive</a>
       </li>
     <% } else { %>
+      <% if(!locals.public) { %>
       <li >
         <a href="/drive">Drive</a>
           <span class="chevron">
             <%- include('../../public/assets/icons/chevron_right.svg') %>
           </span>
       </li>
+     <% } %>
         <% drivePathFolders.forEach((folder, i) => { %>
           <li>
             <a href="/drive/folder/<%= folder.id %>"><%= folder.name %></a>
@@ -25,4 +27,5 @@
   </ul>
 </nav>
 
+<%# Need to consider if locals.public is defined %>
 <%# Is there another way to include and exclude chevron_right.svg? %>

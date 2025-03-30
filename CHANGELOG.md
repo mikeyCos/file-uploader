@@ -1,5 +1,13 @@
 # Changelog
 ---
+### 29 MAR 2025
+- Added `::after` to `.nav-right > li` in `header.css` stylesheet and changed hover effects for `.nav-right` list items.
+- The mobile navigation bar now displays when the screen is below `768px` wide.
+- Wrapped paragraph elements with `div.text-container` in `errors.ejs` page.
+- Created `errors.css` stylesheet.
+- Added `secure_login.svg` to `icons` directory and included the SVG in `errors.ejs` page.
+- Temporarily set option `stage: 3` for `postcss-preset-env` PostCSS plugin.
+---
 ### 28 MAR 2025
 - Merged `dialog-controller` branch to `styles` branch.
 - Created `dispatchedBtn` array, `recordDispatchedBtn` and `getDispatchedBtn` functions in `dialogController.js` module.

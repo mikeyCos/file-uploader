@@ -4,6 +4,7 @@ const { validateShareDuration } = require("../validators/validators");
 const {
   getFolderById,
   updateFolderExpiresAt,
+  traverseParentFolders,
   traverseSubfolders,
 } = require("../db/prisma");
 const { isExpired } = require("../utils/utils");
@@ -21,12 +22,22 @@ const shareController = {
       return next({ status: 410, error: "Link has expired" });
     }
 
+    const drivePathFolders = await traverseParentFolders(
+      folder.accountId,
+      folderID
+    );
+
+    console.log(drivePathFolders);
     const baseURL = "/share/";
     // Need to prohibit specific buttons from rendering
     res.render("folder", {
+      drivePathFolders,
+      folders: folder.subFolders,
+      files: folder.files,
       folder,
       formAction: "",
       baseURL,
+      folder,
       public: true,
     });
     // How to handle nested folders?

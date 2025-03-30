@@ -40,6 +40,10 @@
 
 /* Small devices */
 @media screen and (min-width: 481px) {
+}
+
+/* Tablets */
+@media screen and (min-width: 768px) {
   .account-controls {
     display: flex;
   }
@@ -48,13 +52,13 @@
     flex: 1;
   }
 
+  .account-controls button > span {
+    flex: 1;
+  }
+
   .account-controls button[type="submit"] {
     width: 100%;
     display: flex;
     background-color: var(--bkg-color-primary);
-  }
-
-  .account-controls button > span {
-    flex: 1;
   }
 }

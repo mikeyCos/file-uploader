@@ -1,0 +1,49 @@
+section[id*="error-4"] > :first-child {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+}
+
+section[id*="error-4"] a {
+  color: var(--bkg-color-tertiary);
+}
+
+section[id*="error-4"] a:hover {
+  text-decoration: underline;
+}
+
+section[id*="error-4"] > .unauthorized a {
+}
+
+section[id*="error-4"] > .error-other {
+  text-align: center;
+}
+
+/* Small devices */
+@media screen and (min-width: 481px) {
+  section[id*="error-4"] > :first-child {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 480px;
+  }
+
+  section[id*="error-4"] .article-content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  section[id*="error-4"] .article-content > .text-container {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+/* Tablets */
+@media screen and (min-width: 768px) {
+}
+
+/* Desktops */
+@media screen and (min-width: 1024px) {
+}
