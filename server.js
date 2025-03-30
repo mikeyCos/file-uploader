@@ -63,6 +63,7 @@ app.use((err, req, res, next) => {
   console.log("err:", err);
   console.log("err.message:", err.message);
   const { status, message } = err;
+  console.log("status:", status);
 
   // res.render("404", { title: "404 - Page Not Found" });
   res.status(status).render("errors", { message, status });
