@@ -28,6 +28,7 @@ const onSubmit = async (e, cb) => {
     itemId,
   }).catch((err) => {
     const htmlContent = document.createElement("p");
+    htmlContent.className = "fetch-error";
     htmlContent.textContent = err;
     return { ok: false, htmlContent };
   });

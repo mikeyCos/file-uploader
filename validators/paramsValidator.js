@@ -45,7 +45,7 @@ const validateParams = (schema) => {
     const errors = validationResult(req);
     console.log("errors:", errors);
     if (!errors.isEmpty()) {
-      next({ error: "Resource not found", status: 404 });
+      next({ message: "Resource not found", status: 404 });
     }
 
     next();

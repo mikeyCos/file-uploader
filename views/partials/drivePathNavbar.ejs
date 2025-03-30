@@ -1,29 +1,28 @@
 <nav class="drive-path">
   <ul>
-    <% if (!locals.public || !locals.drivePathFolders || locals.drivePathFolders?.length === 0) { %>
-      <li >
+    <% if (!locals.public) { %>
+      <li>
         <a href="/drive">Drive</a>
+        <% if (locals.drivePathFolders?.length > 0) { %>
+            <span class="chevron">
+              <%- include('../../public/assets/icons/chevron_right.svg') %>
+            </span>
+        <% } %>
       </li>
-    <% } else { %>
-      <% if(!locals.public) { %>
-      <li >
-        <a href="/drive">Drive</a>
-          <span class="chevron">
-            <%- include('../../public/assets/icons/chevron_right.svg') %>
-          </span>
-      </li>
-     <% } %>
-        <% drivePathFolders.forEach((folder, i) => { %>
-          <li>
-            <a href="/drive/folder/<%= folder.id %>"><%= folder.name %></a>
-            <% if (i !== (drivePathFolders.length - 1)) { %>
-              <span class="chevron">
-                <%- include('../../public/assets/icons/chevron_right.svg') %>
-              </span>
-            <% } %>
-          </li>
-        <% }) %>
     <% } %>
+    
+    <% if (locals.drivePathFolders) { %>
+      <% drivePathFolders.forEach((folder, i) => { %>
+        <li>
+          <a href="<%= baseURL %>/<%= folder.id %>"><%= folder.name %></a>
+          <% if (i !== (drivePathFolders.length - 1)) { %>
+            <span class="chevron">
+              <%- include('../../public/assets/icons/chevron_right.svg') %>
+            </span>
+          <% } %>
+        </li>
+      <% }) %> 
+  <% } %>
   </ul>
 </nav>
 

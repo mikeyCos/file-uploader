@@ -31,7 +31,7 @@ const driveController = {
 
     // /drive/files/upload
     const formAction = req.originalUrl;
-    const baseURL = `${req.originalUrl}/folder/`;
+    const baseURL = `${req.originalUrl}/folder`;
 
     res.render("drive", {
       folders,
@@ -49,7 +49,7 @@ const driveController = {
     // How to display a path where the user is?
     // For example Drive > Folder0 > Nested Folder > Nested Nested Folder
     const formAction = req.originalUrl;
-    const baseURL = `${req.baseUrl}/folder/`;
+    const baseURL = `${req.baseUrl}/folder`;
 
     const drivePathFolders = await traverseParentFolders(user.id, folderID);
 

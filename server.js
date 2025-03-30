@@ -3,7 +3,6 @@ const session = require("express-session");
 const passport = require("passport");
 const { PrismaSessionStore } = require("@quixo3/prisma-session-store");
 const asyncHandler = require("express-async-handler");
-const fsPromises = require("node:fs/promises");
 const { prisma } = require("./db/prisma");
 const { PORT } = require("./config/environment");
 const { staticPath, viewsPaths } = require("./paths/paths");
@@ -45,32 +44,10 @@ app.use(express.urlencoded({ extended: true }));
 // Application-level
 app.use(logger("Application-level"));
 
-// Testing
-/* const person = {
-  setName: function (name) {
-    this.name = name;
-  },
-  hello: function () {
-    console.log(`hello, my name is ${this.name}`);
-  },
-};
-
-const { setName, hello } = person; */
-
 app.use((req, res, next) => {
   console.log("application-level middleware running...");
   console.log("req.session:", req.session);
   console.log("req.user:", req.user);
-
-  // Testing
-  /*   hello(); // returns "hello, my name is undefined"
-  person.hello(); // returns "hello, my name is undefined"
-  setName("Bob");
-  hello(); // returns "hello, my name is Bob"
-  person.hello(); // returns "hello, my name is undefined"
-  person.setName("Chucky");
-  person.hello(); // returns "hello, my name is Chucky"
-  hello(); // returns "hello, my name is Bob" */
 
   res.locals.currentUser = req.user;
   next();
@@ -83,9 +60,12 @@ require("./routes/routes")(app);
 app.use((err, req, res, next) => {
   console.log("error middleware running...");
   console.log("req.headers['content-type']:", req.headers["content-type"]);
-  const { error, status } = err;
+  console.log("err:", err);
+  console.log("err.message:", err.message);
+  const { status, message } = err;
+
   // res.render("404", { title: "404 - Page Not Found" });
-  res.status(status).render("errors", { error, status });
+  res.status(status).render("errors", { message, status });
 });
 
 app.listen(PORT, () => console.log(`Application running on port: ${PORT}`));

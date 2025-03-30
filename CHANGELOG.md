@@ -1,6 +1,10 @@
 # Changelog
 ---
 ### 30 MAR 2025
+- Renamed `error` object property in `next()` to `message`; `next({ error: "Page not found", status: 404 });` to `next({ message: "Page not found", status: 404 });`
+- The dialog retains it's position if `fetch` rejects a promise, then an error message will replace the dialog's content; for example, altering a button's `data-url` attribute to an invalid path will return the message `Error: Resource not found`.
+- If the `button` opening the `dialog` has `data-drive-controls` attribute, then the dialog's `className` is set to `drive-controls`; the `class` attribute is removed when the `dialog` is closed.
+- Restructured control flow in `drivePathNavbar.ejs` partial and the folder's anchor element will use `locals.baseURL` in the `href` attribute.
 - Created `drive-path-navbar` branch.
 - Merged `styles` branch to `main` branch.
 ---

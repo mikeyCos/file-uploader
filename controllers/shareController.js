@@ -28,7 +28,7 @@ const shareController = {
     );
 
     console.log(drivePathFolders);
-    const baseURL = "/share/";
+    const baseURL = "/share";
     // Need to prohibit specific buttons from rendering
     res.render("folder", {
       drivePathFolders,

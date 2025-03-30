@@ -309,6 +309,7 @@ module.exports = shareRoutes;
 ```
 7. How are invalid `form.action` values handled when a user submits a form? Are forms handled differently when they are modal content?
 8. Is PostCSS meant to bundle stylesheets together via `postcss-import` plugin?
+9. How to handle internal errors? For example, `supabaseUrl` or `supabaseKey` are undefined for initializing a Supabase client; `createClient(undefined, undefined)`. How to render a error page and display the error message?
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

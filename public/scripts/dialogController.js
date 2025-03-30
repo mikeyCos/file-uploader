@@ -43,6 +43,8 @@ const openDialog = async (e) => {
     }
 
     dialog.style.top = `${btnRect.bottom}px`;
+  } else {
+    dialog.className = "drive-controls";
   }
 
   // Temporary solution
@@ -70,6 +72,7 @@ const closeDialog = (e) => {
 };
 
 const onCloseHandler = () => {
+  dialog.removeAttribute("class");
   dialog.firstChild.remove();
 };
 
@@ -94,6 +97,7 @@ const fetchContent = async (url, formAction) => {
     })
     .catch((err) => {
       const htmlContent = document.createElement("p");
+      htmlContent.className = "fetch-error";
       htmlContent.textContent = err;
       return { htmlContent };
     });

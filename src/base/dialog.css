@@ -20,6 +20,14 @@ dialog:has(.form-create-folder, .form-upload-files) {
   margin: 15vh auto;
 }
 
+dialog.drive-controls:has(.fetch-error),
+dialog.form-create-folder:has(.fetch-error),
+dialog.form-upload-files:has(.fetch-error) {
+  left: 0;
+  top: 0;
+  margin: 15vh auto;
+}
+
 dialog > :first-child {
   padding: 1rem 0.75rem;
 }
