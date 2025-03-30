@@ -1,5 +1,8 @@
 # Changelog
 ---
+### 30 MAR 2025
+- Merged `styles` branch to `main` branch.
+---
 ### 29 MAR 2025
 - Added `::after` to `.nav-right > li` in `header.css` stylesheet and changed hover effects for `.nav-right` list items.
 - The mobile navigation bar now displays when the screen is below `768px` wide.
