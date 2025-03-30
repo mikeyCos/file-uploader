@@ -1,6 +1,7 @@
 # Changelog
 ---
 ### 30 MAR 2025
+- Created `drive-path-navbar` branch.
 - Merged `styles` branch to `main` branch.
 ---
 ### 29 MAR 2025
