@@ -1,6 +1,7 @@
 # Changelog
 ---
 ### 30 MAR 2025
+- Created `stable` branch.
 - Deployed application to Fly.io.
 - Renamed `server.js` module to `app.js` and updated `server.js` declarations in `package.json`.
 - Merged `drive-path-navbar` branch to `main`.
