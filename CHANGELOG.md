@@ -1,6 +1,7 @@
 # Changelog
 ---
 ### 31 MAR 2025
+- Merged `home-placeholder-content` branch to `main` branch.
 - The folder's name is used for the page's title.
 - Added `questions.svg` to `icons` directory.
 - Added content to `faq.ejs` page.
