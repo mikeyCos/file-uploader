@@ -1,6 +1,8 @@
 # Changelog
 ---
 ### 30 MAR 2025
+- Deployed application to Fly.io.
+- Renamed `server.js` module to `app.js` and updated `server.js` declarations in `package.json`.
 - Merged `drive-path-navbar` branch to `main`.
 - Renamed `error` object property in `next()` to `message`; `next({ error: "Page not found", status: 404 });` to `next({ message: "Page not found", status: 404 });`
 - The dialog retains it's position if `fetch` rejects a promise, then an error message will replace the dialog's content; for example, altering a button's `data-url` attribute to an invalid path will return the message `Error: Resource not found`.

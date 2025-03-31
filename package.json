@@ -2,11 +2,11 @@
   "name": "file-uploader",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "app.js",
   "type": "commonjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start-server": "nodemon server.js",
+    "start-server": "nodemon app.js",
     "seed-db": "node -e 'require(\"./db/seed_db\").seedDB()'",
     "empty-db": "node -e 'require(\"./db/seed_db\").emptyDB()'",
     "postcss:watch": "postcss --config config/postcss.config.js src/styles.css --dir public/dist --watch",
@@ -15,6 +15,7 @@
   "author": "MikeyCos",
   "license": "ISC",
   "devDependencies": {
+    "@flydotio/dockerfile": "^0.7.9",
     "cssnano": "^7.0.6",
     "nodemon": "^3.1.4",
     "postcss": "^8.5.3",

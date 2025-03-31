@@ -4,12 +4,6 @@ const supabase = require("./supabase");
 // I could assign the prisma object with the queries object properties
 const prisma = new PrismaClient();
 
-/* const createFile = async (data) => {
-  await prisma.file.create({
-    data: data,
-  });
-}; */
-
 const createFile = async (accountID, folderID, file, url, storagePath) => {
   await prisma.file.create({
     data: {

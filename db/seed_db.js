@@ -40,7 +40,7 @@ const accountsArr = Promise.all(
 
 const seedDB = async () => {
   await emptyDB();
-  await prisma.account.deleteMany();
+  // await prisma.account.deleteMany();
   // await prisma.file.deleteMany();
   // await prisma.folder.deleteMany();
 
