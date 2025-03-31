@@ -1,6 +1,8 @@
 # Changelog
 ---
 ### 31 MAR 2025
+- 
+- Ignored `demo/` directory in `.dockerignore` file.
 - Created `docs-changelog` branch.
 - Merged `home-placeholder-content` branch to `main` branch.
 - The folder's name is used for the page's title.
