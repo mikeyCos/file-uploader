@@ -1,7 +1,7 @@
 # Changelog
 ---
 ### 30 MAR 2025
-- Created `stable` branch.
+- Created `stable` branch from `main` and `home-placeholder-content` from `stable`.
 - Deployed application to Fly.io.
 - Renamed `server.js` module to `app.js` and updated `server.js` declarations in `package.json`.
 - Merged `drive-path-navbar` branch to `main`.
