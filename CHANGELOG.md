@@ -1,6 +1,9 @@
 # Changelog
 ---
 ### 30 MAR 2025
+- Created `home.css` stylesheet.
+- Added `article` elements to `index.ejs` page; each article includes a SVG.
+- Added `folder_files.svg`, `person_download.svg`, `share_link.svg`, and `uploading.svg` files to `icons` directory.
 - Created `stable` branch from `main` and `home-placeholder-content` from `stable`.
 - Deployed application to Fly.io.
 - Renamed `server.js` module to `app.js` and updated `server.js` declarations in `package.json`.
