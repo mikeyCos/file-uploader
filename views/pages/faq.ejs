@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./head', { title: "FAQ" }) %>
+<body>
+  <%- include('./header') %>
+  <main>
+    <section id="faq">
+      
+      <article>
+        <%- include('../../public/assets/icons/questions.svg') %>
+
+        <div>
+          <h4 class="question">What is the project's purpose?</h4>
+          <p>The project is meant to be a stripped down version of web-based storage services like, <a href="https://workspace.google.com/products/drive/">Google Drive</a>. The project provides opportunities to practice authentication, CRUD methods, form validation, object-relational mapping (ORM), and handling files. As of 31 March 2025, this project is from <a href="https://www.theodinproject.com/lessons/nodejs-file-uploader">The Odin Project curriculum</a>.</p>
+        </div>
+      </article>
+
+      <article>
+        <h4 class="question">How do I get started?</h4>
+        <p><a href="/account/create">Create an account</a> or if you have an existing account <a href="/account/login">login</a> and you will see your drive. At the top of the drive page, you can create folders or upload files by clicking on their respective buttons. Currently, you can only upload up to 5 files at a time and not all file types are supported; <a href="">list of supported file types</a>.</p>
+        <p>Clicking the vertical ellipsis button displays the corresponding item's control menu. The item's control menu will include options to delete, edit, share, or download the item. Only files can be downloaded and folders can be shared.</p>
+        <p>Subfolders are automatically created upon creating a folder on a folder's page. Deleting a folder that contains sub-folders and files will delete all subsequent content. Sharing a subfolder will only share from that subfolder's location and to it's last subfolder.</p>
+      </article>
+
+      <article>
+        <h4 class="question">Why is it slow?</h4>
+        <p>The project is hosted on <a href="https://fly.io/">Fly.io</a>, and running in a single region. The application itself is running on 2 virtual machines (each 1x cpu@1024MB), and the database is running on 1 virtual machine (1x cpu@256MB). In other words, these configurations are used to lower costs.</p>
+      </article>
+      
+      <article>
+        <h4 class="question">What technologies were used?</h4>
+        <ul class="technologies">
+          <li>JavaScript</li>
+          <li>
+            <a href="https://nodejs.org/en">NodeJS</a>
+          </li>
+          <li>
+            <a href="https://expressjs.com/">Express</a>
+          </li>
+          <li>
+            <a href="https://www.postgresql.org/">PostgreSQL</a>
+          </li>
+          <li>
+            <a href="https://www.prisma.io/">Prisma ORM</a>
+          </li>
+          <li>
+            <a href="https://supabase.com/">Supabase</a>
+          </li>
+          <li>
+            <a href="https://express-validator.github.io/docs">Express Validator</a>
+          </li>
+          <li>
+            <a href="https://ejs.co/#promo">EJS</a>
+          </li>
+          <li>
+            <a href="https://postcss.org/">PostCSS</a>
+          </li>
+          <li>
+            <a href="https://fly.io/">Fly.io</a>
+          </li>
+        </ul>
+      </article>
+      
+      <article>
+        <h4 class="question">Do you plan on adding XYZ feature(s)?</h4>
+        <p>Most likely not or I will be working on this project for a very long time. There are features I would like to add, like drag-drop files or folders, ability to share files, folder upload, and/or the ability to change account information. However, I may implement these features in future projects.</p>
+      </article>
+
+      <a href="https://github.com/mikeyCos/file-uploader/blob/main/README.md">More about the project.</a>
+    </section>
+  </main>
+  <%- include('./footer') %>
+</body>
+</html>

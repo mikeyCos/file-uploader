@@ -20,6 +20,10 @@ footer > ul {
   width: 100%;
 }
 
+.footer-main > li {
+  text-transform: uppercase;
+}
+
 .footer-main > ul {
   position: absolute;
   right: 10px;

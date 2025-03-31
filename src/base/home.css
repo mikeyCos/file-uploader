@@ -52,6 +52,10 @@
 
 /* Small devices */
 @media screen and (min-width: 481px) {
+  #home > article:nth-child(odd) {
+    justify-content: center;
+  }
+
   #home > article:nth-child(even) > h2 {
     right: 15%;
   }
@@ -59,12 +63,33 @@
   #home > article:nth-child(odd) > h2 {
     left: 15%;
   }
+
+  #home > article:nth-child(even) p {
+    padding: 1rem;
+  }
 }
 
 /* Tablets */
 @media screen and (min-width: 768px) {
   #home {
-    gap: 4rem;
+  }
+
+  #home > article:nth-child(even) {
+    flex-wrap: nowrap;
+  }
+
+  #home > article:nth-child(2) {
+    flex-direction: row-reverse;
+  }
+
+  #home > article:nth-child(4) p {
+    text-align: end;
+  }
+
+  #home > article:nth-child(even) p {
+    flex-basis: 55%;
+    align-self: center;
+    padding: 2rem;
   }
 }
 

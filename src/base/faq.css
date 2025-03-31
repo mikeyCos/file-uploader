@@ -1,0 +1,73 @@
+#faq {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+#faq > article:first-of-type {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+#faq > article:first-of-type > svg {
+  width: 50%;
+  align-self: center;
+}
+
+#faq > a:last-of-type {
+  width: max-content;
+  margin-top: 2rem;
+  align-self: end;
+}
+
+#faq > article:first-of-type > div > p,
+#faq > article > p:not(:first-child) {
+  margin-left: 2rem;
+}
+
+#faq > article:first-of-type > div > p,
+#faq > article > p:first-of-type,
+#faq > article > .technologies {
+  margin-top: 2rem;
+}
+
+#faq > article > p:not(:first-of-type) {
+  margin-top: 1rem;
+}
+
+#faq a {
+  color: var(--bkg-color-tertiary);
+}
+
+#faq a:hover {
+  text-decoration: underline;
+}
+
+/* Small devices */
+@media screen and (min-width: 481px) {
+}
+
+/* Tablets */
+@media screen and (min-width: 768px) {
+  #faq > article:first-of-type {
+    flex-direction: row-reverse;
+  }
+
+  #faq > article:first-of-type > svg {
+    width: 100%;
+  }
+
+  #faq > article > .technologies {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-gap: 2rem;
+    align-items: center;
+    justify-items: center;
+  }
+}
+
+/* Desktops */
+@media screen and (min-width: 1024px) {
+}

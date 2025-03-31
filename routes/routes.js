@@ -1,5 +1,5 @@
 const indexRoutes = require("./indexRoutes");
-const placeholderRoutes = require("./placeholderRoutes");
+const faqRoutes = require("./faqRoutes");
 const accountRoutes = require("./accountRoutes");
 const supportRoutes = require("./supportRoutes");
 const driveRoutes = require("./driveRoutes");
@@ -17,7 +17,7 @@ const isAuth = (req, res, next) => {
 // Router-level
 const routes = (app) => {
   app.use("/", indexRoutes());
-  app.use("/placeholderA", placeholderRoutes());
+  app.use("/faq", faqRoutes());
   app.use("/support", supportRoutes());
   app.use("/components", isAuth, componentsRoutes());
 

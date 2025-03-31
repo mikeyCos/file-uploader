@@ -59,6 +59,7 @@ const driveController = {
       files: folder.files,
       formAction,
       baseURL,
+      title: folder.name,
     });
   }),
   postFolderCreate: [

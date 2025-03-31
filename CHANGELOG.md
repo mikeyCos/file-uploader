@@ -1,5 +1,13 @@
 # Changelog
 ---
+### 31 MAR 2025
+- The folder's name is used for the page's title.
+- Added `questions.svg` to `icons` directory.
+- Added content to `faq.ejs` page.
+- Created `faq.css` stylesheet.
+- Renamed `placeholderA*` files to `faq*`.
+- Alternated `flex` styles on `article` elements in the homepage.
+---
 ### 30 MAR 2025
 - Created `home.css` stylesheet.
 - Added `article` elements to `index.ejs` page; each article includes a SVG.

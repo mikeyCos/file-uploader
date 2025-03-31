@@ -25,7 +25,7 @@ const validateFileSize = (filename, bytes) => {
 };
 
 const validateFiles = async (values, { req }) => {
-  const filesLimit = 2;
+  const filesLimit = 5;
   const { files } = req;
 
   // Is this needed if submit button is disabled?

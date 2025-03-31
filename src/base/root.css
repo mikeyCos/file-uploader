@@ -48,7 +48,7 @@ main > :first-child {
   height: 100%;
   padding: 0.5rem;
   border-radius: var(--border-radius-l-md);
-  box-shadow: 0 0 2px 1px var(--box-shadow-color-primary);
+  /* box-shadow: 0 0 2px 1px var(--box-shadow-color-primary); */
 }
 
 input {
