@@ -1,7 +1,7 @@
 # Changelog
 ---
 ### 31 MAR 2025
-- 
+- Renamed `docs-changelog` branch to `docs-readme` and deleted the remote branch.
 - Ignored `demo/` directory in `.dockerignore` file.
 - Created `docs-changelog` branch.
 - Merged `home-placeholder-content` branch to `main` branch.
