@@ -5,7 +5,7 @@
   </p>
 
   <div class="list-item-controls">
-    <button type="button" onclick="openDialog(event)" data-url="file/<%= file.id %>/controls" data-open-controls="true">
+    <button type="button" onclick="openDialog(event)" data-url="file/<%= file.id %>/controls<%= locals.public ? '/?share=true': '' %>" data-open-controls="true">
       <%- include('../../public/assets/icons/more_vert.svg') %>
     </button>
 

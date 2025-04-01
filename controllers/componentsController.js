@@ -6,7 +6,7 @@ const componentsController = {
   getFileDetails: asyncHandler(async (req, res) => {
     const { fileID } = req.params;
     const { user } = req;
-    const file = await getFileById(user.id, fileID);
+    const file = await getFileById(null, fileID);
 
     res.render("fileDetails", { file });
   }),
@@ -61,13 +61,22 @@ const componentsController = {
   }),
   getItemControls: asyncHandler(async (req, res) => {
     console.group("getItemControls running...");
+    console.log("req.query:", req.query);
+    console.log("matchedData:", matchedData(req, { onlyValidData: true }));
+    const { share } = req.query;
     const { fileID, folderID } = matchedData(req, { onlyValidData: true });
     const item = await (fileID
       ? getFileById(null, fileID)
       : getFolder(folderID, null));
     const type = fileID ? "file" : "folder";
 
-    res.render("itemControls", { item, type });
+    console.log("!!(share && true):", !!(share && true));
+
+    res.render("itemControls", {
+      item,
+      type,
+      public: !!(share && true),
+    });
   }),
 };
 

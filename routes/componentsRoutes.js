@@ -10,8 +10,9 @@ const {
   getShareFolderForm,
   getItemControls,
 } = require("../controllers/componentsController");
-const { validateParams } = require("../validators/validators");
+const { validateParams, validateQuery } = require("../validators/validators");
 const { fileSchema, folderSchema } = require("../validators/paramsValidator");
+const { shareSchema } = require("../validators/queryValidator");
 
 const componentsRoutes = (isAuth) => {
   const componentsRouter = new Router();
@@ -52,6 +53,7 @@ const componentsRoutes = (isAuth) => {
   componentsRouter.get(
     "/file/:fileID/controls",
     validateParams(fileSchema),
+    validateQuery(shareSchema),
     getItemControls
   );
   componentsRouter.get(

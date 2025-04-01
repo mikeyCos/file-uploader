@@ -1,7 +1,5 @@
 const dialog = document.querySelector("dialog");
 
-// Need to fix dialog position after deleting a folder then opening drive controls
-
 // Saves button if button does not have driveControls dataset
 // The previous saved button is popped from array and used for positioning the dialog element
 const btnDispatcher = {
@@ -62,14 +60,18 @@ const openDialog = async (e) => {
   );
 };
 
+// Why is this event handler running before form submit?
 const closeDialog = (e) => {
   // elementSource element is the element to which the event handler has been attached.
   // clickElement is the element the user clicked on the DOM
   console.log("e.target:", e.target);
   console.log(e.target.type);
   console.log("e.currentTarget:", e.currentTarget);
-  const { open } = e?.target?.dataset;
+  // If the clicked element is the dialog
+  // If the assigned element is a button
+  //  Reset dialog left and top position only
   e.stopImmediatePropagation();
+  const { open } = e?.target?.dataset;
   const clickedElement =
     e.target.tagName === "DIALOG" || (e.target.type === "submit" && !open);
   const elementSource = e.currentTarget.tagName === "BUTTON";

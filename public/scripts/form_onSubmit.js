@@ -16,8 +16,10 @@
  */
 
 const onSubmit = async (e, cb) => {
-  console.log("onSubmit running...");
   e.preventDefault();
+  e.stopPropagation();
+  e.stopImmediatePropagation();
+  console.log("onSubmit running...");
   const form = e.currentTarget;
   const { action } = form;
   const { itemId } = form.dataset;
@@ -71,8 +73,10 @@ const formRejectHandler = async (rej) => {
 
 const responseStatusHandler = async (res) => {
   if (!res.ok) {
+    console.log(res);
     if (res.status === 404) throw new Error("Resource not found");
     if (res.status === 401) throw new Error("Unauthorized access");
+    // if (res.status === 422) throw new Error(res.statusText);
     // If !res.ok
     //  If res.status is a specific code, throw Error
     //  If needed, add additional control for other codes
