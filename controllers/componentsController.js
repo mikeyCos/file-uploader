@@ -1,6 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const { matchedData } = require("express-validator");
-const { getFileById, getFolderById } = require("../db/prisma");
+const { getFileById, getFolder } = require("../db/prisma");
 
 const componentsController = {
   getFileDetails: asyncHandler(async (req, res) => {
@@ -28,7 +28,7 @@ const componentsController = {
   getEditFolderForm: asyncHandler(async (req, res) => {
     const { user } = req;
     const { folderID } = req.params;
-    const folder = await getFolderById(user.id, folderID);
+    const folder = await getFolder(folderID, user.id);
 
     res.render("editFolderForm", {
       folder,
@@ -47,7 +47,7 @@ const componentsController = {
   getDeleteFolderForm: asyncHandler(async (req, res) => {
     const { user } = req;
     const { folderID } = req.params;
-    const folder = await getFolderById(user.id, folderID);
+    const folder = await getFolder(folderID, user.id);
 
     res.render("deleteFolderForm", {
       folderID,
@@ -64,7 +64,7 @@ const componentsController = {
     const { fileID, folderID } = matchedData(req, { onlyValidData: true });
     const item = await (fileID
       ? getFileById(null, fileID)
-      : getFolderById(null, folderID));
+      : getFolder(folderID, null));
     const type = fileID ? "file" : "folder";
 
     res.render("itemControls", { item, type });

@@ -1,7 +1,9 @@
 # Changelog
 ---
 ### 01 APR 2025
-- 
+- Resolved logged-in user from reading another user's folder; `getDriveFolder` will pass `folderID` and `user.id` into `getFolder`, and if folder is falsy, then `next()` is called with `status: 403` and a error message.
+- Changed `getFolderById` function name to `getFolder` and changed parameter order from `accountID, folderID` to `folderID, accountID`.
+- Created `fix-file-select` branch.
 - Resolved issue with `dialog` element inheriting it's previous position after submitting a CRUD `form` when opening the `dialog` for creating folder or uploading files.
 - Added `routes.gif` and `add_edit_folder.gif` to `media` directory.
 ---

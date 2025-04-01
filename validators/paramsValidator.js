@@ -1,6 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const { checkSchema, validationResult } = require("express-validator");
-const { getFileById, getFolderById } = require("../db/prisma");
+const { getFileById, getFolder } = require("../db/prisma");
 const componentsController = require("../controllers/componentsController");
 
 // Need to validate file and folder against req.user.id
@@ -16,10 +16,10 @@ const isfileIDValid = async (fileID) => {
 };
 
 // What if req.user is not the owner, but viewing a shared folder?
-const isFolderIDValid = async (folderID, { req }) => {
+const isFolderIDValid = async (folderID) => {
+  // Need to allow a logged user to visit a shared folder from another use
   console.log("isFolderIDValid running...");
-  console.log(req.user);
-  const folderExists = !!(await getFolderById(req.user?.id, folderID));
+  const folderExists = !!(await getFolder(folderID));
   console.log("folderExists:", folderExists);
   if (!folderExists) return Promise.reject("Invalid folderID parameter.");
   return Promise.resolve();

@@ -70,7 +70,8 @@ const getFileById = async (accountID, fileID) => {
 };
 
 // https://www.prisma.io/docs/orm/prisma-client/special-fields-and-types/null-and-undefined#the-effect-of-null-and-undefined-on-conditionals
-const getFolderById = async (accountID, folderID) => {
+// accountID is optional
+const getFolder = async (folderID, accountID) => {
   const folder = await prisma.folder.findUnique({
     where: {
       ...(accountID && { accountId: accountID }),
@@ -269,7 +270,7 @@ module.exports = {
   createFolder,
   getAccount,
   getFileById,
-  getFolderById,
+  getFolder,
   getFiles,
   getFolders,
   updateFileName,

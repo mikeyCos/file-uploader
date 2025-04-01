@@ -2,7 +2,7 @@ const asyncHandler = require("express-async-handler");
 const { matchedData } = require("express-validator");
 const { validateShareDuration } = require("../validators/validators");
 const {
-  getFolderById,
+  getFolder,
   updateFolderExpiresAt,
   traverseParentFolders,
   traverseSubfolders,
@@ -12,14 +12,14 @@ const { isExpired } = require("../utils/utils");
 const shareController = {
   getSharedRoute: asyncHandler(async (req, res, next) => {
     const { folderID } = req.params;
-    const folder = await getFolderById(null, folderID);
+    const folder = await getFolder(folderID);
     const expired = isExpired(folder.expiresAt); // What if folder.expiresAt is null/undefined?
-    console.log("expired:", expired);
+
     if (expired) {
       // Update folder's expiresAt column to null
       // Maybe only updateFolderExpiresAt if folder.expiresAt exists
       await updateFolderExpiresAt(null)(folder);
-      return next({ status: 410, error: "Link has expired" });
+      return next({ status: 410, message: "Link has expired" });
     }
 
     const drivePathFolders = await traverseParentFolders(
@@ -34,11 +34,10 @@ const shareController = {
       drivePathFolders,
       folders: folder.subFolders,
       files: folder.files,
-      folder,
       formAction: "",
       baseURL,
-      folder,
       public: true,
+      title: folder.name,
     });
     // How to handle nested folders?
     // Should the child folders only be accessible from the root>

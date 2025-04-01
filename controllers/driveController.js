@@ -6,7 +6,7 @@ const {
   createFile,
   createFolder,
   getFileById,
-  getFolderById,
+  getFolder,
   getFiles,
   getFolders,
   updateFileName,
@@ -40,11 +40,18 @@ const driveController = {
       baseURL,
     });
   }),
-  getDriveFolder: asyncHandler(async (req, res) => {
-    console.log(req.user);
+  getDriveFolder: asyncHandler(async (req, res, next) => {
+    // What if current user is trying to access another user's folder?
     const { user } = req;
     const { folderID } = req.params;
-    const folder = await getFolderById(user.id, folderID);
+    const folder = await getFolder(folderID, user.id);
+
+    if (!folder) {
+      next({
+        status: 403,
+        message: "You do not have permissions to view this resource.",
+      });
+    }
     // /drive/folder/:folderID/files/upload
     // How to display a path where the user is?
     // For example Drive > Folder0 > Nested Folder > Nested Nested Folder
@@ -71,7 +78,7 @@ const driveController = {
       });
 
       // What happens if folders are added to a folder with a valid expiresAt value?
-      const parentFolder = folderID && (await getFolderById(user.id, folderID));
+      const parentFolder = folderID && (await getFolder(folderID, user.id));
       await createFolder(
         user.id,
         folder_name,
