@@ -1,7 +1,9 @@
 # Changelog
 ---
 ### 01 APR 2025
-- Merged `fix-public-file-details` to `docs-readme`.
+- 
+- Created `fix-form-submit` branch.
+- Merged `fix-public-file-details` branch to `docs-readme`.
 - The `button` for opening an item's controls, will contain `share=true` query if the item's respective folder is public (i.e., shared).
 - Created `queryValidator.js` module.
 - Created `fix-public-file-details` branch.
