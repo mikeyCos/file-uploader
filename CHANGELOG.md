@@ -1,6 +1,7 @@
 # Changelog
 ---
 ### 31 MAR 2025
+- Deleted `toggleItemControls.js` module.
 - Updated `About The Project`, `Installation`, `Built With`, `Installation`, and `Usage` sections  in `README.md`.
 - Added a simple honeypot input to every form except for `uploadForm.ejs`.
 - Created `honeypot.css` stylesheet.
@@ -133,7 +134,7 @@
 - Moved `Promise.prototype.catch()` from named callbacks in `form_onSubmit.js` module onto the `cb()` call in `onSubmit`.
 - Replaced `doc.querySelector()` from `fetchContent` in `dialogController.js` module with `doc.body.firstElementChild`.
 - Removed `console.log()` throughout modules.
-- Removed `deleteItem.js` module.
+- Deleted `deleteItem.js` module.
 ---
 ### 17 MAR 2025
 - Currently, request parameters are only validated on `/share/:folderID` and `/drive/folder/:folderID` paths.
@@ -148,7 +149,7 @@
 ---
 ### 15 MAR 2025
 - Created `isExpired.js` module in `utils` directory.
-- Removed `404.ejs` page.
+- Deleted `404.ejs` page.
 - Added a conditional block in `itemFolder.ejs`, `itemFile.ejs`, and `folder.ejs` to check if current page is public; buttons will not be rendered for shared folders.
 - Created `baseURL` variable in `getSharedRoute`, `getDriveFolder`, and `getDrive` endpoints.
 ---

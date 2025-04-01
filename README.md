@@ -186,11 +186,19 @@ This is a list of things you need to use the software and how to install them.
 
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+Use the main navigation element or address bar to traverse the application. Clicking the icon in the header will load the root path which is the home page. Click sign up and fill out all input fields to create an account; write down your username and password! Once you sign up, you are automatically logged in and taken to the drive page. Clicking the `Log out` navigation item will log out the current user, and redirect the logged out user to the home page.
+
+If a visiting user tries to log in with invalid credentials, both username and password inputs' values are emptied, and the error message `Invalid username or password` is displayed. If either username or password input is filled, submitting the form will reuse the filled input's value and display an error message for the empty input.
+
+At the top of the drive page, you can create folders or upload files by clicking on their respective buttons. Currently, you can only upload up to 5 files at a time and not all file types are supported; [list of supported file types](./validators/allowedMimeTypes/allowedMimeTypes.js).
+
+Clicking the vertical ellipsis button displays the corresponding item's control menu. The item's control menu will include options to delete, edit, share, or download the respective item. Only files can be downloaded and folders can be shared.
+
+Subfolders are automatically created upon creating a folder on a folder's page. Deleting a folder that contains sub-folders and files will delete all subsequent content. Sharing a subfolder will only share from that subfolder's location and to it's last subfolder.
 
 <div align="center">
   <a href="./demo/media/#">
-    <img src="./demo/media/#" alt="Usage Overview">
+    <img src="./demo/media/overview.gif" alt="Usage Overview">
   </a>
 
   _For more examples, please refer to the [Demo](./demo/DEMO.md)_
@@ -230,6 +238,7 @@ Use this space to show useful examples of how a project can be used. Additional 
     - [x] Display the file's name, size, and when it was created
 - [x] Upload an array of files to Supabase
 - [ ] Account edit form
+- [ ] Create a navigation for nested folders
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

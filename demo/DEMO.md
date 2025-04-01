@@ -4,39 +4,39 @@
 
 ### Routes
 
-[![Inventory Application Routes Gif][something-gif]](./media/routes.gif)
+[![File Uploader Routes Gif][something-gif]](./media/routes.gif)
 
 <p align="right">(<a href="#demo-top">back to top</a>)</p>
 
-<!-- Add Category -->
+<!-- Add, Edit, and Delete Category -->
 
-### Add Category
+### Add, Edit, and Delete Folder
 
-[![Inventory Application Add Category Gif][something-gif]](./media/add_category.gif)
-
-<p align="right">(<a href="#demo-top">back to top</a>)</p>
-
-<!-- Edit Category -->
-
-### Edit Category
-
-[![Inventory Application Edit Category Gif][something-gif]](./media/edit_category.gif)
+[![File Uploader Add, Edit, and Delete Folder Gif][something-gif]](./media/add_category.gif)
 
 <p align="right">(<a href="#demo-top">back to top</a>)</p>
 
-<!-- Delete Category -->
+<!-- Share Folder -->
 
-### Delete Category
+### Share Folder
 
-[![Inventory Application Delete Category Gif][something-gif]](./media/delete_category.gif.gif)
+[![File Uploader Edit Category Gif][something-gif]](./media/edit_category.gif)
 
 <p align="right">(<a href="#demo-top">back to top</a>)</p>
 
-<!-- Add Item -->
+<!-- Upload Files -->
 
-### Add Item
+### Upload Files
 
-[![Inventory Application Add Item Gif][something-gif]](./media/add_item.gif)
+[![File Uploader Upload Files Gif][something-gif]](./media/delete_category.gif.gif)
+
+<p align="right">(<a href="#demo-top">back to top</a>)</p>
+
+<!-- Download File -->
+
+### Download File
+
+[![File Uploader Download File Gif][something-gif]](./media/add_item.gif)
 
 <p align="right">(<a href="#demo-top">back to top</a>)</p>
 
@@ -44,7 +44,7 @@
 
 ### Edit Item
 
-[![Inventory Application Edit Item Gif][something-gif]](./media/edit_item.gif)
+[![File Uploader Edit Item Gif][something-gif]](./media/edit_item.gif)
 
 <p align="right">(<a href="#demo-top">back to top</a>)</p>
 
@@ -52,7 +52,7 @@
 
 ### Delete Item
 
-[![Inventory Application Delete Item Gif][something-gif]](./media/delete_item.gif)
+[![File Uploader Delete Item Gif][something-gif]](./media/delete_item.gif)
 
 <p align="right">(<a href="#demo-top">back to top</a>)</p>
 

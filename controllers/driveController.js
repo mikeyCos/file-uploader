@@ -66,9 +66,9 @@ const driveController = {
     validateFolder("createFolderForm"),
     asyncHandler(async (req, res) => {
       const { user } = req;
-      const { folderID } = req.params;
-      const { folder_name } = matchedData(req, { onlyValidData: true });
-      console.log(matchedData(req, { onlyValidData: true }));
+      const { folder_name, folderID } = matchedData(req, {
+        onlyValidData: true,
+      });
 
       // What happens if folders are added to a folder with a valid expiresAt value?
       const parentFolder = folderID && (await getFolderById(user.id, folderID));
@@ -169,7 +169,7 @@ const driveController = {
       const { folder_name } = matchedData(req, { onlyValidData: true });
       const folder = await updateFolderName(user.id, folderID, folder_name);
 
-      const baseURL = "/drive/folder/";
+      const baseURL = "/drive/folder";
       res.render("itemFolder", { folder, baseURL });
     }),
   ],
