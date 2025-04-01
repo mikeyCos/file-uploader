@@ -29,16 +29,16 @@
 <br />
 <div align="center">
   <a href="https://github.com/mikeyCos/file-uploader">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="./demo/media/project_screenshot_00.png" alt="Logo" width="auto" height="auto">
   </a>
 
 <h3 align="center">ProjectName</h3>
 
   <p align="center">
-    project_description
+    Simple personal storage application.
     <br />
-    <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
-    <br />
+    <!-- <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
+    <br /> -->
     <br />
     <a href="https://file-uploader-mikey-cos.fly.dev/">Live Preview</a>
     ·
@@ -82,69 +82,46 @@
 
 ## About The Project
 
-[![CV Application Screen Shot][product-screenshot]](https://example.com)
+<div align="center">
+  <a href="https://members-only-mikey-cos.fly.dev/">
+    <img src="./demo/media/project_screenshot_01.png" alt="Logo" width="auto" height="500px">
+  </a>
+</div>
 
-Project: ProjectName
+Project: File Uploader
 
 Hello world,
 
-Pellentesque tincidunt vel ante lobortis vehicula. Donec ex justo, volutpat nec ultricies non, elementum nec nibh. Maecenas porttitor est ac nibh congue, sed placerat lorem bibendum. Duis non ante in ex sollicitudin pulvinar nec sit amet turpis. Pellentesque ac elit sed libero vehicula convallis. Pellentesque tincidunt tellus nec lacus mollis pellentesque. Integer tempus sit amet nunc a auctor. Morbi at ullamcorper dolor, non placerat orci. Ut ut efficitur metus. In efficitur enim id sodales porta. Phasellus scelerisque, augue sit amet semper suscipit, lacus nunc laoreet lorem, sit amet elementum orci justo in risus. Ut diam est, egestas sed ligula ut, cursus dignissim nibh. Mauris in est dui. Pellentesque in sem ut dolor laoreet porta. Etiam vitae accumsan tortor. Vestibulum magna mi, sagittis eget consequat a, tincidunt in ligula.
+Building this project was quite the endeavor. I practiced utilizing Prisma, Supabase, Express, Node, PostCSS, and deploying to Fly.io. Despite wanting to add more features, I am content with the project's current state. The database is seeded with filler data for functionality purposes. There were times my frustration told me to quit and there were times my stubbornness fed into my frustration. However, resolving frustrating problems were satisfying. 
 
-Hard time setting up middle wares for rendering components used in a `dialog` element.
+The project's main objectives involves CRUD methods(Create, Read, Update, and Delete), interact a PostgreSQL database with a Object-Relational Mapper (ORM), authentication, uploading and downloading files, and expirable routes. Users can create an account to access the drive page. On the drive page, users can create, read, update, and delete folders and/or upload files. Only the file and folder names can be updated. Users can create nested folders and those folders can have files and folders. If a user deletes a folder with folders and/or files, all subfolders and files are deleted. Users should not be able to view other users' files and folders unless their folder was shared by the account owner. Folders can be shared for up to 30 days, and will be on it's own route. Shared folders create, update and delete methods cannot be used by users who are not the folder's owner on shared folders.
 
-```js
-setEditContent: asyncHandler(async (req, res, next) => {
-  const { fileID, folderID } = req.params;
-  if (fileID) {
-    const file = await prisma.file.findFirst({
-      where: {
-        id: fileID,
-      },
-    });
+In order to authenticate on specific routes instead of authenticating the entire router, I defined my routes as functions. For example, calling `shareRoutes()` from `shareRoutes.js` module will return the router. The function optionally accepts `isAuth` parameter, and `isAuth` can be use on specific routes. Therefore, `GET` request on `/share/:folderID` does not require authentication, but `PUT` request on `/share/:folderID` will require authentication. This should prevent anyone from sharing folders.
 
-    res.locals.form = {
-      action: `/drive/file/edit/${fileID}}`,
-      method: "PUT",
-      class: "form-edit-file",
-      label: "edit_file",
-      value: file.name,
-    };
-  }
-  if (folderID) {
-    const folder = await prisma.folder.findFirst({
-      where: {
-        id: folderID,
-      },
-    });
+As tradition, I exceeded the project specifications. I need to stop, but I wanted to use the opportunity to practice what I have learned in the past. For example, fetching from the client and serving HTML from the server; I am unsure if this is good practice, because the client will need to parse the response. More specifically, clicking the create a new folder button will fetch the corresponding HTML, append the HTML to the dialog and open the dialog. Essentially, clicking a button that opens the dialog will fetch the component with the base URL `/components/`.
 
-    res.locals.form = {
-      action: `/drive/folder/edit/${folderID}}`,
-      method: "PUT",
-      class: "form-edit-folder",
-      label: "edit_folder",
-      value: folder.name,
-    };
-  }
-  next();
-})
+I also constructed the ability to create subfolders (nested folders) by defining a self-relation for the `Folder` model. A folder will have a `parentFolder` filed and a folder will have `subFolders` field. When a user creates a folder inside a folder, the `folderID` request parameter is used to connect that folder to the subfolder as the `parentFolder`. The `folderID` request parameter is handy to determine whether or not the newly created `subFolder` needs to inherit the parent folder's `expiresAt` field.
 
-// The next middleware
-getEditForm: asyncHandler(async (req, res) => {
-  res.render("editForm");
-})
-
-// versus
-getEditFileForm: asyncHandler(async (req, res) => {
-  const { fileID } = req.params;
-  const file = await prisma.file.findFirst({
-    where: {
-      id: fileID,
-    },
-  });
-
-  res.render("editFileForm");
-})
+Now that a subfolders can be created, I needed to let the user know where are they according to the current folder. For example:
 ```
+  Drive
+  |—— Files
+  |—— Folders
+      |—— Cats
+          |—— Tuxedo
+              |—— Sleeping
+          |—— Scottish Fold
+      |—— Dogs
+```
+If the user is looking at Sleeping folder, the folder's 'path' will be `drive > Cats > Tuxedo > Sleeping`. I accomplish this with the recursive function `traverseParentFolders`. The function accepts `accountID`, `folderID`, `arr` and `cb` parameters. The `arr` is returned if `accountID` or `folderID` are null or undefined. This will recursively get the parent folder of the current folder and push `currentFolder` into the `arr`.
+
+Since nested folders are possible and folders can be shared, then all nested folders need to inherit the 'root' folder's `expiresAt` value. A 'root' folder, the initial shared folder, has non-null value for `expiresAt`. In order to update all the nested folders I needed to recursively select the folder's subfolder. I achieve this with the recursive function `traverseSubfolders`. In this case, the `cb` parameter will be the returned value of `updateFolderExpiresAt` which updates a folder's `expiresAt` value.
+
+When it came to CSS styling I tried out `PostCSS` originally for CSS modules, but I discovered I would either need to compile my EJS views/partials or parse a JSON object for transformed classes and use it's result as a local variable. So, I did not proceed with CSS modules, and settled with using mixins for a few selectors. I like how PostCSS bundles my stylesheets into one stylesheet and I needed declare my imports from bottom to top; bottom taking precedence.
+
+One solution I am not pleased with is the way I handle form submission on the client, which can be found in [form_onSubmit.js module](./public/scripts/form_onSubmit.js). Making the `onSubmit` function modular was challenging because I had to keep in mind of the different forms, invalid forms, and invalid requests. There is repeated code involving parsing `res.text`. I nearly forgot rejected Promises must be handled `onRejected` in `then()` method instead of `onFullFilled`; I confused `res` as `response` with `resolve`. If the server's response is falsy, then, depending on the status code, I rejected the response. I know the module could be refactored but I cannot think of a clear solution.
+
+Nevertheless, I am glad to put this project aside and move forward with my learning. I experienced the lows and highs with the File Uploader project. I asked myself "What if a user did XYZ? What do I want to prohibit and permit?" or "What if a user submits a form with XYZ?" What do I do?" Which lead me to take some time planning what the application should do in certain cases. For example, a user changing form `action` attribute or certain `data-*` attributes. Submitting a form with a invalid `action` attribute should not be processed into a database. I learned about how to validate files, upload files into a database, communicate to a database with Prisma, perform recursive selects, and declare mixins. I cannot wait to learn the next thing. 
 
 To failing forward, cheers!
 
@@ -157,6 +134,11 @@ To failing forward, cheers!
 [![Express][Express.js]][Express-url]
 [![EJS][EJS]][EJS-url]
 [![CSS3][CSS3]][CSS3-url]
+[![Prisma][Prisma]][Prisma-url]
+[![Postgres][Postgres]][Postgres-url]
+[![Supabase][Supabase]][Supabase-url]
+[![PostCSS][PostCSS]][PostCSS-url]
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -171,6 +153,10 @@ To get a local copy up and running follow these simple example steps.
 
 This is a list of things you need to use the software and how to install them.
 
+- Node
+  ```sh
+  nvm install --lts
+  ```
 - npm
   ```sh
   npm install npm@latest -g
@@ -182,11 +168,8 @@ This is a list of things you need to use the software and how to install them.
 
 ### Installation
 
-1. Create repository
-    - Option 1:
-      1. Go to [module-react-starter repository](https://github.com/mikeyCos/module-react-starter) on GitHub and click 'Use this template' button or click [Create a new repository](https://github.com/new?template_name=module-react-starter&template_owner=mikeyCos).
-    - Option 2:
-      1. Clone [module-react-starter repository](https://github.com/mikeyCos/module-react-starter) using HTTPS/SSH/GitHub CLI; [more on cloning a repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository).
+1. Clone repository
+      1. Clone [file-uploader repository](https://github.com/mikeyCos/file-uploader) using HTTPS/SSH/GitHub CLI; [more on cloning a repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository).
       2. Navigate to cloned repository.
       3. Remove `.git` folder.
       4. Run `git init`.
@@ -195,7 +178,7 @@ This is a list of things you need to use the software and how to install them.
       7. Run `git remote add origin REPLACE_WITH_SSH_OR_HTTPS`.
       8. Run `git add . && git commit`.
 2. Navigate to local repository and install NPM packages with `npm install`.
-3. Create `.env` file in the root directory.
+3. Create `.env` file in the root directory and define environment variables.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -205,7 +188,13 @@ This is a list of things you need to use the software and how to install them.
 
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+<div align="center">
+  <a href="./demo/media/#">
+    <img src="./demo/media/#" alt="Usage Overview">
+  </a>
+
+  _For more examples, please refer to the [Demo](./demo/DEMO.md)_
+</div>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -214,29 +203,33 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 ## Roadmap
 
 - [x] Create skeleton components
-- [ ] Seed database
-  - [ ] Create database schemas
-    - [ ] Session
-    - [ ] User
-    - [ ] Folder
-      - [ ] Folder can hold folders and files
-    - [ ] File
-- [ ] Create modal that will display content based on button pressed
-  - [ ] Create a file upload form
-    - [ ] Validate file extension
-    - [ ] Validate file size
-    - [ ] Validate file mimetype
-    - [ ] A reference location is needed to add the file to a corresponding folder
-  - [ ] Create a create folder form
-    - [ ] Validate and sanitize input
-  - [ ] Create a edit folder form
-  - [ ] Create a edit file name form
-    - [ ] The file's name
-  - [ ] Create a share folder form
-    - [ ] Accepts a number of days for expiration duration
-  - [ ] Create a file card
-    - [ ] Display the file's name, size, and when it was created
-- [ ] Upload an array of files to Supabase
+- [x] Seed database
+  - [x] Create database schemas
+    - [x] Session
+    - [x] User
+    - [x] Folder
+      - [x] Folder can hold folders and files
+    - [x] File
+- [x] Create modal that will display content based on button pressed
+  - [x] Create a file upload form
+    - [x] Validate file extension
+    - [x] Validate file size
+    - [x] Validate file mimetype
+    - [x] A reference location is needed to add the file to a corresponding folder
+  - [x] Create a create folder form
+    - [x] Validate and sanitize input
+  - [ ] Drag-drop files or folders for upload
+  - [x] Create a edit folder form
+    - [x] The folder's name
+  - [x] Create a edit file name form
+    - [x] The file's name
+  - [x] Create a share folder form
+    - [x] Accepts a number of days for expiration duration
+  - [ ] Create a share file form
+  - [x] Create a file card
+    - [x] Display the file's name, size, and when it was created
+- [x] Upload an array of files to Supabase
+- [ ] Account edit form
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -255,8 +248,10 @@ Project Link: [https://github.com/mikeyCos/cv-application](https://github.com/mi
 ## Acknowledgments
 
 - [Best README Template](https://github.com/othneildrew/Best-README-Template)
-- []()
-- []()
+- [Fly.io](https://fly.io/)
+- [Undraw.co](https://undraw.co/)
+- [Multer](https://www.npmjs.com/package/multer)
+- [PostCSS](https://postcss.org/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -328,7 +323,6 @@ module.exports = shareRoutes;
 [license-url]: https://github.com/github_username/repo_name/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
-[product-screenshot]: images/screenshot.png
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
@@ -355,5 +349,12 @@ module.exports = shareRoutes;
 [EJS-url]: https://ejs.co/
 [CSS3]: https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white
 [CSS3-url]: https://www.w3.org/TR/2001/WD-css3-roadmap-20010523/
+[Prisma]: https://img.shields.io/badge/Prisma-2D3748.svg?style=for-the-badge&logo=prisma&logoColor=white
+[Prisma-url]: https://www.prisma.io/
+[Postgres]: https://img.shields.io/badge/Postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white
+[Postgres-url]: https://www.postgresql.org/
+[Supabase]: https://img.shields.io/badge/Supabase-3FCF8E?style=for-the-badge&logo=supabase&logoColor=fff
+[Supabase-url]: https://supabase.com/
+[PostCSS]: https://img.shields.io/badge/PostCSS-%23DD3A0A.svg?style=for-the-badge&logo=postcss&logoColor=white
+[PostCSS-url]: https://postcss.org/
 [product-screenshot]: ./demo/media/project_screenshot_01.png
-

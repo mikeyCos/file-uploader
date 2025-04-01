@@ -2,11 +2,15 @@
   <h2>Share Folder</h2>
   <ul>
     <li class="form-item">
-      <label for="share_duration">Enter number for share duration</label>
+      <label for="share_duration">Enter number of days for share duration</label>
       <input type="number" name="share_duration" id="share_duration" min="1" max="30">
       <% if (locals.errors?.share_duration) { %>
         <p class="input-error active-error"><%= errors.share_duration.msg %></p>
       <% } %>
+    </li>
+    <li class="form-item">
+      <label for="name">Enter your name</label>
+      <input name="name" id="name" type="text" autocomplete="off" placeholder="Enter your name" value="<%= locals.inputs?.name %>">
     </li>
   </ul>
   <div class="form-controls">

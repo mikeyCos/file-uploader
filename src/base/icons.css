@@ -8,7 +8,7 @@
 }
 
 .icon.github {
-  color: var(--font-color-primary);
+  color: var(--bkg-color-senary);
   min-width: auto;
   max-width: 24px;
 }

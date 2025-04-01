@@ -19,6 +19,14 @@ const filenameSchema = {
     },
     escape: true,
   },
+  name: {
+    trim: true,
+    isEmpty: {
+      bail: true,
+      errorMessage: "Please leave blank",
+    },
+    escape: true,
+  },
 };
 
 const validateFilename = (view) => {

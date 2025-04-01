@@ -98,6 +98,14 @@ const accountSchema = {
     errorMessage: "Passwords do not match.",
     escape: true,
   },
+  name: {
+    trim: true,
+    isEmpty: {
+      bail: true,
+      errorMessage: "Please leave blank",
+    },
+    escape: true,
+  },
 };
 
 const validateCreateAccount = checkSchema(accountSchema, ["body"]);

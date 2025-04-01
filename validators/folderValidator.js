@@ -19,6 +19,14 @@ const folderSchema = {
     },
     escape: true,
   },
+  name: {
+    trim: true,
+    isEmpty: {
+      bail: true,
+      errorMessage: "Please leave blank",
+    },
+    escape: true,
+  },
 };
 
 const validateFolder = (view) => {

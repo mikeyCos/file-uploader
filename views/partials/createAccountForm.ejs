@@ -36,6 +36,10 @@
         <p class="input-error active-error"><%= errors['password-confirmation'].msg %></p>
       <% } %>
     </li>
+    <li class="form-item">
+      <label for="name">Enter your name</label>
+      <input name="name" id="name" type="text" autocomplete="off" placeholder="Enter your name" value="<%= locals.inputs?.name %>">
+    </li>
   </ul>
   <div class="form-controls">
     <button type="submit">Sign up</button>

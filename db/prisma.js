@@ -145,6 +145,7 @@ const updateFolderName = async (accountID, folderID, newFolderName) => {
   return folder;
 };
 
+// Updates a folder's expiresAt property
 const updateFolderExpiresAt = (expiresAt) => {
   return async (folder) => {
     const { id, accountId } = folder;
@@ -220,7 +221,7 @@ const traverseSubfolders = async (accountID, folderID, cb) => {
   const subFolders = currentFolder.subFolders;
   if (subFolders.length > 0) {
     for (const subFolder of subFolders) {
-      await traverseSubfolders(subFolder.accountId, subFolder.id, cb);
+      if (cb) await traverseSubfolders(subFolder.accountId, subFolder.id, cb);
     }
   }
 

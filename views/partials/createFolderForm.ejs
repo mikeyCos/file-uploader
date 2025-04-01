@@ -8,10 +8,13 @@
         <p class="input-error active-error"><%= errors?.folder_name.msg %></p>
       <% } %>
     </li>
+    <li class="form-item">
+      <label for="name">Enter your name</label>
+      <input name="name" id="name" type="text" autocomplete="off" placeholder="Enter your name"  value="<%= locals.inputs?.name %>">
+    </li>
   </ul>
   <div class="form-controls">
     <button type="button" onclick="closeDialog(event)" class="btn-cancel">Cancel</button>
     <button type="submit" <%= locals.inputs?.folder_name ? "" : "disabled" %>>Create</button>
   </div>
-
 </form>

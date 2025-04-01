@@ -68,6 +68,7 @@ const driveController = {
       const { user } = req;
       const { folderID } = req.params;
       const { folder_name } = matchedData(req, { onlyValidData: true });
+      console.log(matchedData(req, { onlyValidData: true }));
 
       // What happens if folders are added to a folder with a valid expiresAt value?
       const parentFolder = folderID && (await getFolderById(user.id, folderID));

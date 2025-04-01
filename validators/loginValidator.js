@@ -17,6 +17,14 @@ const loginSchema = {
     errorMessage: "Password cannot be empty.",
     escape: true,
   },
+  name: {
+    trim: true,
+    isEmpty: {
+      bail: true,
+      errorMessage: "Please leave blank",
+    },
+    escape: true,
+  },
 };
 
 const validateLogin = checkSchema(loginSchema, ["body"]);

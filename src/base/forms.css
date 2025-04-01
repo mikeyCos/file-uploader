@@ -1,3 +1,5 @@
+@import "../mixins/honeypot";
+
 form:not(.logout) {
   display: flex;
   flex-direction: column;
@@ -76,10 +78,8 @@ form button[type="submit"]:hover {
   margin-top: 1rem;
 }
 
-/* Login Account */
-.form-login > p {
-  text-align: end;
-}
+/* Honeypot */
+@mixin honeypot form-item;
 
 .form-login > p > :last-child {
   color: var(--bkg-color-tertiary);

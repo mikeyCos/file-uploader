@@ -1,6 +1,10 @@
 # Changelog
 ---
 ### 31 MAR 2025
+- Updated `About The Project`, `Installation`, `Built With`, `Installation`, and `Usage` sections  in `README.md`.
+- Added a simple honeypot input to every form except for `uploadForm.ejs`.
+- Created `honeypot.css` stylesheet.
+- Created `media` directory.
 - Renamed `docs-changelog` branch to `docs-readme` and deleted the remote branch.
 - Ignored `demo/` directory in `.dockerignore` file.
 - Created `docs-changelog` branch.
