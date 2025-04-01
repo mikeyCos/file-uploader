@@ -1,6 +1,7 @@
 # Changelog
 ---
 ### 01 APR 2025
+- Merged `fix-file-select` branch to `docs-readme`.
 - Resolved logged-in user from reading another user's folder; `getDriveFolder` will pass `folderID` and `user.id` into `getFolder`, and if folder is falsy, then `next()` is called with `status: 403` and a error message.
 - Changed `getFolderById` function name to `getFolder` and changed parameter order from `accountID, folderID` to `folderID, accountID`.
 - Created `fix-file-select` branch.
