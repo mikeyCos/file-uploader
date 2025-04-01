@@ -1,5 +1,10 @@
 # Changelog
 ---
+### 01 APR 2025
+- 
+- Resolved issue with `dialog` element inheriting it's previous position after submitting a CRUD `form` when opening the `dialog` for creating folder or uploading files.
+- Added `routes.gif` and `add_edit_folder.gif` to `media` directory.
+---
 ### 31 MAR 2025
 - Deleted `toggleItemControls.js` module.
 - Updated `About The Project`, `Installation`, `Built With`, `Installation`, and `Usage` sections  in `README.md`.

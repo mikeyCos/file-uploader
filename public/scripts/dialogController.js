@@ -1,5 +1,7 @@
 const dialog = document.querySelector("dialog");
 
+// Need to fix dialog position after deleting a folder then opening drive controls
+
 // Saves button if button does not have driveControls dataset
 // The previous saved button is popped from array and used for positioning the dialog element
 const btnDispatcher = {
@@ -30,6 +32,7 @@ const openDialog = async (e) => {
 
   // Control flow is gross
   if (!driveControls) {
+    console.log("!driveControls:", !driveControls);
     // left, top, right, bottom, x, y, width
     btnDispatcher.recordDispatchedBtn(btn);
     const btnRect = (itemControls ? prevBtn : btn).getBoundingClientRect();
@@ -62,9 +65,15 @@ const openDialog = async (e) => {
 const closeDialog = (e) => {
   // elementSource element is the element to which the event handler has been attached.
   // clickElement is the element the user clicked on the DOM
-  const clickedElementTagName = e?.target?.tagName === "DIALOG";
-  const elementSourceTagName = e?.currentTarget?.tagName === "BUTTON";
-  if (clickedElementTagName || elementSourceTagName) {
+  console.log("e.target:", e.target);
+  console.log(e.target.type);
+  console.log("e.currentTarget:", e.currentTarget);
+  const { open } = e?.target?.dataset;
+  e.stopImmediatePropagation();
+  const clickedElement =
+    e.target.tagName === "DIALOG" || (e.target.type === "submit" && !open);
+  const elementSource = e.currentTarget.tagName === "BUTTON";
+  if (clickedElement || elementSource) {
     dialog.style.left = "0px";
     dialog.style.top = "0px";
     dialog.close();

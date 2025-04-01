@@ -12,7 +12,7 @@
 
 ### Add, Edit, and Delete Folder
 
-[![File Uploader Add, Edit, and Delete Folder Gif][something-gif]](./media/add_category.gif)
+[![File Uploader Add, Edit, and Delete Folder Gif][add-edit-delete-folder-gif]](./media/add_edit_delete_folder.gif)
 
 <p align="right">(<a href="#demo-top">back to top</a>)</p>
 
