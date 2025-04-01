@@ -11,17 +11,17 @@ const componentsController = {
     res.render("fileDetails", { file });
   }),
   getUploadFileForm: asyncHandler(async (req, res) => {
-    res.render("uploadForm");
+    res.render("./forms/uploadForm");
   }),
   getAddFolderForm: asyncHandler(async (req, res) => {
-    res.render("createFolderForm");
+    res.render("./forms/createFolderForm");
   }),
   getEditFileForm: asyncHandler(async (req, res) => {
     const { user } = req;
     const { fileID } = req.params;
     const file = await getFileById(user.id, fileID);
 
-    res.render("editFileForm", {
+    res.render("./forms/editFileForm", {
       file,
     });
   }),
@@ -30,7 +30,7 @@ const componentsController = {
     const { folderID } = req.params;
     const folder = await getFolder(folderID, user.id);
 
-    res.render("editFolderForm", {
+    res.render("./forms/editFolderForm", {
       folder,
     });
   }),
@@ -39,7 +39,7 @@ const componentsController = {
     const { fileID } = req.params;
     const file = await getFileById(user.id, fileID);
 
-    res.render("deleteFileForm", {
+    res.render("./forms/deleteFileForm", {
       fileID,
       msg: `Are you sure you want to delete file, "${file.name}"?`,
     });
@@ -49,7 +49,7 @@ const componentsController = {
     const { folderID } = req.params;
     const folder = await getFolder(folderID, user.id);
 
-    res.render("deleteFolderForm", {
+    res.render("./forms/deleteFolderForm", {
       folderID,
       msg: `Are you sure you want to delete folder, "${folder.name}"?`,
     });
@@ -57,7 +57,7 @@ const componentsController = {
   getShareFolderForm: asyncHandler(async (req, res) => {
     const { folderID } = req.params;
 
-    res.render("shareFolderForm", { folderID });
+    res.render("./forms/shareFolderForm", { folderID });
   }),
   getItemControls: asyncHandler(async (req, res) => {
     console.group("getItemControls running...");

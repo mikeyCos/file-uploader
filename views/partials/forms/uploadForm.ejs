@@ -1,4 +1,4 @@
-<form action="<%= locals.formAction ?? '' %>" method="dialog" onsubmit="onSubmit(event, uploadFiles)" enctype="multipart/form-data" class="form-upload-files">
+<form action="<%= locals.formAction ?? '' %>" method="dialog" onsubmit="onSubmit(event, uploadFiles)" onclick="stopPropagation(event)" enctype="multipart/form-data" class="form-upload-files">
   <h2>Upload file(s)</h2>
   <ul>
     <li class="form-item">

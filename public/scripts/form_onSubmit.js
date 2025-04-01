@@ -15,10 +15,13 @@
  *  RangeError [ERR_HTTP_INVALID_STATUS_CODE]: Invalid status code: undefined
  */
 
+const stopPropagation = (e) => {
+  console.log("stopPropagation running....");
+  e.stopImmediatePropagation();
+};
+
 const onSubmit = async (e, cb) => {
   e.preventDefault();
-  e.stopPropagation();
-  e.stopImmediatePropagation();
   console.log("onSubmit running...");
   const form = e.currentTarget;
   const { action } = form;

@@ -2,10 +2,6 @@ const asyncHandler = require("express-async-handler");
 const { checkSchema, validationResult } = require("express-validator");
 const { getFileById, getFolder } = require("../db/prisma");
 
-// Need to validate file and folder against req.user.id
-// Only CRUD on files that are owned by req.user.id
-// What if req.user is null or undefined
-
 const isfileIDValid = async (fileID) => {
   console.log("isfileIDValid running...");
   console.log("fileID:", fileID);

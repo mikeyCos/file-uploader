@@ -70,7 +70,7 @@ const driveController = {
     });
   }),
   postFolderCreate: [
-    validateFolder("createFolderForm"),
+    validateFolder("./forms/createFolderForm"),
     asyncHandler(async (req, res) => {
       const { user } = req;
       const { folder_name, folderID } = matchedData(req, {
@@ -94,7 +94,7 @@ const driveController = {
   ],
   postFilesUpload: [
     upload,
-    validateUpload("uploadForm"),
+    validateUpload("./forms/uploadForm"),
     asyncHandler(async (req, res) => {
       const { user, files } = req;
       const { folderID } = req.params;
@@ -136,7 +136,7 @@ const driveController = {
     }),
   ],
   putFile: [
-    validateFilename("editFileForm"),
+    validateFilename("./forms/editFileForm"),
     asyncHandler(async (req, res) => {
       // Need to validate req.params.folderID
       // Need old path for storage
@@ -169,7 +169,7 @@ const driveController = {
     }),
   ],
   putFolder: [
-    validateFolder("editFolderForm"),
+    validateFolder("./forms/editFolderForm"),
     asyncHandler(async (req, res) => {
       const { user } = req;
       const { folderID } = req.params;

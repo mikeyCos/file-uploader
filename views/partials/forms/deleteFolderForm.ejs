@@ -1,4 +1,4 @@
-<form action="/drive/folder/<%= folderID %>" onsubmit="onSubmit(event, deleteItem)" method="dialog" class="form-edit-folder" data-item-id="<%= folderID %>">
+<form action="/drive/folder/<%= folderID %>" method="dialog" onsubmit="onSubmit(event, deleteItem)" onclick="stopPropagation(event)" class="form-edit-folder" data-item-id="<%= folderID %>">
   <p><%= msg %></p>
   <div class="form-controls">
     <button type="button" onclick="closeDialog(event)" class="btn-cancel">Cancel</button>

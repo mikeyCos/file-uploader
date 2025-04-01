@@ -1,7 +1,9 @@
 # Changelog
 ---
 ### 01 APR 2025
-- 
+- Created `forms` directory and moved all `*Form.ejs` files into the directory.
+- Defined `onclick="stopPropagation(event)"` for all forms that are children for the `dialog` element.
+- Recreated `stopPropagation` function but in `form_onSubmit.js` module.
 - Created `fix-form-submit` branch.
 - Merged `fix-public-file-details` branch to `docs-readme`.
 - The `button` for opening an item's controls, will contain `share=true` query if the item's respective folder is public (i.e., shared).

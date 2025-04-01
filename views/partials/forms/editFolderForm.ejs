@@ -1,4 +1,4 @@
-<form action="<%= locals.formAction ?? '' %>" onsubmit="onSubmit(event, editItem)" method="dialog" class="form-edit-folder" data-item-id="<%= locals.folderID ?? folder.id %>">
+<form action="<%= locals.formAction ?? '' %>" method="dialog" onsubmit="onSubmit(event, editItem)" onclick="stopPropagation(event)" class="form-edit-folder" data-item-id="<%= locals.folderID ?? folder.id %>">
   <h2>Rename</h2>
   <ul>
     <li class="form-item">

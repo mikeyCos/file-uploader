@@ -47,7 +47,7 @@ const shareController = {
     //  Add child folders to SharedFolders model
   }),
   createSharedRoute: [
-    validateShareDuration("shareFolderForm"),
+    validateShareDuration("./forms/shareFolderForm"),
     asyncHandler(async (req, res) => {
       const { user } = req;
       const { folderID } = req.params;

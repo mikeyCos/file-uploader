@@ -60,7 +60,6 @@ const openDialog = async (e) => {
   );
 };
 
-// Why is this event handler running before form submit?
 const closeDialog = (e) => {
   // elementSource element is the element to which the event handler has been attached.
   // clickElement is the element the user clicked on the DOM
