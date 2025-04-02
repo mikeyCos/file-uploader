@@ -13,7 +13,7 @@ const btnDispatcher = {
 };
 
 // To encapsulate or to not encapsulate?
-const openDialog = async (e) => {
+const openDialog = async (e, cb) => {
   const prevBtn = btnDispatcher.getDispatchedBtn();
   const btn = e.currentTarget;
   const { url, formAction, itemControls, openControls, driveControls } =
@@ -58,6 +58,8 @@ const openDialog = async (e) => {
   } else {
     dialog.className = "drive-controls";
   }
+
+  if (cb) cb();
 
   // Temporary solution
   window.addEventListener(

@@ -1,8 +1,9 @@
 # Changelog
 ---
 ### 02 APR 2025
+- Created `convertDateTime.js` module in `scripts` directory.
 - Merged `stable` branch to `main`.
-- The `Date` method `toLocaleString` is called in `fileDetails.ejs` partial to convert the file's date/time to the user's date/time. 
+- The `Date` method `toLocaleString` is called in `fileDetails.ejs` partial to convert the file's date/time to the user's date/time; this does not convert the date/time to the user's date/time.
 - Created `formatBytes.js` module in `utils` directory.
 ---
 ### 01 APR 2025
