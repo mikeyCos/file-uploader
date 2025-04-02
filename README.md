@@ -243,7 +243,7 @@ Subfolders are automatically created upon creating a folder on a folder's page. 
 - [x] Upload an array of files to Supabase
 - [ ] Account edit form
 - [x] Create navigation for nested folders
-- [ ] Convert date/time in the client
+- [x] Convert date/time in the client
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
