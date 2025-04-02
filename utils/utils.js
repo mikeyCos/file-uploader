@@ -4,6 +4,7 @@ const getFileExtension = require("./getFileExtension");
 const getFilesFromPath = require("./getFilesFromPath");
 const isExpired = require("./isExpired");
 const logger = require("./logger");
+const formatBytes = require("./formatBytes");
 
 module.exports = {
   generateRandomIndex,
@@ -12,4 +13,5 @@ module.exports = {
   getFilesFromPath,
   isExpired,
   logger,
+  formatBytes,
 };

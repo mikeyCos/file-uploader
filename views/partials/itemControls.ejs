@@ -19,7 +19,7 @@
   <% } %>
 
   <% if (!item.subFolders) { %>
-    <button type="button" onClick="openDialog(event)" data-url="/file/details/<%= item.id %>" data-item-controls="true">
+    <button type="button" onClick="openDialog(event)" data-url="file/details/<%= item.id %>" data-item-controls="true">
       <%- include('../../public/assets/icons/info.svg') %>
       <span>File information</span>
     </button>

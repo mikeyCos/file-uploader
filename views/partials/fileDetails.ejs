@@ -6,11 +6,11 @@
     </li>
     <li>
       <span>Size:</span>
-      <span><%= file.size %></span>
+      <span><%= utils.formatBytes(file.size) %></span>
     </li>
     <li>
-      <span>Uploaded:</span>
-      <span class="created-at"><%= file.createdAt %></span>
+      <span>Created at:</span>
+      <span class="created-at"><%= new Date(file.createdAt).toLocaleString() %></span>
     </li>
   </ul>
 </article>

@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const { matchedData } = require("express-validator");
 const { getFileById, getFolder } = require("../db/prisma");
+const { formatBytes } = require("../utils/utils");
 
 const componentsController = {
   getFileDetails: asyncHandler(async (req, res) => {
@@ -8,7 +9,7 @@ const componentsController = {
     const { user } = req;
     const file = await getFileById(null, fileID);
 
-    res.render("fileDetails", { file });
+    res.render("fileDetails", { file, utils: { formatBytes } });
   }),
   getUploadFileForm: asyncHandler(async (req, res) => {
     res.render("./forms/uploadForm");
