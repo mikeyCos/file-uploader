@@ -1,6 +1,7 @@
 # Changelog
 ---
 ### 01 APR 2025
+- Merged `docs-readme` branch to `stable`.
 - If the `dialog` element goes above the window's height, the `dialog` will be positioned above the originating button that opened the `dialog`; this should not impact `dialog` elements for uploading files and creating folders.
 - Removed `console.log()` throughout modules.
 - Created `shareFolderOutput.css` stylesheet.
