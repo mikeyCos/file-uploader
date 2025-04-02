@@ -238,9 +238,12 @@ Subfolders are automatically created upon creating a folder on a folder's page. 
   - [ ] Create a share file form
   - [x] Create a file card
     - [x] Display the file's name, size, and when it was created
+  - [ ] Create a folder card
+    - [ ] Display the folder's name, size, and when it was created
 - [x] Upload an array of files to Supabase
 - [ ] Account edit form
-- [ ] Create a navigation for nested folders
+- [x] Create navigation for nested folders
+- [ ] Convert date/time in the client
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
