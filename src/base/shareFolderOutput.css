@@ -1,0 +1,21 @@
+.share-folder-output {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.share-folder-output ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.share-folder-output .btn-copy {
+  align-self: end;
+  min-width: 100px;
+  font-weight: 700;
+}
+
+.share-folder-output .btn-copy:not(:hover) {
+  background-color: var(--bkg-color-primary);
+}

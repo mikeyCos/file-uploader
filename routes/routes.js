@@ -19,7 +19,7 @@ const routes = (app) => {
   app.use("/", indexRoutes());
   app.use("/faq", faqRoutes());
   app.use("/support", supportRoutes());
-  app.use("/components", isAuth, componentsRoutes());
+  app.use("/components", componentsRoutes(isAuth));
 
   // Fully-Protected routes
   app.use("/drive", isAuth, driveRoutes()); // isAuth will be on all /drive paths

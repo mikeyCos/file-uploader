@@ -31,14 +31,13 @@ const shareDurationSchema = {
 
 const validateShareDuration = (view) => {
   return asyncHandler(async (req, res, next) => {
-    console.log("validateShareDuration running...");
     await checkSchema(shareDurationSchema, ["body"]).run(req);
     const errors = validationResult(req);
-
-    console.log("errors:", errors);
     const { folderID } = req.params;
+
     if (!errors.isEmpty()) {
       const inputs = matchedData(req, { onlyValidData: false });
+
       return res.status(422).render(view, {
         errors: errors.mapped(),
         inputs,

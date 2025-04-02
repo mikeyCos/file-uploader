@@ -60,17 +60,12 @@ const componentsController = {
     res.render("./forms/shareFolderForm", { folderID });
   }),
   getItemControls: asyncHandler(async (req, res) => {
-    console.group("getItemControls running...");
-    console.log("req.query:", req.query);
-    console.log("matchedData:", matchedData(req, { onlyValidData: true }));
     const { share } = req.query;
     const { fileID, folderID } = matchedData(req, { onlyValidData: true });
     const item = await (fileID
       ? getFileById(null, fileID)
       : getFolder(folderID, null));
     const type = fileID ? "file" : "folder";
-
-    console.log("!!(share && true):", !!(share && true));
 
     res.render("itemControls", {
       item,

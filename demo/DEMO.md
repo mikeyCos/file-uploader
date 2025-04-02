@@ -4,7 +4,7 @@
 
 ### Routes
 
-[![File Uploader Routes Gif][something-gif]](./media/routes.gif)
+[![File Uploader Routes Gif][routes-gif]](./media/routes.gif)
 
 <p align="right">(<a href="#demo-top">back to top</a>)</p>
 
@@ -20,7 +20,7 @@
 
 ### Share Folder
 
-[![File Uploader Edit Category Gif][something-gif]](./media/edit_category.gif)
+[![File Uploader Share Folder Gif][share-folder-gif]](./media/share_folder.gif)
 
 <p align="right">(<a href="#demo-top">back to top</a>)</p>
 
@@ -28,7 +28,7 @@
 
 ### Upload Files
 
-[![File Uploader Upload Files Gif][something-gif]](./media/delete_category.gif.gif)
+[![File Uploader Upload Files Gif][upload-files-gif]](./media/upload_files.gif)
 
 <p align="right">(<a href="#demo-top">back to top</a>)</p>
 
@@ -36,32 +36,32 @@
 
 ### Download File
 
-[![File Uploader Download File Gif][something-gif]](./media/add_item.gif)
+[![File Uploader Download File Gif][download-file-gif]](./media/download_file.gif)
 
 <p align="right">(<a href="#demo-top">back to top</a>)</p>
 
-<!-- Edit Item  -->
+<!-- Responsive Design  -->
 
-### Edit Item
+### Responsive Design
 
-[![File Uploader Edit Item Gif][something-gif]](./media/edit_item.gif)
+[![File Uploader Responsive Design Gif][responsive-design-gif]](./media/responsive_design.gif)
 
 <p align="right">(<a href="#demo-top">back to top</a>)</p>
 
-<!-- Delete Item -->
+<!-- Forms -->
 
-### Delete Item
+### Forms
 
-[![File Uploader Delete Item Gif][something-gif]](./media/delete_item.gif)
+[![File Uploader Forms Gif][forms-gif]](./media/forms.gif)
 
 <p align="right">(<a href="#demo-top">back to top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
 
-[something-gif]: ./media/routes.gif
-[something-gif]: ./media/add_category.gif
-[something-gif]: ./media/edit_category.gif
-[something-gif]: ./media/delete_category.gif
-[something-gif]: ./media/add_item.gif
-[something-gif]: ./media/edit_item.gif
-[something-gif]: ./media/delete_item.gif
+[routes-gif]: ./media/routes.gif
+[add-edit-delete-folder-gif]: ./media/add_edit_delete_folder.gif
+[share-folder-gif]: ./media/share_folder.gif
+[upload-files-gif]: ./media/upload_files.gif
+[download-file-gif]: ./media/download_file.gif
+[responsive-design-gif]: ./media/responsive_design.gif
+[forms-gif]: ./media/forms.gif

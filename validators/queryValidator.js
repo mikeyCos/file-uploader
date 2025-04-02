@@ -29,10 +29,9 @@ const shareSchema = {
 // What is the most appropriate HTTP code for invalid parameters?
 const validateQuery = (schema) => {
   return asyncHandler(async (req, res, next) => {
-    console.log("validateQuery running...");
     await checkSchema(schema, ["query"]).run(req);
     const errors = validationResult(req);
-    console.log("errors:", errors);
+
     if (!errors.isEmpty()) {
       next({ status: 404 });
     }

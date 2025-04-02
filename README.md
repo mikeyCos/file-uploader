@@ -98,6 +98,8 @@ The project's main objectives involves CRUD methods(Create, Read, Update, and De
 
 In order to authenticate on specific routes instead of authenticating the entire router, I defined my routes as functions. For example, calling `shareRoutes()` from `shareRoutes.js` module will return the router. The function optionally accepts `isAuth` parameter, and `isAuth` can be use on specific routes. Therefore, `GET` request on `/share/:folderID` does not require authentication, but `PUT` request on `/share/:folderID` will require authentication. This should prevent anyone from sharing folders.
 
+When it comes to reading folders from the database users should only access their own folders unless specific folders are shared. For this to occur, folder's `id` is optional when a select query is performed. Therefore, if a user goes to a shared folder, no `accountID` is passed into the `getFolder` query function. However, if a logged-in user navigates to a folder they created, then their `id` is passed into the query function. If a logged-in user tries to navigate to a folder they did not create, then the error handling middleware will run with a HTTP status code `403`.
+
 As tradition, I exceeded the project specifications. I need to stop, but I wanted to use the opportunity to practice what I have learned in the past. For example, fetching from the client and serving HTML from the server; I am unsure if this is good practice, because the client will need to parse the response. More specifically, clicking the create a new folder button will fetch the corresponding HTML, append the HTML to the dialog and open the dialog. Essentially, clicking a button that opens the dialog will fetch the component with the base URL `/components/`.
 
 I also constructed the ability to create subfolders (nested folders) by defining a self-relation for the `Folder` model. A folder will have a `parentFolder` filed and a folder will have `subFolders` field. When a user creates a folder inside a folder, the `folderID` request parameter is used to connect that folder to the subfolder as the `parentFolder`. The `folderID` request parameter is handy to determine whether or not the newly created `subFolder` needs to inherit the parent folder's `expiresAt` field.
@@ -313,7 +315,7 @@ module.exports = shareRoutes;
 ```
 7. How are invalid `form.action` values handled when a user submits a form? Are forms handled differently when they are modal content?
 8. Is PostCSS meant to bundle stylesheets together via `postcss-import` plugin?
-9. How to handle internal errors? For example, `supabaseUrl` or `supabaseKey` are undefined for initializing a Supabase client; `createClient(undefined, undefined)`. How to render a error page and display the error message?
+9. How to handle internal errors? For example, `supabaseUrl` or `supabaseKey` are undefined for initializing a Supabase client; `createClient(undefined, undefined)`. How to render a error page and display the error message? Does the everyday user need to know?
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

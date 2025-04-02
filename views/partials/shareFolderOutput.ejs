@@ -1,6 +1,10 @@
-<article>
-  <p>The URL will expire at <span class="date"><%= expiresAt %></span></p>
-  <label for="sharedURL">Shared URL:</label>
-  <input type="text" name="sharedURL" id="sharedURL" value="<%= shareURL %>" disabled>
-  <button type="button" onClick="copyToClipboard(event)">Copy</button>
+<article class="share-folder-output">
+  <ul>
+    <li><p>The URL will expire at <span class="date"><%= expiresAt %></span></p></li>
+    <li>
+      <label for="sharedURL">Shared URL:</label>
+      <input type="text" name="sharedURL" id="sharedURL" value="<%= shareURL %>" disabled>
+    </li>
+  </ul>
+  <button type="button" onClick="copyToClipboard(event)" class="btn-copy">Copy</button>
 </article>

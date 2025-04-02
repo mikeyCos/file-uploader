@@ -1,6 +1,10 @@
 # Changelog
 ---
 ### 01 APR 2025
+- If the `dialog` element goes above the window's height, the `dialog` will be positioned above the originating button that opened the `dialog`; this should not impact `dialog` elements for uploading files and creating folders.
+- Removed `console.log()` throughout modules.
+- Created `shareFolderOutput.css` stylesheet.
+- Merged `fix-form-submit` branch to `docs-readme`.
 - Created `forms` directory and moved all `*Form.ejs` files into the directory.
 - Defined `onclick="stopPropagation(event)"` for all forms that are children for the `dialog` element.
 - Recreated `stopPropagation` function but in `form_onSubmit.js` module.
@@ -14,7 +18,7 @@
 - Changed `getFolderById` function name to `getFolder` and changed parameter order from `accountID, folderID` to `folderID, accountID`.
 - Created `fix-file-select` branch.
 - Resolved issue with `dialog` element inheriting it's previous position after submitting a CRUD `form` when opening the `dialog` for creating folder or uploading files.
-- Added `routes.gif` and `add_edit_folder.gif` to `media` directory.
+- Added `routes.gif`, `add_edit_folder.gif`, `download_file.gif`, `forms.gif`, `responsive_design`, `share_folder.gif`, and `upload_files.gif` to `media` directory.
 ---
 ### 31 MAR 2025
 - Deleted `toggleItemControls.js` module.

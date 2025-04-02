@@ -31,15 +31,13 @@ const filenameSchema = {
 
 const validateFilename = (view) => {
   return asyncHandler(async (req, res, next) => {
-    console.log("validateFilename running...");
     await checkSchema(filenameSchema, ["body"]).run(req);
     const errors = validationResult(req);
-
-    console.log("errors:", errors);
-    console.log("req.params:", req.params);
     const { fileID } = req.params;
+
     if (!errors.isEmpty()) {
       const inputs = matchedData(req, { onlyValidData: false });
+
       return res.status(422).render(view, {
         errors: errors.mapped(),
         inputs,

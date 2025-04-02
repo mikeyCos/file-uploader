@@ -45,10 +45,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(logger("Application-level"));
 
 app.use((req, res, next) => {
-  console.log("application-level middleware running...");
-  console.log("req.session:", req.session);
-  console.log("req.user:", req.user);
-
   res.locals.currentUser = req.user;
   next();
 });
@@ -58,14 +54,8 @@ require("./routes/routes")(app);
 
 // Error middleware function
 app.use((err, req, res, next) => {
-  console.log("error middleware running...");
-  console.log("req.headers['content-type']:", req.headers["content-type"]);
-  console.log("err:", err);
-  console.log("err.message:", err.message);
   const { status, message } = err;
-  console.log("status:", status);
 
-  // res.render("404", { title: "404 - Page Not Found" });
   res.status(status).render("errors", { message, status });
 });
 

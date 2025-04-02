@@ -9,7 +9,6 @@ const isValidDate = (date) => {
 };
 
 const isExpired = (date) => {
-  console.log("isExpired running...");
   // instanceof and multiple realms
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof#instanceof_and_multiple_realms
   // if (!(expiresAt instanceof Date))
@@ -18,8 +17,7 @@ const isExpired = (date) => {
   if (!validDate) return true;
 
   const today = new Date();
-  console.log("today:", today);
-  console.log("date:", date);
+
   return today >= date;
 };
 

@@ -145,6 +145,7 @@ const driveController = {
       const { fileID } = req.params;
 
       const { storagePath: oldStoragePath, folderId } = await getFileById(
+        user.id,
         fileID
       );
 
@@ -159,6 +160,7 @@ const driveController = {
         .getPublicUrl(newStoragePath);
 
       const file = await updateFileName(
+        user.id,
         fileID,
         file_name,
         data.publicUrl,

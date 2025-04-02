@@ -30,7 +30,6 @@ const openDialog = async (e) => {
 
   // Control flow is gross
   if (!driveControls) {
-    console.log("!driveControls:", !driveControls);
     // left, top, right, bottom, x, y, width
     btnDispatcher.recordDispatchedBtn(btn);
     const btnRect = (itemControls ? prevBtn : btn).getBoundingClientRect();
@@ -43,7 +42,19 @@ const openDialog = async (e) => {
       }px`;
     }
 
-    dialog.style.top = `${btnRect.bottom}px`;
+    // If dialog's position exceeds the window's height
+    //  Position the dialog above the button
+    // Else
+    //  Position the dialog below the button
+    if (dialogRect.height + btnRect.bottom > window.innerHeight) {
+      dialog.style.top = "auto";
+      dialog.style.bottom = `${
+        window.innerHeight - btnRect.bottom + btnRect.height
+      }px`;
+    } else {
+      dialog.style.top = `${btnRect.bottom}px`;
+      dialog.style.bottom = "auto";
+    }
   } else {
     dialog.className = "drive-controls";
   }
@@ -54,6 +65,7 @@ const openDialog = async (e) => {
     (e) => {
       dialog.style.left = "0px";
       dialog.style.top = "0px";
+      dialog.style.bottom = "0px";
       dialog.close();
     },
     { once: true }
@@ -63,20 +75,18 @@ const openDialog = async (e) => {
 const closeDialog = (e) => {
   // elementSource element is the element to which the event handler has been attached.
   // clickElement is the element the user clicked on the DOM
-  console.log("e.target:", e.target);
-  console.log(e.target.type);
-  console.log("e.currentTarget:", e.currentTarget);
+
   // If the clicked element is the dialog
   // If the assigned element is a button
   //  Reset dialog left and top position only
-  e.stopImmediatePropagation();
   const { open } = e?.target?.dataset;
-  const clickedElement =
-    e.target.tagName === "DIALOG" || (e.target.type === "submit" && !open);
+  // const clickedElement =
+  //   e.target.tagName === "DIALOG" || (e.target.type === "submit" && !open);
+  const clickedElement = e.target.tagName === "DIALOG";
   const elementSource = e.currentTarget.tagName === "BUTTON";
   if (clickedElement || elementSource) {
-    dialog.style.left = "0px";
-    dialog.style.top = "0px";
+    // dialog.style.left = "0px";
+    // dialog.style.top = "0px";
     dialog.close();
   }
 };
@@ -84,6 +94,9 @@ const closeDialog = (e) => {
 const onCloseHandler = () => {
   dialog.removeAttribute("class");
   dialog.firstChild.remove();
+  dialog.style.left = "0px";
+  dialog.style.top = "0px";
+  dialog.style.bottom = "0px";
 };
 
 const fetchContent = async (url, formAction) => {

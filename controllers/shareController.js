@@ -27,7 +27,6 @@ const shareController = {
       folderID
     );
 
-    console.log(drivePathFolders);
     const baseURL = "/share";
     // Need to prohibit specific buttons from rendering
     res.render("folder", {
@@ -57,8 +56,6 @@ const shareController = {
       const expiresAt = new Date(
         Date.now() + 3600 * 1000 * 24 * share_duration
       );
-
-      console.log("expiresAt:", expiresAt);
 
       traverseSubfolders(user.id, folderID, updateFolderExpiresAt(expiresAt));
       res.render("shareFolderOutput", {
